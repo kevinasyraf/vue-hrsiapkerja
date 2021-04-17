@@ -5,12 +5,25 @@ Vue.use(Router);
 
 export default new Router({
     mode: "history",
+    base: process.env.BASE_URL,
     routes: [
       {
         path: "/",
         alias: "/login",
         name: "login",
         component: () => import("./components/Login")
+      },
+      {
+        path: '/admin',
+        name: 'admin',
+        component: AdminShell,
+        children: [
+          {
+            path: 'home',
+            name: 'admin_home',
+            component: AdminHomeView
+          },
+        ]
       },
       {
         path: "/lowongan",

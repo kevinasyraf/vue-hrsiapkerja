@@ -30,7 +30,7 @@
 </template>
 <script>
 export default {
-//    name: 'TambahLowongan'
+   name: 'TambahLowongan'
 }
 //post method atau get
 </script>
