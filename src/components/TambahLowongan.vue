@@ -1,5 +1,5 @@
 <template>
-<div class ="container-fluid" style="margin: 88px,350px,350px">
+<div class ="container-fluid" style="margin: 5%,5%,5%">
     <div class="container">
         <div class="card-header bg-info text-center">
             <h3>Tambah Lowongan</h3>
@@ -7,10 +7,10 @@
     <form> 
        <div class="form-group">
            <label class="col-sm-2 col-form-label"> Divisi* </label>
-           <select>
-               <option> Option 1 </option>
-               <option> Option 2 </option>
+           <select v-model="paket.idDivisi">
+               <option v-for="item in listDivisi" v-bind:key="item.id" :value="item.id"> {{item.login}} </option>
            </select>
+
        </div>
        <div class="form-group">
            <label class="col-sm-2 col-form-label"> Posisi* </label>
@@ -46,8 +46,29 @@
 </div>
 </template>
 <script>
+import axios from "axios";
 export default {
-   name: 'tambah-lowongan'
+   name: 'tambah-lowongan',
+   data (){
+       return{
+           listDivisi:[],
+           paket: {
+               idDivisi:Number,
+               posisi: String,
+               jenisLowongan: String,
+               jumlahDibutuhkan: Number,
+               waktuPengerjaan: Number,
+           }
+       }
+   },
+   mounted() {
+    axios
+      .get("https://api.github.com/users") //ganti APInya 
+      .then((resp) => {
+        console.warn(resp.data);
+        this.listDivisi =resp.data;
+      });
+  },
 }
 //post method atau get
 </script>
