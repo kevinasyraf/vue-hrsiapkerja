@@ -13,18 +13,18 @@ export default new Router({
         name: "login",
         component: () => import("./components/Login")
       },
-      {
-        path: '/admin',
-        name: 'admin',
-        component: AdminShell,
-        children: [
-          {
-            path: 'home',
-            name: 'admin_home',
-            component: AdminHomeView
-          },
-        ]
-      },
+      // {
+      //   path: '/admin',
+      //   name: 'admin',
+      //   component: AdminShell,
+      //   children: [
+      //     {
+      //       path: 'home',
+      //       name: 'admin_home',
+      //       component: AdminHomeView
+      //     },
+      //   ]
+      // },
       {
         path: "/lowongan",
         name: "lowongan",
