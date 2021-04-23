@@ -56,6 +56,7 @@ export default {
 }
 
 .navbar {
+  font-family: Nunito!important;
   height: 72px !important;
   background-color: #ffc709;
 }
