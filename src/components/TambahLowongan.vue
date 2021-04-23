@@ -1,9 +1,11 @@
 <template>
-<div class ="container-fluid" style="margin: 5%,5%,5%">
+<div class ="container-fluid" style="margin: 120px,350px,350px">
     <div class="container">
-        <div class="card-header bg-info text-center">
-            <h3>Tambah Lowongan</h3>
-        </div>
+        <div class="card mt-3 mx-auto w-50">
+            <div class="card-header bg-info text-center">
+                <h3>Tambah Lowongan</h3>
+            </div>
+<div class="card-body">
     <form> 
        <div class="form-group">
            <label class="col-sm-2 col-form-label"> Divisi* </label>
@@ -39,10 +41,9 @@
      <div class="form-group">
            <label class="col-sm-2 col-form-label"> Tugas </label>
     </div>
-    <button type="button" class="btn btn-success btn-md">Simpan</button>
-    <button type="button" class="btn btn-danger btn-md"> Batal </button>
-    </form>
-</div>
+    <button type="button" class="btn btn-danger btn-md float-end">Batal</button>
+    <button type="button" class="btn btn-success btn-md  float-end mr-1">Simpan</button>
+    </form></div></div></div>
 </div>
 </template>
 <script>
@@ -72,7 +73,9 @@ export default {
 }
 //post method atau get
 </script>
-
+button{
+    
+}
 <style>
 
 </style>
