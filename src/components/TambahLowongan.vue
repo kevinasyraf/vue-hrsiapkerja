@@ -2,9 +2,10 @@
 <div class ="container-fluid" style="margin: 88px,350px,350px">
     <div class="container">
         <div class="card mx-auto w-50" style="margin:5%">
-            <div class="card-header bg-info text-center">
-            <h3 style="font-family:Nunito, font-size:30px">Tambah Lowongan</h3>
-        </div>
+            <div class="card-header text-center" style="background-color: #3C77BF">
+            <div style="color:#ffff">
+            <h3 style="font-family:Nunito">Tambah Lowongan</h3>
+        </div></div>
     <form> 
        <div class="form-group" style="margin-top:5%">
            <label class="col-sm-4 col-form-label"> Divisi <span style="color: red">*</span></label>
