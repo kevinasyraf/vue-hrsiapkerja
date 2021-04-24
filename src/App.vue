@@ -5,10 +5,10 @@
       <img src="./assets/logo-rsk.svg" alt="" width="40" height="40" class="d-inline-block">
       HR Siap Kerja
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav">
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="/lowongan" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -47,7 +47,7 @@ export default {
 
 <style>
 #app {
-  font-family: Nunito!important ;
+  font-family: 'Nunito', sans-serif ;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -56,8 +56,6 @@ export default {
 }
 
 .navbar {
-  font-family: Nunito!important;
-  height: 72px !important;
   background-color: #ffc709;
 }
 
