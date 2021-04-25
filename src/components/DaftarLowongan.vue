@@ -1,6 +1,6 @@
 <template xmlns:th="http://www.w3.org/1999/xhtml">
   <div class="container mt-5">
-    <a th:href="@{/tambahlowongan}" class="btn button">+ Tambah Lowongan</a>
+    <a href="@{/tambahlowongan}"><input type=button value='+ Tambah Lowongan'></a>
     <br><br>
     <select name="divisi" id="divisi">
       <option value="it">IT</option>
@@ -65,3 +65,33 @@ h2 {
   text-align: center;
 }
 </style>
+
+<script>
+import LowonganDataService from "../services/LowonganDataService";
+
+export default {
+  name: "lowongan-list",
+  data() {
+    return {
+      lowongan: [],
+      currentLowongan: null,
+      currentIndex: -1,
+    };
+  },
+  methods: {
+    retrieveLowongan() {
+      LowonganDataService.getAll()
+          .then(response => {
+            this.lowongan = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    },
+  },
+  mounted() {
+    this.retrieveLowongan();
+  }
+};
+</script>
