@@ -1,21 +1,33 @@
-<template xmlns:th="http://www.w3.org/1999/xhtml">
+<template xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
   <div class="container mt-5">
-    <a href="@{/tambahlowongan}"><input type=button value='+ Tambah Lowongan'></a>
+    <a class="btn btn-outline-warning" href="/tambahlowongan" role="button">Tambah Lowongan</a>
     <br><br>
-    <select name="divisi" id="divisi">
-      <option value="it">IT</option>
-      <option value="hr">HR</option>
-      <option value="finance">Finance</option>
-    </select>
-    <select name="posisi" id="posisi">
-      <option value="be">Backend Engineer</option>
-      <option value="fe">Frontend Engineer</option>
-    </select>
-    <select name="statusLowongan" id="statusLowongan">
-      <option value="disetujui">Disetujui</option>
-      <option value="menungguPersetujuan">Menunggu Persetujuan</option>
-    </select>
-    <a th:href="@{/tambahlowongan}" class="btn button2">Pencarian</a>
+
+    <div class="form-group" style="margin-top:5%">
+      <label class="col-sm-4 col-form-label"> Jenis Lowongan</label>
+      <select v-model="detailLowongan.jenis_lowongan">
+        <option v-for="item in listJenisLowongan" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
+      </select>
+    </div>
+
+<!--    <div class="input-group mb-3">-->
+<!--      <input type="text" class="form-control" placeholder="Search by posisi"/>-->
+<!--      <div class="input-group-append">-->
+<!--        <button class="btn btnprimary" type="button" @click="filterByPosisi">-->
+<!--          Filter-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Posisi
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <input class="form-control" id="myInput" type="text" placeholder="Cari...">
+        <li><a href="#">IT</a></li>
+      </ul>
+    </div>
+
     <br><br>
     <h2>Daftar Lowongan</h2>
     <br><br>
@@ -73,6 +85,11 @@ export default {
   name: "lowongan-list",
   data() {
     return {
+      listJenisLowongan:[],
+      detailLowongan: {
+        id:Number,
+        nama: String,
+      },
       lowongan: [],
       currentLowongan: null,
       currentIndex: -1,
@@ -81,6 +98,26 @@ export default {
   methods: {
     retrieveLowongan() {
       LowonganDataService.getAll()
+          .then(response => {
+            this.lowongan = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    },
+    filterJenisLowongan() {
+      LowonganDataService.findByJenisLowongan(this.jenis_lowongan)
+          .then(response => {
+            this.lowongan = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    },
+    filterPosisi() {
+      LowonganDataService.findByPosisi(this.posisi)
           .then(response => {
             this.lowongan = response.data;
             console.log(response.data);

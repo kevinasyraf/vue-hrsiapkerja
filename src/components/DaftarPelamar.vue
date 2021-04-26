@@ -3,9 +3,6 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-              <input type="text" class="form-control" placeholder="Nama">
-            </div>
-            <div class="col-sm">
               <button class="form-control btn btn-outline-secondary dropdown-toggle text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Divisi</button>
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="#">Action</a>
@@ -27,12 +24,6 @@
         </div>
 
         <br>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-outline-secondary">Semua</button>
-          <button type="button" class="btn btn-outline-secondary">Rekomendasi</button>
-          <button type="button" class="btn btn-outline-secondary">Dipertimbangkan</button>
-          <button type="button" class="btn btn-outline-secondary">Tidak Rekomendasi</button>
-        </div>
         <div class="card-header bg-info text-center">
             <h3>Daftar Pelamar</h3>
         </div>
