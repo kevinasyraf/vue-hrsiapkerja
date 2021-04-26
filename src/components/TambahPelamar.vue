@@ -32,7 +32,7 @@
            <label class="col-sm-4 col-form-label"> CV<span style="color: red">*</span> </label>
             <input type="text" class="form-group" name="CV"/>
     </div>
-    <button type="button" class="btn btn-danger float-end" style="margin-right: 52px">Kembali</button>
+    <button type="button" class="btn btn-danger float-end" style="margin-right: 52px">Batal</button>
     <button type="button submit" class="btn btn-success float-end mr-1">Simpan</button>
     </form>
         </div>
@@ -69,7 +69,6 @@ export default {
 
 <style>
 label {
-    font-family: Nunito!important;
     font-size: 20px;
     margin-left: 52px;
 }
@@ -85,6 +84,8 @@ input {
 button {
   font-size: 18px;
   padding: 4px 20px !important ;
+  width: 16px im !important;
+  height: 4px !important;
   text-align: center;
   text-decoration: none;
   display: inline-block;
