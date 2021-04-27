@@ -55,6 +55,7 @@
                         <th>Divisi</th>
                         <th>Posisi</th>
                         <th>Kesesuaian</th>
+                        <th>Status Pelamar</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -65,9 +66,52 @@
                             <!-- <td>{{item.jumlahLowongan}}</td>
                             <td>{{item.tugas}}</td>
                             <td>{{item.status}}</td> -->
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <a v-if="item.idStatus==2 || item.idStatus==3 || item.idStatus==4" :href="'/pelamar/' + item.id">{{item.idStatus}}</a>
+                                <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#exampleModalCenter">Negosiasi</a>
+                                <a v-if="item.idStatus==6 || item.idStatus==7">{{item.idStatus}}</a>
+                            </td>
                         </tr>
                     </tbody>
         </table>
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
+                                            <h5 class="modal-title w-100" id="exampleModalLongTitle">Hasil Negosiasi</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col">Hasil Negosiasi</div>
+                                                    <div class="col">
+                                                        <select name="status" class="form-control" v-model="pelamarStatus">
+                                                            <option value="7">Hired</option>
+                                                            <option value="6">Decline</option>
+                                                        </select>
+                                                   </div>
+                                                </div><br>
+                                                <div class="row">
+                                                    <div class="col">Catatan</div>
+                                                    <div class="col">
+                                                        <textarea class="form-control" id="message-text"></textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a role="button" class="btn btn-success" href="/pelamar" @click="updateStatus">Simpan</a>
+                                            <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
     </div>
     </div>
 </div>
@@ -76,6 +120,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import PelamarDataService from "../services/PelamarDataService";
+
 export default {
     name: "pelamar-list",
     data() {
@@ -83,6 +128,8 @@ export default {
             pelamar: [],
             currentPelamar: null,
             currentIndex: -1,
+            color : '#3C77BF',
+            pelamarStatus : '',
         };
     },
     methods: {
@@ -104,10 +151,59 @@ export default {
                 console.log(e);
             });
         },
+
+        getPelamar(id) {
+         PelamarDataService.get(id)
+           .then(response => {
+             this.pelamarStatus = response.data.idStatus;
+             console.log(response.data);
+           })
+           .catch(e => {
+             console.log(e);
+           });
+       },
+
+        updateStatus() {
+            var data = {
+               id: this.pelamar.id,
+               nama: this.pelamar.nama,
+               email: this.pelamar.email,
+               nomorTelepon:  this.pelamar.nomorTelepon,
+               idKesesuaian: this.pelamar.idKesesuaian,
+               idStatus: this.pelamarStatus,
+             };
+             PelamarDataService.update(this.pelamar.id, data)
+               .then(response => {
+                 console.log(response.data);
+                 this.message = 'The pelamar was updated successfully!';
+               })
+               .catch(e => {
+                 console.log(e);
+               });
+        },
+
     },
     mounted() {
         this.retrievePelamar();
         this.retrieveDivisi();
+        this.updateStatus();
     }
 };
 </script>
+
+<style>
+html, body {
+    font-family: 'Nunito', sans-serif;
+}
+.modal-title{
+    color: #fff;
+    font-weight: 700;
+    font-size : 20px;
+}
+.btn-success{
+    background-color: #2ECC71;
+}
+.btn-danger{
+    background-color : #E74C3C;
+}
+</style>

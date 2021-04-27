@@ -27,17 +27,13 @@
                     <div class="row">
                         <div class="col">Divisi</div>
                         <div class="col">
-                            <select v-model="pelamarId" class="form-control" disabled>
-
-                            </select>
+                            <input type="text" class="form-control" id="noTelepon" value="IT" readonly/>
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="col">Posisi</div>
                         <div class="col">
-                            <select v-model="pelamarId" class="form-control" disabled>
-
-                            </select>
+                            <input type="text" class="form-control" id="noTelepon" value="Front End Engineer" readonly/>
                         </div>
                     </div><br>
                     <div class="row">
@@ -53,26 +49,29 @@
                         <div class="col">Status Pelamar</div>
                         <div class="col">
                             <select name="status" class="form-control" v-model="pelamarStatus">
-                                <option v-for="item in listStatus" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
+                                <option value="2">Wawancara</option>
+                                <option value="3">Tugas Tambahan</option>
+                                <option value="4">Ditolak</option>
+                                <option value="5">Negosiasi</option>
                             </select>
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="col">CV</div>
                         <div class="col">
-
+                            <a>CV.pdf</a>
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="col">Tugas 1</div>
                         <div class="col">
-
+                            <a>Tugas1.pdf</a>
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="col">Tugas 2</div>
                         <div class="col">
-
+                            <a>Tugas2.pdf</a>
                         </div>
                     </div><br>
                     <a class="btn btn-primary float-end" style="margin-right: 30px" href="/pelamar" role="button">Kembali</a>
@@ -88,11 +87,10 @@
                             </button>
                           </div>
                           <div class="modal-body">
-
                             Apakah Anda yakin akan mengubah status pelamar Ini?
                           </div>
                           <div class="modal-footer">
-                            <a role="button" class="btn btn-success" @click="updateStatus">Ya</a>
+                            <a role="button" class="btn btn-success" :href="'/pelamar/' + pelamarId" @click="updateStatus">Ya</a>
                             <a role="button" class="btn btn-secondary" data-dismiss="modal">Tidak</a>
                           </div>
                         </div>
@@ -169,9 +167,9 @@ export default {
                id: this.PelamarId,
                nama: this.pelamarName,
                email: this.pelamarEmail,
-               no_telepon:  this.pelamarNoTlp,
-               kesesuaian: this.pelamarKesesuaian,
-               status: this.pelamarStatus,
+               nomorTelepon:  this.pelamarNoTlp,
+               idKesesuaian: this.pelamarKesesuaian,
+               idStatus: this.pelamarStatus,
              };
 
              PelamarDataService.update(this.pelamarId, data)
