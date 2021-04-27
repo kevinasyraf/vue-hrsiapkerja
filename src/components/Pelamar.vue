@@ -27,18 +27,16 @@
                     <div class="row">
                         <div class="col">Divisi</div>
                         <div class="col">
-
                             <select v-model="pelamarId" class="form-control" disabled>
-                                <option v-for="item in listLowongan" v-bind:key="item.id" :value="item.id"> {{item.idDivisi}} </option>
+
                             </select>
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="col">Posisi</div>
                         <div class="col">
-
                             <select v-model="pelamarId" class="form-control" disabled>
-                                <option v-for="item in listLowongan" v-bind:key="item.id" :value="item.id" > {{item.posisi}} </option>
+
                             </select>
                         </div>
                     </div><br>
@@ -77,8 +75,8 @@
 
                         </div>
                     </div><br>
-                    <button type="button" class="btn btn-primary float-end">Kembali</button>
-                    <button type="button" class="btn btn-success float-end mr-1" data-toggle="modal" data-target="#exampleModalCenter">Simpan</button>
+                    <a class="btn btn-primary float-end" style="margin-right: 30px" href="/pelamar" role="button">Kembali</a>
+                    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#exampleModalCenter">Simpan</a>
 
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -94,8 +92,8 @@
                             Apakah Anda yakin akan mengubah status pelamar Ini?
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-success">Ya</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                            <a role="button" class="btn btn-success" @click="updateStatus">Ya</a>
+                            <a role="button" class="btn btn-secondary" data-dismiss="modal">Tidak</a>
                           </div>
                         </div>
                       </div>
@@ -166,6 +164,26 @@ export default {
             });
        },
 
+       updateStatus() {
+             var data = {
+               id: this.PelamarId,
+               nama: this.pelamarName,
+               email: this.pelamarEmail,
+               no_telepon:  this.pelamarNoTlp,
+               kesesuaian: this.pelamarKesesuaian,
+               status: this.pelamarStatus,
+             };
+
+             PelamarDataService.update(this.pelamarId, data)
+               .then(response => {
+                 console.log(response.data);
+                 this.message = 'The tutorial was updated successfully!';
+               })
+               .catch(e => {
+                 console.log(e);
+               });
+           },
+
        getLowongan(){
         LowonganDataService.getAll()
             .then(response => {
@@ -183,6 +201,7 @@ export default {
     this.getKesesuaian();
     this.getStatus();
     this.getLowongan();
+    this.updateStatus();
    }
 };
 //post method atau get
@@ -210,5 +229,11 @@ html, body {
 }
 .btn-secondary{
     background-color : #E74C3C;
+}
+.btn {
+    padding: 4px 20px !important ;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
 }
 </style>
