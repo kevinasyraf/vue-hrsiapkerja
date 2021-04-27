@@ -9,8 +9,8 @@ class LowonganDataService {
         return http.get("/lowongan?posisi=${posisi}")
     }
 
-    findByJenisLowongan(jenis_lowongan) {
-        return http.get("/lowongan?jenis_lowongan=${jenis_lowongan}")
+    findByJenisLowongan(jenisLowongan) {
+        return http.get("/lowongan?jenisLowongan=${jenisLowongan}")
     }
 
 }
