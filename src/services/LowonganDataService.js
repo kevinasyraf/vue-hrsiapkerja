@@ -5,6 +5,13 @@ class LowonganDataService {
         return http.get("/lowongan");
     }
 
+    findByPosisi(posisi) {
+        return http.get("/lowongan?posisi=${posisi}")
+    }
+
+    findByJenisLowongan(jenisLowongan) {
+        return http.get("/lowongan?jenisLowongan=${jenisLowongan}")
+    }
     get(id) {
         return http.get(`/lowongan/${id}`);
     }
