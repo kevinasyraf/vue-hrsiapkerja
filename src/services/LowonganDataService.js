@@ -5,12 +5,18 @@ class LowonganDataService {
         return http.get("/lowongan");
     }
 
+    get(id) {
+        return http.get(`/lowongan/${id}`);
+    }
+
+    // // eslint-disable-next-line no-unused-vars
     // findByPosisi(posisi) {
     //     return http.get("/lowongan?posisi=${posisi}")
     // }
     //
-    // findByJenisLowongan(jenis_lowongan) {
-    //     return http.get("/lowongan?jenis_lowongan=${jenis_lowongan}")
+    // // eslint-disable-next-line no-unused-vars
+    // findByJenisLowongan(jenisLowongan) {
+    //     return http.get("/lowongan?jenisLowongan=${jenisLowongan}")
     // }
 
 }

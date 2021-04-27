@@ -9,6 +9,10 @@ class StatusDataService{
         return http.get(`/status/${id}`);
     }
 
+    update(id, data) {
+        return http.put(`/status/${id}`, data);
+    }
+
 }
 
 export default new StatusDataService();
