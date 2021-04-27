@@ -6,79 +6,165 @@
             <div style="color:#ffff">
             <h3 style="font-family:Nunito">Tambah Lowongan</h3>
         </div></div>
-    <form> 
+   <!-- <div class="submit-form">
+    <div v-if="!submitted"> -->
+    <form>
        <div class="form-group" style="margin-top:5%">
            <label class="col-sm-4 col-form-label"> Divisi <span style="color: red">*</span></label>
            <select v-model="paket.idDivisi">
-               <option v-for="item in listDivisi" v-bind:key="item.id" :value="item.id"> {{item.login}} </option>
+               <option v-for="item in listDivisi" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
            </select>
     
        </div>
        <div class="form-group" style="margin-top: 5%;">
            <label class="col-sm-4 col-form-label"> Posisi<span style="color: red">*</span> </label>
-           <input type="text" class="form-group" name="Posisi"/>
-
+            <select v-model="paket.idPosisi">
+               <option v-for="item in listPosisi" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
+           </select>
+    
        </div> 
        <div class="form-group" style="margin-bottom: 5%;"> 
            <label class="col-sm-4 col-form-label"> Jenis Lowongan<span style="color: red">*</span> </label>
-           <select>
+           <select v-model="paket.jenisLowongan">
                <option>  </option>
-               <option> Menggantikan </option>
-               <option> Menambah Baru </option>
+               <option value="1"> Menggantikan </option>
+               <option value="2"> Menambah Baru </option>
            </select>
        </div>
         <div class="form-group" style="margin-bottom: 5%;">
            <label class="col-sm-4 col-form-label"> Jumlah Dibutuhkan<span style="color: red">*</span> </label>
-            <input type="text" class="form-group" name="Jumlah Dibutuhkan">
+            <input type="text" class="form-group" id="jumlahLowongan" required v-model="paket.jumlahLowongan">
     </div>
         <div class="form-group" style="margin-bottom: 5%;">
            <label class="col-sm-4 col-form-label"> Waktu Pengerjaan<span style="color: red">*</span> </label>
-           <input type="text" class="form-group" name="Waktu Pengerjaan">
+           <input type="date" class="form-group" name="Waktu Pengerjaan" required v-model="paket.deadlineTugas">
        </div>
        <div class="form-group" style="margin-bottom: 5%;">
+         <form action="fileupload" method="post" enctype="multipart/form-data">
            <label class="col-sm-4 col-form-label"> Kualifikasi<span style="color: red">*</span> </label>
-           <input type="text" class="form-group" name="Kualifikasi">
-    </div>
-     <div class="form-group" style="margin-bottom: 5%;">
+           <!-- <input type="text" class="form-group" name="Kualifikasi"> -->
+            <input type="file" name="filetoupload" class="form-group"/>
+   </form></div>
+    <div class="form-group" style="margin-bottom: 5%;">
+    <form action="fileupload" method="post" enctype="multipart/form-data">
            <label class="col-sm-4 col-form-label"> Tugas </label>
-           <input type="text" class="form-group" name="Tugas">
-    </div>
-    <button type="button" class="btn btn-danger float-end" style="margin-right: 52px">Kembali</button>
-    <button type="button submit" class="btn btn-success float-end mr-1">Simpan</button>
+           <input type="file" name="filetoupload" class="form-group"/>
+           <!-- <input type="text" class="form-group" name="Tugas"> -->
+    </form></div>
+    <!-- <button type="button" class="btn btn-danger float-end" style="margin-right: 52px"  href="/lowongan">Batal</button> -->
+    <a class="btn btn-danger float-end" style="margin-right: 52px"  href="/lowongan" role="button">Batal</a>
+    <!-- <button @click="saveLowongan" class="btn btn-success float-end mr-1" data-toggle="modal" data-target="#exampleModal">Simpan</button> -->
+    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#exampleModalCenter">Simpan</a>
+
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
+                            <h5 class="modal-title w-100 text-center" id="exampleModalLongTitle" style="font-size:30px">Confirmation Page</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+
+                           <p> Apakah Anda yakin akan menambahkan data lowongan baru tersebut? </p>
+                          </div>
+                          <div class="modal-footer">
+                            <a role="button" class="btn btn-success" @click="saveLowongan" href="/lowongan">Ya</a>
+                            <a role="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Tidak</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+    <!-- </div></div> -->
+
     </form>
 </div></div>
+<!-- Modal -->
+<!-- <div v-if="isSubmitted" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
 </div>
+
 </template>
 <script>
 import axios from "axios";
+
 export default {
    name: 'tambah-lowongan',
    data (){
        return{
            listDivisi:[],
+           listPosisi:[],
+           isSubmitted :false,
+           color : '#3C77BF',
            paket: {
+               id:null,
+               status: "pending",
+               jumlahLowongan: '',
+               kualifikasi : "ada",
+               lowonganBuka : "TRUE",
+               tugas : "ada",
+               deadlineTugas : null,
                idDivisi:Number,
-               posisi: String,
-               jenisLowongan: String,
-               jumlahDibutuhkan: Number,
-               waktuPengerjaan: Number,
+               idPosisi: Number,
+               idUsers: 1,
+               jenisLowongan: Number
            }
        }
    },
    mounted() {
     axios
-      .get("https://api.github.com/users") //ganti APInya 
+      .get("http://localhost:4000/api/divisi/") //ganti APInya 
       .then((resp) => {
         console.warn(resp.data);
         this.listDivisi =resp.data;
       });
+      axios
+      .get("http://localhost:4000/api/posisi/") //ganti APInya 
+      .then((resp) => {
+        console.warn(resp.data);
+        this.listPosisi =resp.data;
+      });
   },
+methods: {
+    saveLowongan(e){
+        axios 
+        .post("http://localhost:4000/api/lowongan",this.paket) 
+        .then((resp) => {
+            console.warn(resp.data);
+            // alert(resp.data)
+            e.preventDefault();
+            this.isSubmitted= true;
+        }
+        )
+
+
+    }
+}  
 }
+
 //post method atau get
 </script>
 <style>
 label {
-    font-family: Nunito!important;
     font-size: 20px;
     margin-left: 52px;
 }
@@ -99,5 +185,23 @@ button {
   display: inline-block;
   margin: 32px 4px;
   }
-
+  .btn {
+     padding: 4px 20px !important ;
+     text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 32px 4px;
+}
+html, body {
+    font-family: 'Nunito', sans-serif;
+}
+.card-header {
+    color: #fff;
+    font-weight: 500;
+}
+.modal-title{
+    color: #fff;
+    font-weight: 500;
+    font-size : 22px;
+}
 </style>

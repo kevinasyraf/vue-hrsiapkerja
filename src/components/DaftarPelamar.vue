@@ -107,6 +107,7 @@ export default {
     },
     mounted() {
         this.retrievePelamar();
+        this.retrieveDivisi();
     }
 };
 </script>

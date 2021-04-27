@@ -12,6 +12,19 @@ class LowonganDataService {
     findByJenisLowongan(jenisLowongan) {
         return http.get("/lowongan?jenisLowongan=${jenisLowongan}")
     }
+    get(id) {
+        return http.get(`/lowongan/${id}`);
+    }
+
+    // // eslint-disable-next-line no-unused-vars
+    // findByPosisi(posisi) {
+    //     return http.get("/lowongan?posisi=${posisi}")
+    // }
+    //
+    // // eslint-disable-next-line no-unused-vars
+    // findByJenisLowongan(jenisLowongan) {
+    //     return http.get("/lowongan?jenisLowongan=${jenisLowongan}")
+    // }
 
 }
 
