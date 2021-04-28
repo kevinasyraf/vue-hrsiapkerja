@@ -57,62 +57,92 @@
                         <th>Kesesuaian</th>
                         <th>Status Pelamar</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in pelamar" v-bind:key="item.id">
-                            <td>{{item.nama}}</td>
-                            <td>{{item.email}}</td>
-                            <td>{{item.nomorTelepon}}</td>
-                            <!-- <td>{{item.jumlahLowongan}}</td>
-                            <td>{{item.tugas}}</td>
-                            <td>{{item.status}}</td> -->
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <a v-if="item.idStatus==2 || item.idStatus==3 || item.idStatus==4" :href="'/pelamar/' + item.id">{{item.idStatus}}</a>
-                                <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#exampleModalCenter">Negosiasi</a>
-                                <a v-if="item.idStatus==6 || item.idStatus==7">{{item.idStatus}}</a>
-                            </td>
-                        </tr>
-                    </tbody>
-        </table>
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
-                                            <h5 class="modal-title w-100" id="exampleModalLongTitle">Hasil Negosiasi</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="row">
-                                                    <div class="col">Hasil Negosiasi</div>
-                                                    <div class="col">
-                                                        <select name="status" class="form-control" v-model="pelamarStatus">
-                                                            <option value="7">Hired</option>
-                                                            <option value="6">Decline</option>
-                                                        </select>
-                                                   </div>
-                                                </div><br>
-                                                <div class="row">
-                                                    <div class="col">Catatan</div>
-                                                    <div class="col">
-                                                        <textarea class="form-control" id="message-text"></textarea>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a role="button" class="btn btn-success" href="/pelamar" @click="updateStatus">Simpan</a>
-                                            <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
-                                        </div>
+                </thead>
+                <tbody>
+                    <tr v-for="item in pelamar" v-bind:key="item.id">
+                        <td>{{item.nama}}</td>
+                        <td>{{item.email}}</td>
+                        <td>{{item.nomorTelepon}}</td>
+                        <!-- <td>{{item.jumlahLowongan}}</td>
+                        <td>{{item.tugas}}</td>
+                        <td>{{item.status}}</td> -->
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4" :href="'/pelamar/' + item.id">{{status[item.idStatus - 1]}}</a>
+                            <a v-if="item.idStatus==2" href="" data-toggle="modal" data-target="#interview">Interview</a>
+                            <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#exampleModalCenter">Negosiasi</a>
+                            <a v-if="item.idStatus==6 || item.idStatus==7">{{status[item.idStatus - 1]}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="modal fade" id="interview" tabindex="-1" role="dialog" aria-labelledby="interviewTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
+                            <h5 class="modal-title w-100" id="exampleModalLongTitle">Jadwal Wawancara</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col">Waktu Interview</div>
+                                    <div class="col">
+                                        <input class="form-control" type="datetime-local" value="" id="example-datetime-local-input" v-model="waktuInterview">
                                     </div>
                                 </div>
-                            </div>
-    </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a role="button" class="btn btn-success" href="/pelamar" @click="updateStatus">Simpan</a>
+                            <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
+                            <h5 class="modal-title w-100" id="exampleModalLongTitle">Hasil Negosiasi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col">Hasil Negosiasi</div>
+                                    <div class="col">
+                                        <select name="status" class="form-control" v-model="pelamarStatus">
+                                            <option value="7">Hired</option>
+                                            <option value="6">Decline</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col">Catatan</div>
+                                    <div class="col">
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a role="button" class="btn btn-success" href="/pelamar" @click="updateStatus">Simpan</a>
+                            <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </template>
@@ -128,8 +158,11 @@ export default {
             pelamar: [],
             currentPelamar: null,
             currentIndex: -1,
-            color : '#3C77BF',
-            pelamarStatus : '',
+            color: '#3C77BF',
+            pelamarStatus: '',
+            status: ["Screening", "Interviewed", "Additional Assignment", "Negotiation", "Rejected", "Declined", "Hired"],
+            divisi: [],
+            waktuInterview: ""
         };
     },
     methods: {
@@ -142,15 +175,15 @@ export default {
                 console.log(e);
             });
         },
-        retrieveDivisi() {
-            PelamarDataService.retrieveDivisi(this.divisi).then(response => {
-                this.lowongan = response.data;
-                console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-        },
+        // retrieveDivisi() {
+        //     PelamarDataService.retrieveDivisi(this.divisi).then(response => {
+        //         this.divisi = response.data;
+        //         console.log(response.data);
+        //     })
+        //     .catch(e => {
+        //         console.log(e);
+        //     });
+        // },
 
         getPelamar(id) {
          PelamarDataService.get(id)
@@ -171,6 +204,7 @@ export default {
                nomorTelepon:  this.pelamar.nomorTelepon,
                idKesesuaian: this.pelamar.idKesesuaian,
                idStatus: this.pelamarStatus,
+               waktuInterview: this.waktuInterview
              };
              PelamarDataService.update(this.pelamar.id, data)
                .then(response => {
@@ -185,7 +219,7 @@ export default {
     },
     mounted() {
         this.retrievePelamar();
-        this.retrieveDivisi();
+        // this.retrieveDivisi();
         this.updateStatus();
     }
 };
