@@ -40,22 +40,48 @@
            <input type="date" class="form-group" name="Waktu Pengerjaan" required v-model="paket.deadlineTugas">
        </div>
        <div class="form-group" style="margin-bottom: 5%;">
+         <form action="fileupload" method="post" enctype="multipart/form-data">
            <label class="col-sm-4 col-form-label"> Kualifikasi<span style="color: red">*</span> </label>
-           <input type="text" class="form-group" name="Kualifikasi">
-    </div>
+           <!-- <input type="text" class="form-group" name="Kualifikasi"> -->
+            <input type="file" name="filetoupload" class="form-group"/>
+   </form></div>
     <div class="form-group" style="margin-bottom: 5%;">
     <form action="fileupload" method="post" enctype="multipart/form-data">
            <label class="col-sm-4 col-form-label"> Tugas </label>
            <input type="file" name="filetoupload" class="form-group"/>
            <!-- <input type="text" class="form-group" name="Tugas"> -->
     </form></div>
-    <button type="button" class="btn btn-danger float-end" style="margin-right: 52px">Batal</button>
-    <button @click="saveLowongan" class="btn btn-success float-end mr-1" data-toggle="modal" data-target="#exampleModal">Simpan</button>
+    <!-- <button type="button" class="btn btn-danger float-end" style="margin-right: 52px"  href="/lowongan">Batal</button> -->
+    <a class="btn btn-danger float-end" style="margin-right: 52px"  href="/lowongan" role="button">Batal</a>
+    <!-- <button @click="saveLowongan" class="btn btn-success float-end mr-1" data-toggle="modal" data-target="#exampleModal">Simpan</button> -->
+    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#exampleModalCenter">Simpan</a>
+
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
+                            <h5 class="modal-title w-100 text-center" id="exampleModalLongTitle" style="font-size:30px">Confirmation Page</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+
+                           <p> Apakah Anda yakin akan menambahkan data lowongan baru tersebut? </p>
+                          </div>
+                          <div class="modal-footer">
+                            <a role="button" class="btn btn-success" @click="saveLowongan" href="/lowongan">Ya</a>
+                            <a role="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Tidak</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
     <!-- </div></div> -->
+
     </form>
 </div></div>
 <!-- Modal -->
-<div v-if="isSubmitted" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div v-if="isSubmitted" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -73,7 +99,8 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
 </div>
 
 </template>
@@ -87,18 +114,19 @@ export default {
            listDivisi:[],
            listPosisi:[],
            isSubmitted :false,
+           color : '#3C77BF',
            paket: {
                id:null,
                status: "pending",
                jumlahLowongan: '',
                kualifikasi : "ada",
-               kuota : "",
                lowonganBuka : "TRUE",
                tugas : "ada",
                deadlineTugas : null,
                idDivisi:Number,
                idPosisi: Number,
-               jenis_lowongan: Number
+               idUsers: 1,
+               jenisLowongan: Number
            }
        }
    },
@@ -157,5 +185,23 @@ button {
   display: inline-block;
   margin: 32px 4px;
   }
-
+  .btn {
+     padding: 4px 20px !important ;
+     text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 32px 4px;
+}
+html, body {
+    font-family: 'Nunito', sans-serif;
+}
+.card-header {
+    color: #fff;
+    font-weight: 500;
+}
+.modal-title{
+    color: #fff;
+    font-weight: 500;
+    font-size : 22px;
+}
 </style>
