@@ -5,6 +5,16 @@ class LowonganDataService {
         return http.get("/lowongan");
     }
 
+    getOne(id) {
+        return http.get(`/lowongan/${id}`);
+    }
+    ditolakLowongan(id, data) {
+        return http.put(`/lowongan/ditolak/${id}`, data);
+    }
+    disetujuiLowongan(id, data) {
+        return http.put(`/lowongan/disetujui/${id}`, data);
+    }
+
     // findByPosisi(posisi) {
     //     return http.get("/lowongan?posisi=${posisi}")
     // }

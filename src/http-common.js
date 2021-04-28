@@ -3,7 +3,8 @@ import axios from "axios";
 export default axios.create({
   baseURL: "http://localhost:4000/api",
   headers: {
-    "Content-type": "application/json"
+    "Content-type": "application/json",
+    // "Access-Control-Allow-Methods":"GET, POST, OPTIONS, PUT, PATCH, DELETE"
   }
 });
 
