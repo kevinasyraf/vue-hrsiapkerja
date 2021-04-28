@@ -1,6 +1,8 @@
 import http from "../http-common";
 
 class LowonganDataService {
+    // eslint-disable-next-line no-unused-vars
+    
     getAll() {
         return http.get("/lowongan");
     }

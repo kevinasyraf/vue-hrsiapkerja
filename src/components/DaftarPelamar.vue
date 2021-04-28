@@ -52,9 +52,9 @@
                         <th>Nama</th>
                         <th>Email</th>
                         <th>No. Telepon</th>
-                        <th>Divisi</th>
+                        <!-- <th>Divisi</th>
                         <th>Posisi</th>
-                        <th>Kesesuaian</th>
+                        <th>Kesesuaian</th> -->
                     </tr>
                     </thead>
                     <tbody>
