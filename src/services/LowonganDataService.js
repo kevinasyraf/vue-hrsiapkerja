@@ -8,11 +8,11 @@ class LowonganDataService {
     getOne(id) {
         return http.get(`/lowongan/${id}`);
     }
-    ditolakLowongan(id) {
-        return http.put(`/lowongan/ditolak/${id}`);
+    ditolakLowongan(id, data) {
+        return http.put(`/lowongan/ditolak/${id}`, data);
     }
-    disetujuiLowongan(id) {
-        return http.put(`/lowongan/disetujui/${id}`);
+    disetujuiLowongan(id, data) {
+        return http.put(`/lowongan/disetujui/${id}`, data);
     }
 
     // findByPosisi(posisi) {

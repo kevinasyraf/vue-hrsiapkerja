@@ -43,19 +43,60 @@
           <div class="row">
             <div class="col">kualifikasi</div>
             <div class="col">
-              <input type="text" class="form-control" readonly/>
+              <input type="text" class="form-control" id="kualifikasi" v-model="lowonganKualifikasi" readonly/>
             </div>
 
           </div><br>
           <div class="row">
             <div class="col">Tugas</div>
             <div class="col">
-              <input type="text" class="form-control" readonly/>
+              <input type="text" class="form-control" id="tugas" v-model="lowonganTugas" readonly/>
             </div>
           </div><br>
-          <button type="button" class="btn btn-primary float-end mr-1">Kembali</button>
-          <button @click="ditolakLowongan" type="button" class="btn btn-danger float-end">Ditolak</button>
-          <button @click="disetujuiLowongan" type="button" class="btn btn-success float-end">Disetujui</button>
+          <button type="button" class="btn btn-primary float-end mr-1" @click="$router.push('/lowongan')">Kembali</button>
+          <button @click="ditolakLowongan" data-toggle="modal" data-target="#exampleModalCenterTolak" type="button" class="btn btn-danger float-end">Ditolak</button>
+          <button @click="disetujuiLowongan" data-toggle="modal" data-target="#exampleModalCenterSetuju" type="button" class="btn btn-success float-end">Disetujui</button>
+
+          <div class="modal fade modal-setuju" id="exampleModalCenterSetuju" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
+                  <h5 class="modal-title w-100" id="exampleModalLongTitle">Confirmation Page</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Apakah Anda yakin akan menyetujui lowongan Ini?
+                </div>
+                <div class="modal-footer">
+                  <a role="button" class="btn btn-success" :href="'/lowongan/' + lowonganId" @click="disetujuiLowongan()">Ya</a>
+                  <a role="button" class="btn btn-secondary" data-dismiss="modal">Tidak</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade modal-tolak" id="exampleModalCenterTolak" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
+                  <h5 class="modal-title w-100" id="exampleModalLongTitle">Confirmation Page</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Apakah Anda yakin akan menolak lowongan Ini?
+                </div>
+                <div class="modal-footer">
+                  <a role="button" class="btn btn-success" :href="'/lowongan/' + lowonganId" @click="ditolakLowongan">Ya</a>
+                  <a role="button" class="btn btn-secondary" data-dismiss="modal">Tidak</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -66,16 +107,16 @@
 import LowonganDataService from "../services/LowonganDataService";
 import DivisiDataService from "../services/DivisiDataService";
 import PosisiDataService from "../services/PosisiDataService";
-// import axios from "axios";
+ // import axios from "axios";
 
 export default {
   name: 'detail-lowongan',
   data() {
     return {
+      lowonganId : Number,
       lowonganStatus : '',
       lowonganJumlahLowongan : '',
       lowonganKualifikasi : '',
-      lowonganKuota : '',
       lowonganBuka : '',
       lowonganTugas : '',
       deadlineTugas: '',
@@ -92,13 +133,13 @@ export default {
     getLowongan(id) {
       LowonganDataService.getOne(id)
           .then(response => {
-            this.id = response.data.id;
-            this.status = response.data.status;
-            this.jenisLowongan = response.data.jenisLowongan;
-            this.jumlahLowongan = response.data.jumlahLowongan;
-            this.kualifikasi = response.data.kualifikasi;
+            this.lowonganId = response.data.id;
+            this.lowonganStatus = response.data.status;
+            this.lowonganJenisLowongan = response.data.jenisLowongan;
+            this.lowonganJumlahLowongan = response.data.jumlahLowongan;
+            this.lowonganKualifikasi = response.data.kualifikasi;
             this.lowonganBuka = response.data.lowonganBuka;
-            this.tugas = response.data.tugas;
+            this.lowonganTugas = response.data.tugas;
             this.deadlineTugas = response.data.deadlineTugas;
             this.idDivisi = response.data.idDivisi;
             this.idUsers = response.data.idUsers;
@@ -130,25 +171,28 @@ export default {
             console.log(e);
           });
     },
-    disetujuiLowongan(e){
-      LowonganDataService.disetujuiLowongan(this.$route.params.id)
-          .then((resp) => {
-                console.warn(resp.data);
-                // alert(resp.data)
-                e.preventDefault();
-                this.isSubmitted= true;
-              }
-          )
+    disetujuiLowongan(){
+      var data = {
+        status: "disetujui",
+      };
+      LowonganDataService.disetujuiLowongan(this.$route.params.id, data)
+          .then(response => {
+            console.log(response.data);
+            this.message = 'The tutorial was updated successfully!';
+          })
+          .catch(e => {
+            console.log(e);
+          });
     },
-    ditolakLowongan(e){
+    ditolakLowongan(){
       LowonganDataService.ditolakLowongan(this.$route.params.id)
-          .then((resp) => {
-                console.warn(resp.data);
-                // alert(resp.data)
-                e.preventDefault();
-                this.isSubmitted= true;
-              }
-          )
+          .then(response => {
+            console.log(response.data);
+            this.message = 'The tutorial was updated successfully!';
+          })
+          .catch(e => {
+            console.log(e);
+          });
     }
 
   },
@@ -167,6 +211,11 @@ html, body {
   font-family: 'Nunito', sans-serif;
 }
 .card-header {
+  color: #fff;
+  font-weight: 700;
+  font-size : 20px;
+}
+.modal-title{
   color: #fff;
   font-weight: 700;
   font-size : 20px;
