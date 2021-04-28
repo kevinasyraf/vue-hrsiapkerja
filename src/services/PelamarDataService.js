@@ -5,9 +5,9 @@ class PelamarDataService{
         return http.get("/pelamars");
     }
 
-    getDivisi(divisi) {
-        return http.get("/pelamars?divisi=${divisi}");
-    }
+    // getDivisi(divisi) {
+    //     return http.get("/pelamars?divisi=${divisi}");
+    // }
 
     get(id) {
         return http.get(`/pelamars/${id}`);
