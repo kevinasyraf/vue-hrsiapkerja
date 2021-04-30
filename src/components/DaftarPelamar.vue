@@ -240,10 +240,10 @@ export default {
         this.retrievePelamar();
         // this.retrieveDivisi();
         this.updateStatus();
-        this.currentIdPelamar = this.idPelamar;
-        this.waktuInterview = this.waktuInterviewPelamar;
+        // this.currentIdPelamar = this.idPelamar;
+        // this.waktuInterview = this.waktuInterviewPelamar;
     },
-    props: ['idPelamar', 'waktuInterviewPelamar']
+    // props: ['idPelamar', 'waktuInterviewPelamar']
 };
 </script>
 
