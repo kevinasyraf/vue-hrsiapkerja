@@ -95,7 +95,7 @@
                                     <div class="col">Waktu Interview</div>
                                     <div class="col">
                                         <!-- <input class="form-control" type="text" v-model="idPelamar" readonly> -->
-                                        <input class="form-control" type="datetime-local" value="" id="example-datetime-local-input" v-model="waktuInterviewPelamar">
+                                        <input class="form-control" type="datetime-local" value="" id="example-datetime-local-input" v-model="waktuInterview">
                                         <p>{{waktuInterview}}</p>
                                     </div>
                                 </div>
