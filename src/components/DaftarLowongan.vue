@@ -45,7 +45,7 @@
                             <td>{{item.jenisLowongan}}</td>
                             <td>{{item.jumlahLowongan}}</td>
                             <td>{{item.tugas}}</td>
-                            <td>{{item.status}}</td>
+                          <td><a :href="'/lowongan/' + item.id">{{item.status}}</a></td>
                         </tr>
                     </tbody>
         </table>
