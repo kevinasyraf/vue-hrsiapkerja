@@ -3,48 +3,32 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-              <button class="form-control btn btn-outline-secondary dropdown-toggle text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Divisi</button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
+                <select class="form-select">
+                    <option :value="''" selected disabled hidden>Divisi</option>
+                    <option value="1">Menggantikan</option>
+                    <option value="2">Menambah Baru</option>
+                </select>
             </div>
             <div class="col-sm">
-              <button class="form-control btn btn-outline-secondary dropdown-toggle text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Posisi</button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
+                <select class="form-select">
+                    <option :value="''" selected disabled hidden>Posisi</option>
+                    <!-- <option v-for="posisi in listPosisi" v-bind:key="posisi.id" :value="posisi.id"> {{posisi.nama}} </option> -->
+                </select>
+            </div>
+            <div class="col-sm">
+                <select class="form-select">
+                    <option selected>Status Lowongan</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
             </div>
             <div class="col-sm">
                 <button type="button" class="btn btn-success">Pencarian</button>
             </div>
         </div>
-
         <br>
-        <div class="card-header bg-info text-center">
-            <h3>Daftar Pelamar</h3>
-        </div>
-        <!-- <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>No Telepon</th>
-                        <th>Divisi</th>
-                        <th>Posisi</th>
-                        <th>Kesesuaian</th>
-                        <th>Status Pelamar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div> -->
+        <h3 class="card-header fw-bolder primary-color text-center text-white">Daftar Pelamar</h3>
         <div class="table-responsive">
             <table class="table table-bordered" id="tabelPelamar" width="100%" cellspacing="0">
                 <thead>
@@ -74,7 +58,7 @@
                             <a v-if="item.idStatus==6 || item.idStatus==7">{{status[item.idStatus - 1]}}</a>
                         </td>
                         <td>
-                            <a class="btn btn-success" :href="'/pelamar/' + item.id" type="button">Detail</a>
+                            <router-link class="btn btn-success" :to="'/pelamar/' + item.id" type="button">Detail</router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -261,5 +245,8 @@ html, body {
 }
 .btn-danger{
     background-color : #E74C3C;
+}
+.primary-color {
+    background-color: #3C77BF;
 }
 </style>

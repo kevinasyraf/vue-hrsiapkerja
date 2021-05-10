@@ -1,31 +1,36 @@
 <template>
-<div class="container mt-5">
-    <a class="btn btn-outline-warning" href="/tambahlowongan" role="button">Tambah Lowongan</a>
-    <br><br>
-    
-    <div class="form-group" style="margin-bottom: 5%;"> 
-        <label class="col-sm-4 col-form-label"> Jenis Lowongan<span style="color: red"></span> </label>
-        <select v-model="detailLowongan.jenisLowongan">
-            <option>  </option>
-            <option value="1"> Menggantikan </option>
-            <option value="2"> Menambah Baru </option>
-        </select>
+<div class="container">
+    <router-link class="btn btn-success" to="/tambahlowongan" role="button">Tambah Lowongan</router-link>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm">
+            <select class="form-select" v-model="divisi">
+                <option :value="''" selected disabled hidden>Divisi</option>
+                <option value="1">Menggantikan</option>
+                <option value="2">Menambah Baru</option>
+            </select>
+        </div>
+        <div class="col-sm">
+            <select class="form-select" v-model="posisi">
+                <option :value="''" selected disabled hidden>Posisi</option>
+                <option v-for="posisi in listPosisi" v-bind:key="posisi.id" :value="posisi.id"> {{posisi.nama}} </option>
+            </select>
+        </div>
+        <div class="col-sm">
+            <select class="form-select">
+                <option selected>Status Lowongan</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <div class="col-sm">
+            <button type="button" class="btn btn-success" v-on:click="filterPosisi">Pencarian</button>
+        </div>
     </div>
-    
-    <div class="form-group" style="margin-top: 5%;">
-           <label class="col-sm-4 col-form-label"> Posisi<span style="color: red"></span> </label>
-            <select v-model="detailLowongan.idPosisi">
-               <option v-for="item in listPosisi" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
-           </select>
-           <button v-on:click="filterPosisi">Cari</button>
-    </div>
-
-    
-
-    <br><br>
-    <h2>Daftar Lowongan</h2>
-    <br><br>
-    
+    <br>
+    <h3 class="card-header fw-bolder primary-color text-center text-white">Daftar Lowongan</h3>
     <div class="table-responsive">
         <table class="table table-bordered" id="tabelLowongan" width="100%" cellspacing="0">
             <thead>
@@ -45,7 +50,7 @@
                             <td>{{item.jenisLowongan}}</td>
                             <td>{{item.jumlahLowongan}}</td>
                             <td>{{item.tugas}}</td>
-                          <td><a :href="'/lowongan/' + item.id">{{item.status}}</a></td>
+                          <td><router-link :to="'/lowongan/' + item.id">{{item.status}}</router-link></td>
                         </tr>
                     </tbody>
         </table>
@@ -55,6 +60,10 @@
 </template>
 
 <style>
+html, body {
+    font-family: 'Nunito', sans-serif;
+}
+
 .button{
     background-color: #4E9755;
     color: white;
@@ -85,11 +94,16 @@ h2 {
     text-align: center;
 }
 
+.primary-color {
+    background-color: #3C77BF;
+}
+
 </style>
 
 <script>
 // eslint-disable-next-line no-unused-vars
 import LowonganDataService from "../services/LowonganDataService";
+import PosisiDataService from "../services/PosisiDataService";
 import axios from "axios";
 export default {
     name: "lowongan-list",
@@ -104,14 +118,24 @@ export default {
             lowongan: [],
             currentLowongan: null,
             currentIndex: -1,
-            jenisLowongan : '',
-            posisi : '',
+            jenisLowongan: '',
+            posisi: '',
+            divisi: '',
         };
     },
     methods: {
         retrieveLowongan() {
             LowonganDataService.getAll().then(response => {
                 this.lowongan = response.data;
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+        retrievePosisi() {
+            PosisiDataService.getAll().then(response => {
+                this.listPosisi = response.data;
                 console.log(response.data);
             })
             .catch(e => {
@@ -139,6 +163,7 @@ export default {
     },
     mounted() {
         this.retrieveLowongan();
+        this.retrievePosisi();
         this.filterJenisLowongan();
         this.filterPosisi();
         axios.get("http://localhost:4000/api/posisi/") //ganti APInya 

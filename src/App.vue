@@ -1,31 +1,31 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand fw-bolder" href="/#">
+      <router-link class="navbar-brand fw-bolder" to="/#">
       <img src="./assets/logo-rsk.svg" alt="" width="40" height="40" class="d-inline-block">
       HR Siap Kerja
-      </a>
+      </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav">
           <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="/lowongan" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <router-link class="nav-link dropdown-toggle" to="/lowongan" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Lowongan
-          </a>
+          </router-link>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="/lowongan">Daftar Lowongan</a></li>
-            <li><a class="dropdown-item" href="/tambahlowongan">Tambah Lowongan</a></li>
+            <li><router-link class="dropdown-item" to="/lowongan">Daftar Lowongan</router-link></li>
+            <li><router-link class="dropdown-item" to="/tambahlowongan">Tambah Lowongan</router-link></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="/pelamar" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <router-link class="nav-link dropdown-toggle" to="/pelamar" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Pelamar
-          </a>
+          </router-link>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="/pelamar">Daftar Pelamar</a></li>
-            <li><a class="dropdown-item" href="/tambahpelamar">Tambah Pelamar</a></li>
+            <li><router-link class="dropdown-item" to="/pelamar">Daftar Pelamar</router-link></li>
+            <li><router-link class="dropdown-item" to="/tambahpelamar">Tambah Pelamar</router-link></li>
           </ul>
         </li>
         </div>
@@ -46,8 +46,11 @@ export default {
 </script>
 
 <style>
+html, body {
+  font-family: 'Nunito', sans-serif;
+}
+
 #app {
-  font-family: 'Nunito', sans-serif ;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
