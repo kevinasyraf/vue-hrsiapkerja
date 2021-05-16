@@ -4,27 +4,23 @@
         <div class="row">
             <div class="col-sm">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama">
+                    <input type="text" class="form-control" placeholder="Nama" v-model="nama">
                 </div>
             </div>
             <div class="col-sm">
-                <select class="form-select">
-                    <option selected>Status Lowongan</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select class="form-select" v-model="kesesuaian">
+                    <option :value="''" selected disabled hidden>Kesesuaian</option>
+                    <option v-for="kesesuaian in listKesesuaian" v-bind:key="kesesuaian.id" :value="kesesuaian.id"> {{kesesuaian.nama}} </option>
                 </select>
             </div>
-            <div class="col-sm">
-                <select class="form-select">
-                    <option selected>Posisi</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+            <!-- <div class="col-sm">
+                <select class="form-select" v-model="posisi">
+                    <option :value="''" selected disabled hidden>Posisi</option>
+                    <option v-for="posisi in listPosisi" v-bind:key="posisi.id" :value="posisi.id"> {{posisi.nama}} </option>
                 </select>
-            </div>
+            </div> -->
             <div class="col-sm">
-                <button type="button" class="btn btn-success">Pencarian</button>
+                <button type="button" class="btn btn-success" v-on:click="findByNamaAndKesesuaian">Pencarian</button>
             </div>
         </div>
         <br>
@@ -37,9 +33,9 @@
                         <th>Nama</th>
                         <th>Email</th>
                         <th>No. Telepon</th>
-                        <!-- <th>Divisi</th>
-                        <th>Posisi</th>
-                        <th>Kesesuaian</th> -->
+                        <!-- <th>Divisi</th> -->
+                        <!-- <th>Posisi</th> -->
+                        <th>Kesesuaian</th>
                         <th>Status Pelamar</th>
                         <th>Aksi</th>
                     </tr>
@@ -50,9 +46,9 @@
                         <td>{{item.nama}}</td>
                         <td>{{item.email}}</td>
                         <td>{{item.nomorTelepon}}</td>
-                        <!-- <td>{{item.jumlahLowongan}}</td>
-                        <td>{{item.tugas}}</td>
-                        <td>{{item.status}}</td> -->
+                        <!-- <td>{{item.divisi}}</td> -->
+                        <!-- <td>{{item.posisi}}</td> -->
+                        <td>{{listKesesuaian[item.idKesesuaian - 1].nama}}</td>
                         <td>
                             <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4" :href="'/pelamar/' + item.id">{{status[item.idStatus - 1]}}</a>
                             <a v-if="item.idStatus==2" href="" data-toggle="modal" data-target="#interviewModal">Interview</a>
@@ -138,8 +134,8 @@
 
 <script>
 import axios from 'axios';
-// eslint-disable-next-line no-unused-vars
 import PelamarDataService from "../services/PelamarDataService";
+import KesesuaianDataService from "../services/KesesuaianDataService";
 
 export default {
     name: "pelamar-list",
@@ -151,7 +147,10 @@ export default {
             color: '#3C77BF',
             pelamarStatus: '',
             status: ["Screening", "Interviewed", "Additional Assignment", "Negotiation", "Rejected", "Declined", "Hired"],
-            divisi: [],
+            listKesesuaian: ["Rekomendasi", "Tidak Direkomendasi"],
+            listDivisi: [],
+            nama: "",
+            kesesuaian: "",
             waktuInterview: "",
             currentIdPelamar: -1,
         };
@@ -160,6 +159,15 @@ export default {
         retrievePelamar() {
             PelamarDataService.getAll().then(response => {
                 this.pelamar = response.data;
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+        retrieveKesesuaian() {
+            KesesuaianDataService.getAll().then(response => {
+                this.listKesesuaian = response.data;
                 console.log(response.data);
             })
             .catch(e => {
@@ -220,12 +228,24 @@ export default {
                 waktuInterview: this.waktuInterviewPelamar
             })
         },
+
+        findByNamaAndKesesuaian() {
+            PelamarDataService.findByNamaAndKesesuaian(this.nama, this.kesesuaian).then(response => {
+                this.pelamar = response.data;
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+
         numberOfIndex(index) {
             return index + 1;
         },
     },
     mounted() {
         this.retrievePelamar();
+        this.retrieveKesesuaian();
         // this.retrieveDivisi();
         this.updateStatus();
         // this.currentIdPelamar = this.idPelamar;
