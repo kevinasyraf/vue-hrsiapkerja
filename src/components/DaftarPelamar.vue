@@ -3,21 +3,21 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <select class="form-select">
-                    <option :value="''" selected disabled hidden>Divisi</option>
-                    <option value="1">Menggantikan</option>
-                    <option value="2">Menambah Baru</option>
-                </select>
-            </div>
-            <div class="col-sm">
-                <select class="form-select">
-                    <option :value="''" selected disabled hidden>Posisi</option>
-                    <!-- <option v-for="posisi in listPosisi" v-bind:key="posisi.id" :value="posisi.id"> {{posisi.nama}} </option> -->
-                </select>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama">
+                </div>
             </div>
             <div class="col-sm">
                 <select class="form-select">
                     <option selected>Status Lowongan</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <div class="col-sm">
+                <select class="form-select">
+                    <option selected>Posisi</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -33,6 +33,7 @@
             <table class="table table-bordered" id="tabelPelamar" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Nama</th>
                         <th>Email</th>
                         <th>No. Telepon</th>
@@ -44,7 +45,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in pelamar" v-bind:key="item.id">
+                    <tr v-for="(item, index) in pelamar" v-bind:key="item.id">
+                        <td>{{numberOfIndex(index)}}</td>
                         <td>{{item.nama}}</td>
                         <td>{{item.email}}</td>
                         <td>{{item.nomorTelepon}}</td>
@@ -80,7 +82,7 @@
                                     <div class="col">
                                         <!-- <input class="form-control" type="text" v-model="idPelamar" readonly> -->
                                         <input class="form-control" type="datetime-local" value="" id="example-datetime-local-input" v-model="waktuInterview">
-                                        <p>{{waktuInterview}}</p>
+                                        <!-- <p>{{waktuInterview}}</p> -->
                                     </div>
                                 </div>
                             </form>
@@ -217,8 +219,10 @@ export default {
             {
                 waktuInterview: this.waktuInterviewPelamar
             })
-        }
-
+        },
+        numberOfIndex(index) {
+            return index + 1;
+        },
     },
     mounted() {
         this.retrievePelamar();

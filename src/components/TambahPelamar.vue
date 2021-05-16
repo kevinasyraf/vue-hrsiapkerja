@@ -23,7 +23,7 @@
        </div>
 
        <div class="form-group" style="margin-bottom: 5%;">
-           <label class="col-sm-4 col-form-label">kesesuaian<span style="color: red">*</span> </label>
+           <label class="col-sm-4 col-form-label">Kesesuaian<span style="color: red">*</span> </label>
             <select v-model="paket.idKesesuaian">
                <option v-for="item in listKesesuaian" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
            </select>

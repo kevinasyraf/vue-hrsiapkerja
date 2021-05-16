@@ -7,8 +7,7 @@
         <div class="col-sm">
             <select class="form-select" v-model="divisi">
                 <option :value="''" selected disabled hidden>Divisi</option>
-                <option value="1">Menggantikan</option>
-                <option value="2">Menambah Baru</option>
+                <option v-for="divisi in listDivisi" v-bind:key="divisi.id" :value="divisi.id"> {{divisi.nama}} </option>
             </select>
         </div>
         <div class="col-sm">
@@ -18,15 +17,7 @@
             </select>
         </div>
         <div class="col-sm">
-            <select class="form-select">
-                <option selected>Status Lowongan</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-        </div>
-        <div class="col-sm">
-            <button type="button" class="btn btn-success" v-on:click="filterPosisi">Pencarian</button>
+            <button type="button" class="btn btn-success" v-on:click="findByDivisiAndPosisi">Pencarian</button>
         </div>
     </div>
     <br>
@@ -35,24 +26,30 @@
         <table class="table table-bordered" id="tabelLowongan" width="100%" cellspacing="0">
             <thead>
                 <tr>
+                    <th>No</th>
                     <th>Divisi</th>
                     <th>Posisi</th>
                     <th>Jenis Lowongan</th>
                     <th>Jumlah Dibutuhkan</th>
                     <th>Tugas</th>
                     <th>Status Lowongan</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in lowongan" v-bind:key="item.id">
-                            <td>{{item.idDivisi}}</td>
-                            <td>{{item.idPosisi}}</td>
-                            <td>{{item.jenisLowongan}}</td>
-                            <td>{{item.jumlahLowongan}}</td>
-                            <td>{{item.tugas}}</td>
-                          <td><router-link :to="'/lowongan/' + item.id">{{item.status}}</router-link></td>
-                        </tr>
-                    </tbody>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in lowongan" v-bind:key="item.id">
+                    <td>{{numberOfIndex(index)}}</td>
+                    <td>{{listDivisi[item.idDivisi - 1].nama}}</td>
+                    <td>{{listPosisi[item.idPosisi - 1].nama}}</td>
+                    <td>{{item.jenisLowongan}}</td>
+                    <td>{{item.jumlahLowongan}}</td>
+                    <td>{{item.tugas}}</td>
+                    <td>{{item.status}}</td>
+                    <td>
+                        <router-link class="btn btn-success" :to="'/pelamar/' + item.id" type="button">Detail</router-link>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
@@ -104,13 +101,15 @@ h2 {
 // eslint-disable-next-line no-unused-vars
 import LowonganDataService from "../services/LowonganDataService";
 import PosisiDataService from "../services/PosisiDataService";
-import axios from "axios";
+import DivisiDataService from "../services/DivisiDataService";
+
 export default {
     name: "lowongan-list",
     data() {
         return {
             listPosisi: [],
             listJenisLowongan:[],
+            listDivisi:[],
             detailLowongan: {
                 id: Number,
                 nama: String,
@@ -142,8 +141,17 @@ export default {
                 console.log(e);
             });
         },
-        filterJenisLowongan() {
-            LowonganDataService.findByJenisLowongan(this.jenisLowongan).then(response => {
+        retrieveDivisi() {
+            DivisiDataService.getAll().then(response => {
+                this.listDivisi = response.data;
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+        findByDivisiAndPosisi() {
+            LowonganDataService.findByDivisiAndPosisi(this.divisi, this.posisi).then(response => {
                 this.lowongan = response.data;
                 console.log(response.data);
             })
@@ -151,26 +159,14 @@ export default {
                 console.log(e);
             });
         },
-        filterPosisi() {
-            LowonganDataService.findByPosisi(this.posisi).then(response => {
-                this.lowongan = response.data;
-                console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
+        numberOfIndex(index) {
+            return index + 1;
         },
     },
     mounted() {
         this.retrieveLowongan();
         this.retrievePosisi();
-        this.filterJenisLowongan();
-        this.filterPosisi();
-        axios.get("http://localhost:4000/api/posisi/") //ganti APInya 
-        .then((resp) => {
-            console.warn(resp.data);
-            this.listPosisi =resp.data;
-        });
+        this.retrieveDivisi();
     }
 };
 </script>
