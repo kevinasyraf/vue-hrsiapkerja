@@ -51,7 +51,7 @@
                         <td>{{listKesesuaian[item.idKesesuaian - 1].nama}}</td>
                         <td>
                             <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4" :href="'/pelamar/' + item.id">{{status[item.idStatus - 1]}}</a>
-                            <a v-if="item.idStatus==2" href="" data-toggle="modal" data-target="#interviewModal">Interview</a>
+                            <a v-if="item.idStatus==2" href="" data-toggle="modal" data-target="#interviewModal" v-on:click="setCurrentPelamar(item.id)">Interview</a>
                             <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#exampleModalCenter">Negosiasi</a>
                             <a v-if="item.idStatus==6 || item.idStatus==7">{{status[item.idStatus - 1]}}</a>
                         </td>
@@ -74,17 +74,22 @@
                         <div class="modal-body">
                             <form>
                                 <div class="row">
+                                    <div class="col">Nama</div>
+                                    <div class="col">
+                                        <input class="form-control" type="text" readonly v-model="currentNamaPelamar">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
                                     <div class="col">Waktu Interview</div>
                                     <div class="col">
-                                        <!-- <input class="form-control" type="text" v-model="idPelamar" readonly> -->
-                                        <input class="form-control" type="datetime-local" value="" id="example-datetime-local-input" v-model="waktuInterview">
-                                        <!-- <p>{{waktuInterview}}</p> -->
+                                        <input class="form-control" type="datetime-local" value="" id="example-datetime-local-input" v-model="currentWaktuInterviewPelamar">
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <a role="button" class="btn btn-success" href="/pelamar" @click="updateStatus">Simpan</a>
+                            <a role="button" class="btn btn-success" v-on:click="updateJadwalInterview">Simpan</a>
                             <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
                         </div>
                     </div>
@@ -133,7 +138,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import PelamarDataService from "../services/PelamarDataService";
 import KesesuaianDataService from "../services/KesesuaianDataService";
 
@@ -153,6 +157,8 @@ export default {
             kesesuaian: "",
             waktuInterview: "",
             currentIdPelamar: -1,
+            currentNamaPelamar: "",
+            currentWaktuInterviewPelamar: ""
         };
     },
     methods: {
@@ -195,6 +201,20 @@ export default {
            });
        },
 
+       setCurrentPelamar(id) {
+         PelamarDataService.get(id)
+           .then(response => {
+             this.currentPelamar = response.data;
+             this.currentIdPelamar = response.data.id;
+             this.currentNamaPelamar = response.data.nama;
+             this.currentWaktuInterviewPelamar = response.data.waktuInterview;
+             console.log(response.data);
+           })
+           .catch(e => {
+             console.log(e);
+           });
+       },
+
         updateStatus() {
             var data = {
                id: this.pelamar.id,
@@ -223,10 +243,18 @@ export default {
         },
 
         updateJadwalInterview(){
-            axios.put('api/pelamar/{this.currentIdPelamar}',
-            {
-                waktuInterview: this.waktuInterviewPelamar
-            })
+            var data = {
+               waktuInterview: this.currentWaktuInterviewPelamar
+             };
+             console.log(data)
+             PelamarDataService.update(this.currentIdPelamar, data)
+               .then(response => {
+                 console.log(response.data);
+                 this.message = 'The pelamar was updated successfully!';
+               })
+               .catch(e => {
+                 console.log(e);
+               });
         },
 
         findByNamaAndKesesuaian() {
@@ -247,7 +275,6 @@ export default {
         this.retrievePelamar();
         this.retrieveKesesuaian();
         // this.retrieveDivisi();
-        this.updateStatus();
         // this.currentIdPelamar = this.idPelamar;
         // this.waktuInterview = this.waktuInterviewPelamar;
     },
