@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col">Posisi</div>
                         <div class="col">
-                            <input type="text" class="form-control" id="noTelepon" value="Front End Engineer" readonly/>
+                            <input type="text" class="form-control" id="noTelepon" value="Frontend Developer" readonly/>
                         </div>
                     </div><br>
                     <div class="row">
@@ -48,7 +48,7 @@
                     <div class="row">
                         <div class="col">Status Pelamar</div>
                         <div class="col">
-                            <select name="status" class="form-control" v-model="pelamarStatus">
+                            <select name="status" class="form-control form-select" v-model="pelamarStatus">
                                 <option value="2">Wawancara</option>
                                 <option value="3">Tugas Tambahan</option>
                                 <option value="4">Ditolak</option>

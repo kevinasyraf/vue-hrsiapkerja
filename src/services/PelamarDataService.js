@@ -25,13 +25,13 @@ class PelamarDataService{
         return http.delete(`/pelamars/${id}`);
     }
 
+    findByNamaAndKesesuaian(nama, kesesuaian) {
+        return http.get(`/pelamars?nama=${nama}&idKesesuaian=${kesesuaian}`);
+    }
     // deleteAll() {
     //     return http.delete(`/tutorials`);
     // }
     //
-    // findByTitle(title) {
-    //     return http.get(`/tutorials?title=${title}`);
-    // }
 }
 
 export default new PelamarDataService();

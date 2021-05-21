@@ -14,10 +14,9 @@ class LowonganDataService {
     disetujuiLowongan(id, data) {
         return http.put(`/lowongan/disetujui/${id}`, data);
     }
-
-    // findByPosisi(posisi) {
-    //     return http.get("/lowongan?posisi=${posisi}")
-    // }
+    findByDivisiAndPosisi(divisi, posisi) {
+        return http.get(`/lowongan?idDivisi=${divisi}&idPosisi=${posisi}`)
+    }
 
     // findByJenisLowongan(jenisLowongan) {
     //     return http.get("/lowongan?jenisLowongan=${jenisLowongan}")
