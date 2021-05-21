@@ -44,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in pelamar" v-bind:key="item.id">
+                    <tr v-for="item in pelamar" v-bind:key="item.id" :value="item.id">
                         <td>{{item.nama}}</td>
                         <td>{{item.email}}</td>
                         <td>{{item.nomorTelepon}}</td>
@@ -54,7 +54,7 @@
                         <td>
                             <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4" :href="'/pelamar/' + item.id">{{status[item.idStatus - 1]}}</a>
                             <a v-if="item.idStatus==2" href="" data-toggle="modal" data-target="#interviewModal">Interview</a>
-                            <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#exampleModalCenter">Negosiasi</a>
+                            <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#negosiasiModal" >Negosiasi</a>
                             <a v-if="item.idStatus==6 || item.idStatus==7">{{status[item.idStatus - 1]}}</a>
                         </td>
                         <td>
@@ -93,7 +93,7 @@
                 </div>
             </div>
             
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="negosiasiModal" tabindex="-1" role="dialog" aria-labelledby="negosiasiModalTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
@@ -152,6 +152,7 @@ export default {
             divisi: [],
             waktuInterview: "",
             currentIdPelamar: -1,
+            pelamarId: '',
         };
     },
     methods: {
@@ -187,7 +188,7 @@ export default {
 
         updateStatus() {
             var data = {
-               id: this.pelamar.id,
+               id: this.pelamarId,
                nama: this.pelamar.nama,
                email: this.pelamar.email,
                nomorTelepon:  this.pelamar.nomorTelepon,
@@ -196,7 +197,7 @@ export default {
                waktuInterview: this.waktuInterview
              };
              console.log(data)
-             PelamarDataService.update(data)
+             PelamarDataService.update(this.pelamarId,data)
                .then(response => {
                  console.log(response.data);
                  this.message = 'The pelamar was updated successfully!';
