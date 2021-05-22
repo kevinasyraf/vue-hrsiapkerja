@@ -27,13 +27,13 @@
                     <div class="row">
                         <div class="col">Divisi</div>
                         <div class="col">
-                            <input type="text" class="form-control" id="noTelepon" value="IT" readonly/>
+                            <input type="text" class="form-control" id="divisi" value="IT" readonly/>
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="col">Posisi</div>
                         <div class="col">
-                            <input type="text" class="form-control" id="noTelepon" value="Frontend Developer" readonly/>
+                            <input type="text" class="form-control" id="posisi" value="Frontend Developer" readonly/>
                         </div>
                     </div><br>
                     <div class="row">
@@ -49,11 +49,20 @@
                         <div class="col">Status Pelamar</div>
                         <div class="col">
                             <select name="status" class="form-control form-select" v-model="pelamarStatus">
-                                <option value="2">Wawancara</option>
-                                <option value="3">Tugas Tambahan</option>
-                                <option value="4">Ditolak</option>
-                                <option value="5">Negosiasi</option>
+                                <option value="1" selected disabled hidden>Screening</option>
+                                <option value="2">Interview</option>
+                                <option value="3">Additional Assignment</option>
+                                <option value="4">Rejected</option>
+                                <option value="5">Negotiation</option>
+                                <option value="6" selected disabled hidden>Declined</option>
+                                <option value="7" selected disabled hidden>Hired</option>
                             </select>
+                        </div>
+                    </div><br>
+                    <div class="row" v-if="pelamarStatus==6 || pelamarStatus==7">
+                        <div class="col">Catatan</div>
+                        <div class="col">
+                             <textarea class="form-control" id="message-text" v-model="pelamarCatatan" readonly></textarea>
                         </div>
                     </div><br>
                     <div class="row">
@@ -119,6 +128,7 @@ export default {
          pelamarNoTlp : '',
          pelamarKesesuaian : '',
          pelamarStatus : '',
+         pelamarCatatan: '',
          listKesesuaian : [],
          listStatus : [],
          message: '',
@@ -135,6 +145,7 @@ export default {
              this.pelamarNoTlp = response.data.nomorTelepon;
              this.pelamarKesesuaian = response.data.idKesesuaian;
              this.pelamarStatus = response.data.idStatus;
+             this.pelamarCatatan = response.data.catatan;
              console.log(response.data);
            })
            .catch(e => {
@@ -164,11 +175,6 @@ export default {
 
        updateStatus() {
              var data = {
-               id: this.PelamarId,
-               nama: this.pelamarName,
-               email: this.pelamarEmail,
-               nomorTelepon:  this.pelamarNoTlp,
-               idKesesuaian: this.pelamarKesesuaian,
                idStatus: this.pelamarStatus,
              };
 
