@@ -10,38 +10,38 @@
     <div v-if="!submitted"> -->
     <form>
        <div class="form-group" style="margin-top:5%">
-           <label class="col-sm-4 col-form-label"> Divisi <span style="color: red">*</span></label>
-           <select v-model="paket.idDivisi">
+           <label class="col-sm-4 col-form-label"> Divisi <span class="text-danger">*</span></label>
+           <select required v-model="paket.idDivisi">
                <option v-for="item in listDivisi" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
            </select>
     
        </div>
        <div class="form-group" style="margin-top: 5%;">
-           <label class="col-sm-4 col-form-label"> Posisi<span style="color: red">*</span> </label>
-            <select v-model="paket.idPosisi">
+           <label class="col-sm-4 col-form-label"> Posisi<span class="text-danger">*</span> </label>
+            <select required v-model="paket.idPosisi">
                <option v-for="item in listPosisi" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
            </select>
     
        </div> 
        <div class="form-group" style="margin-bottom: 5%;"> 
-           <label class="col-sm-4 col-form-label"> Jenis Lowongan<span style="color: red">*</span> </label>
-           <select v-model="paket.jenisLowongan">
+           <label class="col-sm-4 col-form-label"> Jenis Lowongan<span class="text-danger">*</span> </label>
+           <select required v-model="paket.jenisLowongan">
                <option>  </option>
                <option value="1"> Menggantikan </option>
                <option value="2"> Menambah Baru </option>
            </select>
        </div>
         <div class="form-group" style="margin-bottom: 5%;">
-           <label class="col-sm-4 col-form-label"> Jumlah Dibutuhkan<span style="color: red">*</span> </label>
-            <input type="text" class="form-group" id="jumlahLowongan" required v-model="paket.jumlahLowongan">
+           <label class="col-sm-4 col-form-label"> Jumlah Dibutuhkan<span class="text-danger">*</span> </label>
+            <input type="number" min="0" class="form-group" id="jumlahLowongan" required v-model="paket.jumlahLowongan">
     </div>
         <div class="form-group" style="margin-bottom: 5%;">
-           <label class="col-sm-4 col-form-label"> Waktu Pengerjaan<span style="color: red">*</span> </label>
+           <label class="col-sm-4 col-form-label"> Waktu Pengerjaan<span class="text-danger">*</span> </label>
            <input type="date" class="form-group" name="Waktu Pengerjaan" required v-model="paket.deadlineTugas">
        </div>
        <div class="form-group" style="margin-bottom: 5%;">
          <form action="fileupload" method="post" enctype="multipart/form-data">
-           <label class="col-sm-4 col-form-label"> Kualifikasi<span style="color: red">*</span> </label>
+           <label class="col-sm-4 col-form-label"> Kualifikasi<span class="text-danger">*</span> </label>
            <!-- <input type="text" class="form-group" name="Kualifikasi"> -->
             <input type="file" name="filetoupload" class="form-group"/>
    </form></div>
@@ -80,27 +80,6 @@
 
     </form>
 </div></div>
-<!-- Modal -->
-<!-- <div v-if="isSubmitted" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 </div>
 
 </template>
@@ -202,6 +181,16 @@ html, body {
 .modal-title{
     color: #fff;
     font-weight: 500;
-    font-size : 22px;
+    font-size : 20px;
 }
+input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 </style>
