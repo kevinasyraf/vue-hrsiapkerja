@@ -20,7 +20,7 @@
           <div class=" row">
             <label class="col-sm-4 col-form-label">Nama<span class="text-danger">*</span> </label>
             <div class="col">
-              <input type="text" class="form-group" id="nama" required v-model="paket.nama" style= "width: 80%"  oninvalid="this.setCustomValidity('kosong')" oninput="setCustomValidity('')">
+              <input type="text" class="form-group" id="nama" required v-model="paket.nama" style= "width: 80%"  oninvalid="this.setCustomValidity('Please fill the name')" oninput="setCustomValidity('')">
             </div>
           </div>
 
@@ -167,7 +167,7 @@
         status: 0,
         // isSuccess: false,
         //eslint-disable-next-line
-        reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
+        // reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
       };
     },
 
@@ -222,25 +222,16 @@
       refreshSubmitted() {
         this.status = 0;
       },
-      // validateNama() {
-      //   if (this.paket.nama == null && this.paket.nama == '') {
-      //     this.paket.nama.setCustomValidity("Masukan nama yang benar");
-      //     this.paket.nama.reportValidity();
-      //   }},
-      // //   if (!this.paket.nama) {
-      // //     this.errors.push("Name required.");
-      // // }
-      // // },
-
-      validateEmail() {
-        if (this.paket.email == null || this.paket.email == '' || (!this.reg.test(this.paket.email))) {
-          var email = document.getElementById("email");
-          email.setCustomValidity("Masukan email yang benar");
-          email.reportValidity();
-        }
-      }
-    },
-  };
+    //   validateEmail() {
+    //     if (this.paket.email == null || this.paket.email == '' || (!this.reg.test(this.paket.email))) {
+    //       var email = document.getElementById("email");
+    //       email.setCustomValidity("Masukan email yang benar");
+    //       email.reportValidity();
+    //     }
+    //   }
+    // },
+  }
+  }
 
 </script>
 
