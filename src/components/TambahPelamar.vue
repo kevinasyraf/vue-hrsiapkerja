@@ -12,7 +12,7 @@
             <label class="col-sm-4 col-form-label">Lowongan<span class="text-danger">*</span> </label>
             <div class="col">
               <select required v-model="paket.idLowongan">
-                <option v-for="item in listLowongan" v-bind:key="item.id" :value="item.id"> {{listDivisi[item.idDivisi - 1].nama + ' ' +'-' + ' ' + listPosisi[item.idPosisi - 1].nama}} </option>
+                <option v-for="item in listLowongan" v-bind:key="item.id" :value="item.id"> {{ listDivisi[item.idDivisi - 1].nama + ' ' +'-' + ' ' + listPosisi[item.idPosisi - 1].nama}} </option>
               </select>
             </div>
           </div>
