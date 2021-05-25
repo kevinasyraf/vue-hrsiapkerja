@@ -50,7 +50,7 @@
                         <!-- <td>{{item.posisi}}</td> -->
                         <td>{{listKesesuaian[item.idKesesuaian - 1].nama}}</td>
                         <td>
-                            <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4" :href="'/pelamar/' + item.id">{{status[item.idStatus - 1]}}</a>
+                            <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4">{{status[item.idStatus - 1]}}</a>
                             <a v-if="item.idStatus==2" href="" data-toggle="modal" data-target="#interviewModal" v-on:click="setCurrentPelamar(item.id)">Interview</a>
                             <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#negosiasiModal" v-on:click="setCurrentPelamar(item.id)">Negotiation</a>
                             <a v-if="item.idStatus==6 || item.idStatus==7">{{status[item.idStatus - 1]}}</a>
@@ -83,13 +83,13 @@
                                 <div class="row">
                                     <div class="col">Waktu Interview</div>
                                     <div class="col">
-                                        <input class="form-control" type="datetime-local" value="" id="example-datetime-local-input" v-model="currentWaktuInterviewPelamar">
+                                        <input class="form-control" type="datetime-local" v-model="currentWaktuInterviewPelamar">
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <a role="button" class="btn btn-success" v-on:click="updateJadwalInterview">Simpan</a>
+                            <a role="button" class="btn btn-success" href="/pelamar" v-on:click="updateJadwalInterview">Simpan</a>
                             <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
                         </div>
                     </div>
