@@ -1,18 +1,14 @@
 import http from "../http-common";
 
-class StatusDataService{
+class JenisLowonganDataService{
     getAll() {
-        return http.get("/status");
+        return http.get("/jenisLowongan");
     }
 
     get(id) {
-        return http.get(`/status/${id}`);
-    }
-
-    update(id, data) {
-        return http.put(`/status/${id}`, data);
+        return http.get(`/jenisLowongan/${id}`);
     }
 
 }
 
-export default new StatusDataService();
+export default new JenisLowonganDataService();
