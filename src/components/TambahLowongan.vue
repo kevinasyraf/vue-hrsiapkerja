@@ -8,99 +8,135 @@
         </div></div>
    <!-- <div class="submit-form">
     <div v-if="!submitted"> -->
-    <form>
-       <div class="form-group" style="margin-top:5%">
-           <label class="col-sm-4 col-form-label"> Divisi <span style="color: red">*</span></label>
-           <select v-model="paket.idDivisi">
+    <form @submit="saveLowongan">
+       <div class="row" style="margin-top:5%">
+           <label class="col-sm-4 col-form-label"> Divisi <span class="text-danger">*</span></label>
+          <div class="col">
+           <select required v-model="paket.idDivisi">
                <option v-for="item in listDivisi" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
-           </select>
-    
+           </select></div>
        </div>
-       <div class="form-group" style="margin-top: 5%;">
-           <label class="col-sm-4 col-form-label"> Posisi<span style="color: red">*</span> </label>
-            <select v-model="paket.idPosisi">
+       <div class="row">
+           <label class="col-sm-4 col-form-label"> Posisi<span class="text-danger">*</span> </label>
+           <div class="col">
+            <select required v-model="paket.idPosisi">
                <option v-for="item in listPosisi" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
-           </select>
-    
+           </select></div>
        </div> 
-       <div class="form-group" style="margin-bottom: 5%;"> 
-           <label class="col-sm-4 col-form-label"> Jenis Lowongan<span style="color: red">*</span> </label>
-           <select v-model="paket.jenisLowongan">
-               <option>  </option>
-               <option value="1"> Menggantikan </option>
-               <option value="2"> Menambah Baru </option>
-           </select>
+
+       <div class="row"> 
+           <label class="col-sm-4 col-form-label"> Jenis Lowongan<span class="text-danger">*</span> </label>
+           <div class="col">
+           <select required v-model="paket.idJenisLowongan">
+               <option v-for="item in listJenisLowongan" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
+           </select></div>
        </div>
-        <div class="form-group" style="margin-bottom: 5%;">
-           <label class="col-sm-4 col-form-label"> Jumlah Dibutuhkan<span style="color: red">*</span> </label>
-            <input type="text" class="form-group" id="jumlahLowongan" required v-model="paket.jumlahLowongan">
-    </div>
-        <div class="form-group" style="margin-bottom: 5%;">
-           <label class="col-sm-4 col-form-label"> Waktu Pengerjaan<span style="color: red">*</span> </label>
-           <input type="date" class="form-group" name="Waktu Pengerjaan" required v-model="paket.deadlineTugas">
-       </div>
-       <div class="form-group" style="margin-bottom: 5%;">
+        <div class="row">
+           <label class="col-sm-4 col-form-label"> Jumlah Dibutuhkan<span class="text-danger">*</span> </label>
+            <div class="col">
+            <input type="number" min="0" class="form-group" id="jumlahLowongan" required v-model="paket.jumlahLowongan"  style= "width: 80%">
+    </div></div>
+
+        <div class="row">
+           <label class="col-sm-4 col-form-label"> Waktu Pengerjaan<span class="text-danger">*</span> </label>
+             <div class="col">
+           <input type="date" class="form-group" name="Waktu Pengerjaan" required v-model="paket.deadlineTugas"  style= "width: 80%">
+       </div></div>
+
+       <div class="row">
          <form action="fileupload" method="post" enctype="multipart/form-data">
-           <label class="col-sm-4 col-form-label"> Kualifikasi<span style="color: red">*</span> </label>
-           <!-- <input type="text" class="form-group" name="Kualifikasi"> -->
-            <input type="file" name="filetoupload" class="form-group"/>
+           <label class="col-sm-4 col-form-label"> Kualifikasi<span class="text-danger">*</span> </label>
+            <input type="file" name="filetoupload" class="form-group" style= "width: 50%">
    </form></div>
+
     <div class="form-group" style="margin-bottom: 5%;">
     <form action="fileupload" method="post" enctype="multipart/form-data">
            <label class="col-sm-4 col-form-label"> Tugas </label>
-           <input type="file" name="filetoupload" class="form-group"/>
+           <input type="file" name="filetoupload" class="form-group" style= "width: 50%">
            <!-- <input type="text" class="form-group" name="Tugas"> -->
     </form></div>
-    <!-- <button type="button" class="btn btn-danger float-end" style="margin-right: 52px"  href="/lowongan">Batal</button> -->
-    <a class="btn btn-danger float-end" style="margin-right: 52px"  href="/lowongan" role="button">Batal</a>
-    <!-- <button @click="saveLowongan" class="btn btn-success float-end mr-1" data-toggle="modal" data-target="#exampleModal">Simpan</button> -->
-    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#exampleModalCenter">Simpan</a>
+    
+    <router-link to="/lowongan">
+            <button class="row btn btn-danger float-end" style="margin-right: 60px">Batal</button>
+          </router-link>
+          
+          <div class="raw">
+          <div class="col">
+          <button id="completeButton" class="btn btn-success float-end" type="button" data-toggle="modal"
+            data-target="#exampleModal" @click="refreshSubmitted" style="margin-right: 4px" >
+            Simpan
+          </button></div></div>
+         
+        
 
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
-                            <h5 class="modal-title w-100 text-center" id="exampleModalLongTitle" style="font-size:30px">Confirmation Page</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
+        <!-- DIV BESAR MODAL -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <!-- HEADER MODAL -->
+              <div class="modal-header text-center" style="background-color: #3C77BF;">
+                <h5 v-if="status == 0" id="exampleModalLabel">
+                  confirmation page
+                </h5>
+                <h5 v-if="status == 1" id="exampleModalLabel">
+                  Loading...
+                </h5>
+                <h5 v-if="status == 2" id="exampleModalLabel">
+                  success page
+                </h5>
+                <h5 v-if="status == 3" id="exampleModalLabel">
+                  failed page
+                </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&#xD7;</span>
+                </button>
+              </div>
+              <!-- BODY MODAL -->
+              <div class="modal-body">
+                <h5 v-if="status == 0" id="exampleModalLabel">
+                  Apakah Anda yakin akan mengubah status pelamar Ini?
+                </h5>
+                <h5 v-if="status == 1" id="exampleModalLabel">
+                  Harap tunggu sebentar
+                </h5>
+                <h5 v-if="status == 2" id="exampleModalLabel">
+                  Kandidat baru berhasil ditambahkan
+                </h5>
+                <h5 v-if="status == 3" id="exampleModalLabel">
+                  Terjadi kesalahan pada sistem. Mohon lengkapi data pada
+                  formulir.
+                </h5>
+              </div>
+              <!-- FOOTER MODAL -->
+              <div class="modal-footer">
+                <div v-if="status == 0">
+                  <button class="btn btn-primary mr-4" type="submit">Ya</button>
 
-                           <p> Apakah Anda yakin akan menambahkan data lowongan baru tersebut? </p>
-                          </div>
-                          <div class="modal-footer">
-                            <a role="button" class="btn btn-success" @click="saveLowongan" href="/lowongan">Ya</a>
-                            <a role="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Tidak</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-    <!-- </div></div> -->
-
-    </form>
+                  <button class="btn btn-danger" type="button" data-dismiss="modal">
+                    Tidak
+                  </button>
+                </div>
+                <div v-if="status == 1"></div>
+                <div v-if="status == 2">
+                  <router-link to='/pelamar'><button class="btn btn-primary" data-dismiss="modal">
+                      Ok
+                    </button></router-link>
+                </div>
+                <div v-if="status == 3">
+                  <button class="btn btn-primary" id="buttonFailed" type="button" data-dismiss="modal">
+                    Ya
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END MODAL -->
+        <!-- ------------------------------------------------ -->
+        <br />
+      </form>
 </div></div>
-<!-- Modal -->
-<!-- <div v-if="isSubmitted" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 </div>
 
 </template>
@@ -113,8 +149,9 @@ export default {
        return{
            listDivisi:[],
            listPosisi:[],
-           isSubmitted :false,
+           listJenisLowongan:[],
            color : '#3C77BF',
+           color1: "#2ECC71",
            paket: {
                id:null,
                status: "pending",
@@ -126,9 +163,10 @@ export default {
                idDivisi:Number,
                idPosisi: Number,
                idUsers: 1,
-               jenisLowongan: Number
-           }
-       }
+               idJenisLowongan: Number
+           },
+            status: 0,
+       };
    },
    mounted() {
     axios
@@ -143,39 +181,59 @@ export default {
         console.warn(resp.data);
         this.listPosisi =resp.data;
       });
+       axios
+      .get("http://localhost:4000/api/jenisLowongan/") //ganti APInya 
+      .then((resp) => {
+        console.warn(resp.data);
+        this.listJenisLowongan =resp.data;
+      });
   },
 methods: {
-    saveLowongan(e){
+    saveLowongan(e) {
+       this.status = 1;
+       console.log(this.paket);
         axios 
         .post("http://localhost:4000/api/lowongan",this.paket) 
         .then((resp) => {
+          if (resp.status == 200) {
+              this.status = 2
+            }
             console.warn(resp.data);
             // alert(resp.data)
-            e.preventDefault();
-            this.isSubmitted= true;
-        }
-        )
+        })
+        .catch(err => {
+            console.log(err)
+            this.status = 3
+        });
 
+        e.preventDefault();
 
-    }
+    },
+     refreshSubmitted() {
+        this.status = 0;
+      },
 }  
 }
 
 //post method atau get
 </script>
 <style>
+html,
+  body {
+    font-family: 'Nunito', sans-serif;
+  }
 label {
     font-size: 20px;
-    margin-left: 52px;
+    margin-left: 48px;
 }
 
 select {
  display: inline-block;
- width: 50%;
+ width: 80%;
 }
 input {
  display: inline-block;
- width: 50%;
+ width: 80%;
 }
 button {
   font-size: 18px;
@@ -202,6 +260,16 @@ html, body {
 .modal-title{
     color: #fff;
     font-weight: 500;
-    font-size : 22px;
+    font-size : 20px;
 }
+input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 </style>
