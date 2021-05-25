@@ -41,7 +41,7 @@
                     <td>{{numberOfIndex(index)}}</td>
                     <td>{{listDivisi[item.idDivisi - 1].nama}}</td>
                     <td>{{listPosisi[item.idPosisi - 1].nama}}</td>
-                    <td>{{item.jenisLowongan}}</td>
+                    <td>{{listJenisLowongan[item.idJenisLowongan - 1].nama}}</td>
                     <td>{{item.jumlahLowongan}}</td>
                     <td>{{item.tugas}}</td>
                     <td>{{item.status}}</td>
@@ -102,6 +102,7 @@ h2 {
 import LowonganDataService from "../services/LowonganDataService";
 import PosisiDataService from "../services/PosisiDataService";
 import DivisiDataService from "../services/DivisiDataService";
+import JenisLowonganDataService from "../services/JenisLowonganDataService";
 
 export default {
     name: "lowongan-list",
@@ -150,6 +151,15 @@ export default {
                 console.log(e);
             });
         },
+        retrieveJenisLowongan() {
+            JenisLowonganDataService.getAll().then(response => {
+                this.listJenisLowongan = response.data;
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
         findByDivisiAndPosisi() {
             LowonganDataService.findByDivisiAndPosisi(this.divisi, this.posisi).then(response => {
                 this.lowongan = response.data;
@@ -167,6 +177,7 @@ export default {
         this.retrieveLowongan();
         this.retrievePosisi();
         this.retrieveDivisi();
+        this.retrieveJenisLowongan();
     }
 };
 </script>
