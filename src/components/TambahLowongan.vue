@@ -163,7 +163,8 @@ export default {
                idDivisi:Number,
                idPosisi: Number,
                idUsers: 1,
-               idJenisLowongan: Number
+               idJenisLowongan: Number,
+               emailaddr : ''
            },
             status: 0,
        };
@@ -186,6 +187,12 @@ export default {
       .then((resp) => {
         console.warn(resp.data);
         this.listJenisLowongan =resp.data;
+      });
+       axios
+      .get("http://localhost:4000/api/users/ceo/") //ganti APInya
+      .then((resp) => {
+        console.warn(resp.data);
+        this.emailaddr =resp.data.email;
       });
   },
 methods: {
