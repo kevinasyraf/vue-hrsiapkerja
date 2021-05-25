@@ -46,7 +46,7 @@
                     <td>{{item.tugas}}</td>
                     <td>{{item.status}}</td>
                     <td>
-                        <router-link class="btn btn-success" :to="'/pelamar/' + item.id" type="button">Detail</router-link>
+                        <router-link class="btn btn-success" :to="'/lowongan/' + item.id" type="button">Detail</router-link>
                     </td>
                 </tr>
             </tbody>
