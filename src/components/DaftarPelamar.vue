@@ -50,10 +50,10 @@
                         <!-- <td>{{item.posisi}}</td> -->
                         <td>{{listKesesuaian[item.idKesesuaian - 1].nama}}</td>
                         <td>
-                            <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4">{{status[item.idStatus - 1]}}</a>
+                            <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4">{{listStatus[item.idStatus - 1].nama}}</a>
                             <a v-if="item.idStatus==2" href="" data-toggle="modal" data-target="#interviewModal" v-on:click="setCurrentPelamar(item.id)">Interview</a>
                             <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#negosiasiModal" v-on:click="setCurrentPelamar(item.id)">Negotiation</a>
-                            <a v-if="item.idStatus==6 || item.idStatus==7">{{status[item.idStatus - 1]}}</a>
+                            <a v-if="item.idStatus==6 || item.idStatus==7">{{listStatus[item.idStatus - 1].nama}}</a>
                         </td>
                         <td>
                             <router-link class="btn btn-success" :to="'/pelamar/' + item.id" type="button">Detail</router-link>
@@ -140,6 +140,7 @@
 <script>
 import PelamarDataService from "../services/PelamarDataService";
 import KesesuaianDataService from "../services/KesesuaianDataService";
+import StatusDataService from "../services/KesesuaianDataService";
 export default {
     name: "pelamar-list",
     data() {
@@ -148,8 +149,8 @@ export default {
             currentPelamar: null,
             currentIndex: -1,
             color: '#3C77BF',
-            status: ["Screening", "Interviewed", "Additional Assignment", "Negotiation", "Rejected", "Declined", "Hired"],
-            listKesesuaian: ["Rekomendasi", "Tidak Direkomendasi"],
+            listStatus: [],
+            listKesesuaian: [],
             listDivisi: [],
             nama: "",
             kesesuaian: "",
@@ -175,6 +176,16 @@ export default {
             KesesuaianDataService.getAll().then(response => {
                 this.listKesesuaian = response.data;
                 console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+        retrieveStatus() {
+            StatusDataService.getAll().then(response => {
+                this.listStatus = response.data;
+                console.log(response.data);
+                console.log(this.listStatus);
             })
             .catch(e => {
                 console.log(e);
@@ -255,6 +266,7 @@ export default {
     mounted() {
         this.retrievePelamar();
         this.retrieveKesesuaian();
+        this.retrieveStatus();
         // this.retrieveDivisi();
         // this.currentIdPelamar = this.idPelamar;
         // this.waktuInterview = this.waktuInterviewPelamar;

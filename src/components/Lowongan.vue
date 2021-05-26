@@ -23,9 +23,9 @@
             </div>
           </div><br>
           <div class="row">
-            <div class="col">jenis Lowongan</div>
+            <div class="col">Jenis Lowongan</div>
             <div class="col">
-              <input type="text" class="form-control" id="jenisLowongan" v-model="lowonganJenisLowongan" readonly/>
+              <input type="text" class="form-control" id="jenisLowongan" v-model="listJenisLowongan[lowonganJenisLowongan - 1].nama" readonly/>
             </div>
           </div><br>
           <div class="row">
@@ -37,11 +37,11 @@
           <div class="row">
             <div class="col">Waktu Pengerjaan</div>
             <div class="col">
-              <input type="text" class="form-control" id="deadlineTugas" v-model="deadlineTugas" readonly/>
+              <input type="date" class="form-control" id="deadlineTugas" v-model="listTugas[deadlineTugas - 1].deadline" readonly/>
             </div>
           </div><br>
           <div class="row">
-            <div class="col">kualifikasi</div>
+            <div class="col">Kualifikasi</div>
             <div class="col">
               <input type="text" class="form-control" id="kualifikasi" v-model="lowonganKualifikasi" readonly/>
             </div>
@@ -107,6 +107,8 @@
 import LowonganDataService from "../services/LowonganDataService";
 import DivisiDataService from "../services/DivisiDataService";
 import PosisiDataService from "../services/PosisiDataService";
+import JenisLowonganDataService from "../services/DivisiDataService";
+import TugasDataService from "../services/PosisiDataService";
  // import axios from "axios";
 
 export default {
@@ -126,7 +128,9 @@ export default {
       listDivisi:[],
       listPosisi:[],
       message: '',
-      color : '#3C77BF'
+      color : '#3C77BF',
+      listJenisLowongan: [],
+      listTugas: []
     };
   },
   methods: {
@@ -135,12 +139,12 @@ export default {
           .then(response => {
             this.lowonganId = response.data.id;
             this.lowonganStatus = response.data.status;
-            this.lowonganJenisLowongan = response.data.jenisLowongan;
+            this.lowonganJenisLowongan = response.data.idJenisLowongan;
             this.lowonganJumlahLowongan = response.data.jumlahLowongan;
             this.lowonganKualifikasi = response.data.kualifikasi;
             this.lowonganBuka = response.data.lowonganBuka;
             this.lowonganTugas = response.data.tugas;
-            this.deadlineTugas = response.data.deadlineTugas;
+            this.deadlineTugas = response.data.idTugas;
             this.idDivisi = response.data.idDivisi;
             this.idUsers = response.data.idUsers;
             this.idPosisi = response.data.idPosisi;
@@ -151,7 +155,6 @@ export default {
             console.log(e);
           });
     },
-
     getDivisi(){
       DivisiDataService.getAll()
           .then(response => {
@@ -161,11 +164,28 @@ export default {
             console.log(e);
           });
     },
-
     getPosisi(){
       PosisiDataService.getAll()
           .then(response => {
             this.listPosisi = response.data;
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    },
+    getJenisLowongan(){
+      JenisLowonganDataService.getAll()
+          .then(response => {
+            this.listJenisLowongan = response.data;
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    },
+    getTugas(){
+      TugasDataService.getAll()
+          .then(response => {
+            this.listTugas = response.data;
           })
           .catch(e => {
             console.log(e);
@@ -201,6 +221,8 @@ export default {
     this.getLowongan(this.$route.params.id);
     this.getDivisi();
     this.getPosisi();
+    this.getJenisLowongan();
+    this.getTugas();
   },
 };
 //post method atau get
