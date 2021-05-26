@@ -53,7 +53,8 @@
                             <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4">{{status[item.idStatus - 1]}}</a>
                             <a v-if="item.idStatus==2" href="" data-toggle="modal" data-target="#interviewModal" v-on:click="setCurrentPelamar(item.id)">Interview</a>
                             <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#negosiasiModal" v-on:click="setCurrentPelamar(item.id)">Negotiation</a>
-                            <a v-if="item.idStatus==6 || item.idStatus==7">{{status[item.idStatus - 1]}}</a>
+                            <a v-if="item.idStatus==7" href="" data-toggle="modal" data-target="#tanggalBergabungModal" v-on:click="setCurrentPelamar(item.id)">Hired</a>
+                            <a v-if="item.idStatus==6">{{status[item.idStatus - 1]}}</a>
                         </td>
                         <td>
                             <router-link class="btn btn-success" :to="'/pelamar/' + item.id" type="button">Detail</router-link>
@@ -90,6 +91,33 @@
                         </div>
                         <div class="modal-footer">
                             <a role="button" class="btn btn-success" href="/pelamar" v-on:click="updateJadwalInterview">Simpan</a>
+                            <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="tanggalBergabungModal" tabindex="-1" role="dialog" aria-labelledby="tanggalBergabungTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
+                            <h5 class="modal-title w-100" id="exampleModalLongTitle">Tanggal Bergabung</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col">Tanggal Bergabung</div>
+                                    <div class="col">
+                                        <input class="form-control" type="date" v-model="currentTanggalBergabungPelamar">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a role="button" class="btn btn-success" href="/pelamar" v-on:click="updateTanggalBergabung">Simpan</a>
                             <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
                         </div>
                     </div>
@@ -159,6 +187,7 @@ export default {
             currentWaktuInterviewPelamar: "",
             currentStatus: "",
             currentCatatan: "",
+            currentTanggalBergabungPelamar: ""
         };
     },
     methods: {
@@ -197,6 +226,7 @@ export default {
              this.currentIdPelamar = response.data.id;
              this.currentNamaPelamar = response.data.nama;
              this.currentWaktuInterviewPelamar = response.data.waktuInterview;
+             this.currentTanggalBergabungPelamar = response.data.tanggalBergabung;
              this.currentStatus = response.data.idStatus;
              this.currentCatatan = response.data.catatan;
              console.log(response.data);
@@ -228,6 +258,20 @@ export default {
         updateJadwalInterview(){
             var data = {
                waktuInterview: this.currentWaktuInterviewPelamar
+             };
+             console.log(data)
+             PelamarDataService.update(this.currentIdPelamar, data)
+               .then(response => {
+                 console.log(response.data);
+                 this.message = 'The pelamar was updated successfully!';
+               })
+               .catch(e => {
+                 console.log(e);
+               });
+        },
+        updateTanggalBergabung(){
+            var data = {
+               tanggalBergabung: this.currentTanggalBergabungPelamar
              };
              console.log(data)
              PelamarDataService.update(this.currentIdPelamar, data)
