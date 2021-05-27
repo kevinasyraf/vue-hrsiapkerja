@@ -50,11 +50,10 @@
                         <!-- <td>{{item.posisi}}</td> -->
                         <td>{{listKesesuaian[item.idKesesuaian - 1].nama}}</td>
                         <td>
-                            <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4">{{listStatus[item.idStatus - 1].nama}}</a>
+                            <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4 || item.idStatus==6">{{listStatus[item.idStatus - 1].nama}}</a>
                             <a v-if="item.idStatus==2" href="" data-toggle="modal" data-target="#interviewModal" v-on:click="setCurrentPelamar(item.id)">Interview</a>
                             <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#negosiasiModal" v-on:click="setCurrentPelamar(item.id)">Negotiation</a>
                             <a v-if="item.idStatus==7" href="" data-toggle="modal" data-target="#tanggalBergabungModal" v-on:click="setCurrentPelamar(item.id)">Hired</a>
-                            <a v-if="item.idStatus==6">{{listStatus[item.idStatus - 1]}}</a>
                         </td>
                         <td>
                             <router-link class="btn btn-success" :to="'/pelamar/' + item.id" type="button">Detail</router-link>
