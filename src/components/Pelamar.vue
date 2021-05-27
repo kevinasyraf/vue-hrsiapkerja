@@ -59,10 +59,16 @@
                             </select>
                         </div>
                     </div><br>
+                    <div class="row" v-if="pelamarStatus==3">
+                        <div class="col">Kode Unik</div>
+                        <div class="col">
+                           <p>{{pelamarKodeUnik}}</p>
+                        </div>
+                    </div><br>
                     <div class="row" v-if="pelamarStatus==6 || pelamarStatus==7">
                         <div class="col">Catatan</div>
                         <div class="col">
-                             <textarea class="form-control" id="message-text" v-model="pelamarCatatan" readonly></textarea>
+                             <p>{{pelamarCatatan}}</p>
                         </div>
                     </div><br>
                     <div class="row">
@@ -84,9 +90,13 @@
                         </div>
                     </div><br>
                     <a class="btn btn-primary float-end" style="margin-right: 30px" href="/pelamar" role="button">Kembali</a>
-                    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#exampleModalCenter">Simpan</a>
+                    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#ubahStatusModal"
+                        v-if="pelamarStatus==1 || pelamarStatus==2 || pelamarStatus==4 || pelamarStatus==5 ||
+                        pelamarStatus==6 || pelamarStatus==7">Simpan</a>
+                    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#kodeUnikModal"
+                    v-if="pelamarStatus==3" @click="createKodeUnik">Simpan</a>
 
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal fade" id="ubahStatusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                           <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
@@ -105,6 +115,26 @@
                         </div>
                       </div>
                     </div>
+
+                    <div class="modal fade" id="kodeUnikModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
+                                    <h5 class="modal-title w-100" id="exampleModalLongTitle">Kode Unik</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>Kode Unik Tugas Tambahan Pelamar dengan ID {{pelamarId}} : {{uuid}} </h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <a role="button" class="btn btn-success" :href="'mailto:' + pelamarEmail">Kirim Email</a>
+                                    <a role="button" class="btn btn-secondary" data-dismiss="modal">Tidak</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
     </div>
@@ -116,7 +146,7 @@ import PelamarDataService from "../services/PelamarDataService";
 import KesesuaianDataService from "../services/KesesuaianDataService";
 import StatusDataService from "../services/StatusDataService";
 import LowonganDataService from "../services/LowonganDataService";
-
+import { uuid } from 'vue-uuid' // Import uuid
 
 export default {
    name: 'pelamar',
@@ -129,10 +159,12 @@ export default {
          pelamarKesesuaian : '',
          pelamarStatus : '',
          pelamarCatatan: '',
+         pelamarKodeUnik: '',
          listKesesuaian : [],
          listStatus : [],
          message: '',
-         color : '#3C77BF'
+         color : '#3C77BF',
+         uuid: uuid.v1(),
        };
    },
    methods: {
@@ -146,6 +178,7 @@ export default {
              this.pelamarKesesuaian = response.data.idKesesuaian;
              this.pelamarStatus = response.data.idStatus;
              this.pelamarCatatan = response.data.catatan;
+             this.pelamarKodeUnik = response.data.kodeUnik;
              console.log(response.data);
            })
            .catch(e => {
@@ -192,6 +225,21 @@ export default {
         LowonganDataService.getAll()
             .then(response => {
                 this.listLowongan = response.data;
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+
+        createKodeUnik() {
+            var data = {
+                idStatus: this.pelamarStatus,
+                kodeUnik: this.uuid,
+            };
+            PelamarDataService.update(this.pelamarId, data)
+            .then(response => {
+                console.log(response.data);
+                this.message = 'The tutorial was updated successfully!';
             })
             .catch(e => {
                 console.log(e);
