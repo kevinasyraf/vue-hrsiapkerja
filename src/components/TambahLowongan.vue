@@ -95,7 +95,7 @@
               <!-- BODY MODAL -->
               <div class="modal-body">
                 <h5 v-if="status == 0" id="exampleModalLabel">
-                  Apakah Anda yakin akan mengubah status pelamar Ini?
+                  Apakah Anda yakin akan membuat lowongan baru ini?
                 </h5>
                 <h5 v-if="status == 1" id="exampleModalLabel">
                   Harap tunggu sebentar
@@ -104,7 +104,7 @@
                   Kandidat baru berhasil ditambahkan
                 </h5>
                 <h5 v-if="status == 3" id="exampleModalLabel">
-                  Terjadi kesalahan pada sistem. Mohon lengkapi data pada
+                  Terjadi kesalahan pada sistem. Mohon lengkapi dan cek kembali data pada
                   formulir.
                 </h5>
               </div>
@@ -119,7 +119,7 @@
                 </div>
                 <div v-if="status == 1"></div>
                 <div v-if="status == 2">
-                  <router-link to='/pelamar'><button class="btn btn-primary" data-dismiss="modal">
+                  <router-link to='/lowongan'><button class="btn btn-primary" data-dismiss="modal">
                       Ok
                     </button></router-link>
                 </div>
