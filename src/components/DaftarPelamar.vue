@@ -50,8 +50,9 @@
                         <!-- <td>{{item.posisi}}</td> -->
                         <td>{{listKesesuaian[item.idKesesuaian - 1].nama}}</td>
                         <td>
-                            <a v-if="item.idStatus==1 || item.idStatus==3 || item.idStatus==4 || item.idStatus==6">{{listStatus[item.idStatus - 1].nama}}</a>
+                            <a v-if="item.idStatus==1 || item.idStatus==4 || item.idStatus==6">{{listStatus[item.idStatus - 1].nama}}</a>
                             <a v-if="item.idStatus==2" href="" data-toggle="modal" data-target="#interviewModal" v-on:click="setCurrentPelamar(item.id)">Interview</a>
+                            <a v-if="item.idStatus==3" href="" data-toggle="modal" data-target="#kodeUnikModal" v-on:click="setCurrentPelamar(item.id)">Additional Assignment</a>
                             <a v-if="item.idStatus==5" href="" data-toggle="modal" data-target="#negosiasiModal" v-on:click="setCurrentPelamar(item.id)">Negotiation</a>
                             <a v-if="item.idStatus==7" href="" data-toggle="modal" data-target="#tanggalBergabungModal" v-on:click="setCurrentPelamar(item.id)">Hired</a>
                         </td>
@@ -123,6 +124,26 @@
                 </div>
             </div>
 
+            <div class="modal fade" id="kodeUnikModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center" v-bind:style="{ backgroundColor: color}">
+                            <h5 class="modal-title w-100" id="exampleModalLongTitle">Kode Unik</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>Kode Unik Tugas Tambahan Pelamar dengan ID {{currentIdPelamar}} : {{currentKodeUnik}} </h5>
+                        </div>
+                        <div class="modal-footer">
+                            <a role="button" class="btn btn-success" :href="'mailto:' + currentEmail">Kirim Email</a>
+                            <a role="button" class="btn btn-secondary" data-dismiss="modal">Tidak</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal fade" id="negosiasiModal" tabindex="-1" role="dialog" aria-labelledby="negosiasiModalTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -188,7 +209,9 @@ export default {
             currentWaktuInterviewPelamar: "",
             currentStatus: "",
             currentCatatan: "",
-            currentTanggalBergabungPelamar: ""
+            currentTanggalBergabungPelamar: "",
+            currentKodeUnik: "",
+            currentEmail: "",
         };
     },
     methods: {
@@ -240,6 +263,8 @@ export default {
              this.currentTanggalBergabungPelamar = moment(response.data.tanggalBergabung).format('YYYY-MM-DD');
              this.currentStatus = response.data.idStatus;
              this.currentCatatan = response.data.catatan;
+             this.currentKodeUnik = response.data.kodeUnik;
+             this.currentEmail = response.data.email;
              console.log(response.data);
              console.log(this.currentTanggalBergabungPelamar);
              console.log(this.currentWaktuInterviewPelamar);
