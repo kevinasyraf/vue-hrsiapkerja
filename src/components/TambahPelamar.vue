@@ -12,7 +12,7 @@
             <label class="col-sm-4 col-form-label">Lowongan<span class="text-danger">*</span> </label>
             <div class="col">
               <select required v-model="paket.idLowongan">
-                <option v-for="item in listLowongan" v-bind:key="item.id" :value="item.id"> {{ listDivisi[item.idDivisi - 1].nama + ' ' +'-' + ' ' + listPosisi[item.idPosisi - 1].nama}} </option>
+                <option v-for="item in listLowongan" v-bind:key="item.id" :value="item.id"> {{listDivisi[item.idDivisi - 1].nama + ' ' +'-' + ' ' + listPosisi[item.idPosisi - 1].nama}} </option>
               </select>
             </div>
           </div>
@@ -97,7 +97,7 @@
               <!-- BODY MODAL -->
               <div class="modal-body">
                 <h5 v-if="status == 0" id="exampleModalLabel">
-                  Apakah Anda yakin akan mengubah status pelamar Ini?
+                  Apakah Anda yakin akan menyimpan data pelamar Ini?
                 </h5>
                 <h5 v-if="status == 1" id="exampleModalLabel">
                   Harap tunggu sebentar
