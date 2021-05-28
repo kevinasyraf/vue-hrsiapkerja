@@ -90,11 +90,8 @@
                         </div>
                     </div><br>
                     <a class="btn btn-primary float-end" style="margin-right: 30px" href="/pelamar" role="button">Kembali</a>
-                    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#ubahStatusModal"
-                        v-if="pelamarStatus==1 || pelamarStatus==2 || pelamarStatus==4 || pelamarStatus==5 ||
-                        pelamarStatus==6 || pelamarStatus==7">Simpan</a>
-                    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#kodeUnikModal"
-                    v-if="pelamarStatus==3" @click="createKodeUnik">Simpan</a>
+                    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#ubahStatusModal">Simpan</a>
+
 
                     <div class="modal fade" id="ubahStatusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -109,7 +106,11 @@
                             Apakah Anda yakin akan mengubah status pelamar Ini?
                           </div>
                           <div class="modal-footer">
-                            <a role="button" class="btn btn-success" :href="'/pelamar/' + pelamarId" @click="updateStatus">Ya</a>
+                            <a role="button" class="btn btn-success" :href="'/pelamar/' + pelamarId" @click="updateStatus"
+                            v-if="pelamarStatus==1 || pelamarStatus==2 || pelamarStatus==4 || pelamarStatus==5 ||
+                            pelamarStatus==6 || pelamarStatus==7">Ya</a>
+                            <a role="button" data-toggle="modal" data-target="#kodeUnikModal" data-dismiss="modal" class="btn btn-success" :href="'/pelamar/' + pelamarId" @click="createKodeUnik"
+                            v-if="pelamarStatus==3">Ya</a>
                             <a role="button" class="btn btn-secondary" data-dismiss="modal">Tidak</a>
                           </div>
                         </div>
