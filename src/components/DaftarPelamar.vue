@@ -168,6 +168,7 @@
 import PelamarDataService from "../services/PelamarDataService";
 import KesesuaianDataService from "../services/KesesuaianDataService";
 import StatusDataService from "../services/StatusDataService";
+import moment from 'moment';
 export default {
     name: "pelamar-list",
     data() {
@@ -235,11 +236,13 @@ export default {
              this.currentPelamar = response.data;
              this.currentIdPelamar = response.data.id;
              this.currentNamaPelamar = response.data.nama;
-             this.currentWaktuInterviewPelamar = response.data.waktuInterview;
-             this.currentTanggalBergabungPelamar = response.data.tanggalBergabung;
+             this.currentWaktuInterviewPelamar = moment(response.data.waktuInterview).format('YYYY-MM-DDTHH:mm');
+             this.currentTanggalBergabungPelamar = moment(response.data.tanggalBergabung).format('YYYY-MM-DD');
              this.currentStatus = response.data.idStatus;
              this.currentCatatan = response.data.catatan;
              console.log(response.data);
+             console.log(this.currentTanggalBergabungPelamar);
+             console.log(this.currentWaktuInterviewPelamar);
            })
            .catch(e => {
              console.log(e);
@@ -304,6 +307,18 @@ export default {
         },
         numberOfIndex(index) {
             return index + 1;
+        },
+        changeDatetimeFormat(datetime) {
+            return moment(String(datetime)).format('MM/DD/YYYY hh:mm')
+        },
+        changeDateFormat(date) {
+            return moment(String(date)).format('MM/DD/YYYY')
+        },
+        formatDatetime(value) {
+            return moment(value).format('MM/DD/YYYY hh:mm')
+        },
+        formatDate(value) {
+            return moment(value).format('MM/DD/YYYY')
         },
     },
     mounted() {
