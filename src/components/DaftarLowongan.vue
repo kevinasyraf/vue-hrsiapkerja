@@ -56,17 +56,17 @@
 </div>
 </template>
 
-<style>
+<style scoped>
 html, body {
     font-family: 'Nunito', sans-serif;
 }
 
-.button{
+/* .button{
     background-color: #4E9755;
     color: white;
-}
+} */
 
-select {
+/* select {
     min-width: 15ch;
     max-width: 30ch;
     border: 1px solid var(--select-border);
@@ -76,11 +76,23 @@ select {
     line-height: 1.1;
     background-color: #fff;
     background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
-}
+} */
 
-.button2 {
+/* .button2 {
     background-color: #2ECC71;
     color: white;
+} */
+
+.btn-success{
+    background-color: #2ECC71;
+}
+
+.btn-danger{
+    background-color : #E74C3C;
+}
+
+.primary-color {
+    background-color: #3C77BF;
 }
 
 h2 {
@@ -90,11 +102,6 @@ h2 {
     color: white;
     text-align: center;
 }
-
-.primary-color {
-    background-color: #3C77BF;
-}
-
 </style>
 
 <script>

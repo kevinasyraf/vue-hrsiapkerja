@@ -9,7 +9,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="navbar-nav">
+        <div class="navbar-nav me-auto">
           <li class="nav-item dropdown">
           <router-link class="nav-link dropdown-toggle" to="/lowongan" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Lowongan
@@ -29,6 +29,13 @@
           </ul>
         </li>
         </div>
+        <div v-if="currentUser" class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href @click.prevent="logOut">
+              {{ currentUser.username }} | Logout
+            </a>
+          </li>
+        </div>
       </div>
     </nav>
     
@@ -41,8 +48,39 @@
 <script>
 
 export default {
-  name: 'App',
-}
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showCEOBoard() {
+      if (this.currentUser && this.currentUser.role) {
+        return this.currentUser.role.includes('CEO');
+      }
+
+      return false;
+    },
+    showStafHRBoard() {
+      if (this.currentUser && this.currentUser.role) {
+        return this.currentUser.role.includes('Staf HR');
+      }
+
+      return false;
+    },
+    showInternalEmployeeBoard() {
+      if (this.currentUser && this.currentUser.role) {
+        return this.currentUser.role.includes('Internal Employee');
+      }
+
+      return false;
+    }
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
+    }
+  }
+};
 </script>
 
 <style>

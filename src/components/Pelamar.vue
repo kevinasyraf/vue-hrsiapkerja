@@ -260,7 +260,7 @@ export default {
 //post method atau get
 </script>
 
-<style>
+<style scoped>
 html, body {
     font-family: 'Nunito', sans-serif;
 }
