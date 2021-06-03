@@ -12,16 +12,19 @@
             <h3>Submisi Tugas</h3>
         </div></div>
         <!-- <div class="card-body" > -->
-        <form @submit="saveTugas">
+        <form @submit="submisiTugas">
            <div class="row" style="margin-top:5%">
             <label class="col-sm-4 col-form-label">Status Submisi</label>
-            <div class="col">
-            </div>
+             <div class="col">
+               <input type="text" class="form-control" id="statusSubmisi" v-model="statusSubmisi" readonly/>
+             </div>
           </div>
 
           <div class=" row">
             <label class="col-sm-4 col-form-label">Last modified</label>
             <div class="col">
+              <input type="text" class="form-control" id="submisiModified" v-model="submisiModified" readonly/>
+
               <!-- <input type="text" class="form-group" id="nama" required v-model="paket.nama" style= "width: 80%"  oninvalid="this.setCustomValidity('Please fill the name')" oninput="setCustomValidity('')"> -->
             </div>
           </div>
@@ -127,57 +130,106 @@
 </template>
 
 <script>
-  import axios from "axios";
+  // import axios from "axios";
+  import PelamarDataService from "@/services/PelamarDataService";
   export default {
     name: "submisi-tugas",
     data() {
       return {
+        pelamarid: null,
         color: "#3C77BF",
         color1: "#2ECC71",
+        statusSubmisi: "Not Attempted",
+        submisiModified: null,
         paket: {
-          statusSubmisi:"not attempt",
-          lastUpdated: "",
+          statusSubmisi:"Not Attempt",
+          submisiModified: null,
           tugas: "",
         },
+        id : null,
         filesubmisi : null,
         status: 0,
+        submisi : null
       };
     },
 
 
     methods: {
+      getPelamar(kodeUnik) {
+        console.log(kodeUnik);
+
+        PelamarDataService.findByKodeUnik(kodeUnik)
+            .then(response => {
+              this.pelamarId = response.data.id;
+              this.pelamarName = response.data.nama;
+              this.pelamarEmail = response.data.email;
+              this.pelamarNoTlp = response.data.nomorTelepon;
+              this.pelamarSubmisi = response.data.submisi;
+              this.pelamarCatatan = response.data.catatan;
+              this.pelamarKodeUnik = response.data.kodeUnik;
+              this.pelamarsubmisiModified = response.data.submisiModified;
+              this.pelamarstatusSubmisi = response.data.statusSubmisi;
+              this.pelamarKesesuaian = response.data.idKesesuaian;
+              this.pelamarStatus = response.data.idStatus;
+              this.idLowongan = response.data.idLowongan;
+              console.log(response.data);
+            })
+            .catch(e => {
+              console.log(e);
+            });
+
+      },
       // fileUpload(fieldName, files) {
       //   let file = files[0]
       //   console.log(file)
       //   this.filesubmisi=file;
       // },
       // props:["fieldName",'obj','directory'],
-      saveTugas(e) {
-        this.status = 1;
-        // this.paket.tugas= this.filesubmisi;
-        // console.log(this.paket);
-        axios
-          .post("http://localhost:4000/api/pelamars/", this.paket)
-          .then((resp) => {
-            if (resp.status == 200) {
-              this.status = 2
-            }
-            console.warn(resp);
-            // alert(resp.data)
-            // this.isSubmitted = true;
-          })
-          .catch(err => {
-            console.log(err)
-            this.status = 3
-          });
+      // saveTugas(e) {
+      //   this.status = 1;
+      //   // this.paket.tugas= this.filesubmisi;
+      //   // console.log(this.paket);
+      //   axios
+      //     .post("http://localhost:4000/api/pelamars/", this.paket)
+      //     .then((resp) => {
+      //       if (resp.status == 200) {
+      //         this.status = 2
+      //       }
+      //       console.warn(resp);
+      //       // alert(resp.data)
+      //       // this.isSubmitted = true;
+      //     })
+      //     .catch(err => {
+      //       console.log(err)
+      //       this.status = 3
+      //     });
+      //
+      //   e.preventDefault();
+      // },
+      submisiTugas() {
+        var data = {
+          submisi : this.submisi,
+          submisiModified : new Date(),
+          statusSubmisi : "Attempted"
+        };
 
-        e.preventDefault();
+        PelamarDataService.update(this.pelamarId, data)
+            .then(response => {
+              console.log(response.data);
+              this.message = 'The Pelamar was updated successfully!';
+            })
+            .catch(e => {
+              console.log(e);
+            });
       },
 
       refreshSubmitted() {
         this.status = 0;
       },
-  }
+  },
+    mounted() {
+      this.getPelamar(this.$route.params.kodeUnik);
+    }
   }
 
 </script>

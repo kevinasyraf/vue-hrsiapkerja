@@ -55,11 +55,16 @@ const router = new Router({
         name: "tambah-pelamar",
         component: () => import("./components/TambahPelamar")
       },
+      // {
+      //   path: "/submisitugas",
+      //   name: "submisi-tugas",
+      //   component: () => import("./components/SubmisiTugas")
+      // },
       {
-        path: "/submisitugas",
+        path: "/pelamar/submisi/:kodeUnik",
         name: "submisi-tugas",
         component: () => import("./components/SubmisiTugas")
-      }
+      },
     ]
   });
 
