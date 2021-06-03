@@ -205,7 +205,7 @@
     methods: {
       savePelamar(e) {
         this.status = 1;
-        console.log(this.paket);
+        // console.log(this.paket);
         axios
           .post("http://localhost:4000/api/pelamars/", this.paket)
           .then((resp) => {
