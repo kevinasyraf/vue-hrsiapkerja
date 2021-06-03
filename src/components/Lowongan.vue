@@ -37,7 +37,8 @@
           <div class="row">
             <div class="col">Waktu Pengerjaan</div>
             <div class="col">
-              <input type="date" class="form-control" id="deadlineTugas" v-model="listTugas[deadlineTugas - 1].deadline" readonly/>
+              <!-- <input type="date" class="form-control" id="deadlineTugas" v-model="listTugas[deadlineTugas - 1].deadlineTugas" readonly/> -->
+              <input type="date" class="form-control" id="deadlineTugas" v-model="deadlineTugas" readonly/>
             </div>
           </div><br>
           <div class="row">
@@ -51,7 +52,8 @@
           <div class="row">
             <div class="col">Tugas</div>
             <div class="col">
-<!--              <input type="text" class="form-control" id="tugas" v-model="lowonganTugas" readonly/>-->
+              <!-- <input type="text" class="form-control" id="tugas" v-model="lowonganTugas" readonly/> -->
+               <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tugas" v-model="lowonganTugas" readonly/>
             </div>
           </div><br>
           <button type="button" class="btn btn-primary float-end mr-1" @click="$router.push('/lowongan')">Kembali</button>
@@ -146,7 +148,7 @@ export default {
             this.lowonganKualifikasi = response.data.kualifikasi;
             this.lowonganBuka = response.data.lowonganBuka;
             this.lowonganTugas = response.data.tugas;
-            this.deadlineTugas = response.data.idTugas;
+            this.deadlineTugas = response.data.deadlineTugas;
             this.idDivisi = response.data.idDivisi;
             this.idUsers = response.data.idUsers;
             this.idPosisi = response.data.idPosisi;
@@ -196,7 +198,7 @@ export default {
     },
     disetujuiLowongan(){
       var data = {
-        status: "disetujui",
+        status: "Disetujui",
       };
       LowonganDataService.disetujuiLowongan(this.$route.params.id, data)
           .then(response => {

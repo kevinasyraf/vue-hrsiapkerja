@@ -57,7 +57,7 @@
            <label class="col-sm-4 col-form-label"> CV <span class="text-danger">*</span> </label>
              <div class="col">
            <!-- <input type="textarea" class="form-group" name="cv" required v-model="paket.cv"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill link of CV')" oninput="setCustomValidity('')"> -->
-           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="Kualifikasi" required v-model="paket.kualifikasi"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of CV')" oninput="setCustomValidity('')"></textarea>
+           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="cv" required v-model="paket.cv"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of CV')" oninput="setCustomValidity('')"></textarea>
        </div></div>
 
         <!-- <input type="text" class="form-group" name="Tugas"> -->
