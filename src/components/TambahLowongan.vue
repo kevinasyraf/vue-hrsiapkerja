@@ -51,7 +51,7 @@
 <!--           <input id="fileupload" type="file" v-model="file" multiple v-on:change="uploadFile" ref="fileInput" />-->
 <!--           </form>-->
 
-           <input type="file" class="form-group"  @change="fileUpload('kualifikasi',$event.target.files)">
+<!--           <input type="file" class="form-group"  @change="fileUpload('kualifikasi',$event.target.files)">-->
 <!--            <input type="file" name="filetoupload" class="form-group" style= "width: 50%" @change="fileUpload('cv', $event.target.files)">-->
    </form></div>
 
@@ -209,17 +209,17 @@ export default {
       });
   },
 methods: {
-  fileUpload(fieldName, files) {
-    let file = files[0]
-    console.log(file)
-    this.filekualifikasi=file;
-  },
-  props:["fieldName",'obj','directory'],
+  // fileUpload(fieldName, files) {
+  //   let file = files[0]
+  //   console.log(file)
+  //   this.filekualifikasi=file;
+  // },
+  // props:["fieldName",'obj','directory'],
     saveLowongan(e) {
        this.status = 1;
-       console.log(this.paket.kualifikasi);
-      this.paket.kualifikasi = this.filekualifikasi;
-       console.log(this.paket.kualifikasi);
+      //  console.log(this.paket.kualifikasi);
+      // this.paket.kualifikasi = this.filekualifikasi;
+      //  console.log(this.paket.kualifikasi);
       //  console.log(this.paketTugas);
       // axios
       //     .post("http://localhost:4000/api/tugas", this.paketTugas)
