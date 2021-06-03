@@ -54,6 +54,11 @@ export default new Router({
         path: "/tambahpelamar",
         name: "tambah-pelamar",
         component: () => import("./components/TambahPelamar")
+      },
+      {
+        path: "/submisitugas",
+        name: "submisi-tugas",
+        component: () => import("./components/SubmisiTugas")
       }
     ]
   });

@@ -1,5 +1,5 @@
 <template>
-<div class ="container-fluid" style="margin: 88px,350px,350px">
+<div class ="container-fluid">
     <div class="container">
         <div class="row">
             <div class="col-sm">
@@ -358,7 +358,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 html, body {
     font-family: 'Nunito', sans-serif;
 }

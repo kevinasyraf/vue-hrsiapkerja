@@ -21,18 +21,32 @@
                       <!-- User -->
                       <div class="tab-pane fade" id="pills-user" role="tabpanel" aria-labelledby="pills-user-tab">
                         <div class="col-sm-12 border border-secondary shadow rounded pt-2 ml-auto p-2">
-                          <form>
+                          <form name="form" @submit.prevent="handleLogin">
                             <div class="form-group">
-                              <label>Username<span class="text-danger">*</span></label>
-                              <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
-                            </div><br>
+                              <label for="username">Username<span class="text-danger">*</span></label>
+                              <input v-model="user.username" v-validate="'required'" type="text" name="username" id="username" class="form-control" placeholder="Username">
+                              <div
+                                  v-if="errors.has('username')"
+                                  class="alert alert-danger"
+                                  role="alert"
+                                >Username is required!</div>
+                            </div>
+                            <br>
                             <div class="form-group">
-                              <label class="font-weight-bold">Password <span class="text-danger">*</span></label><br>
-                              <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-                            </div><br>
-
+                              <label for="password" class="font-weight-bold">Password <span class="text-danger">*</span></label><br>
+                              <input v-model="user.password" v-validate="'required'" type="password" name="password" id="password" class="form-control" placeholder="Password">
+                              <div
+                                  v-if="errors.has('password')"
+                                  class="alert alert-danger"
+                                  role="alert"
+                                >Password is required!</div>
+                            </div>
+                            <br>
                             <div class="form-group">
-                              <input type="submit" value="Masuk" class="btn btn-block btn-primary">
+                              <button class="btn btn-primary btn-block" :disabled="loading">
+                                <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                                <span>Masuk</span>
+                              </button>
                             </div>
                           </form>
                         </div>
@@ -62,13 +76,57 @@
 </template>
 
 <script>
+import User from '../models/user'
 
 export default {
-}
+  name: 'Login',
+  data() {
+    return {
+      user: new User('', ''),
+      loading: false,
+      message: ''
+    };
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    }
+  },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push('/dashboard');
+    }
+  },
+  methods: {
+    handleLogin() {
+      this.loading = true;
+      this.$validator.validateAll().then(isValid => {
+        if (!isValid) {
+          this.loading = false;
+          return;
+        }
 
+        if (this.user.username && this.user.password) {
+          this.$store.dispatch('auth/login', this.user).then(
+            () => {
+              this.$router.push('/profile');
+            },
+            error => {
+              this.loading = false;
+              this.message =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+            }
+          );
+        }
+      });
+    }
+  }
+};
 </script>
 
-<style>
+<style scoped>
 html, body {
     font-family: 'Nunito', sans-serif;
 }
