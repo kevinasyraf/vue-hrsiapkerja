@@ -13,6 +13,11 @@ class PelamarDataService{
         return http.get(`/pelamars/${id}`);
     }
 
+    findByKodeUnik(kodeUnik) {
+        // console.log("================================================findkodeunik================================================")
+        return http.get(`/pelamars/submisi/${kodeUnik}`);
+    }
+
     create(data) {
         return http.post("/pelamars", data);
     }

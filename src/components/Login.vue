@@ -57,11 +57,12 @@
                           <form>
                             <div class="form-group">
                               <label>Kode Unik <span class="text-danger">*</span></label>
-                              <input type="text" name="kodeunik" id="kodeunik" class="form-control" placeholder="Kode Unik" required>
+                              <input type="text" name="kodeunik" id="kodeunik" class="form-control" placeholder="Kode Unik" v-model="kodeunik" required>
                               <div>* Kode Dikirim pada email</div>
                             </div><br>
                             <div class="form-group">
-                                <input type="submit" value="Masuk" class="btn btn-primary btn-block">
+<!--                                <input type="submit" value="Masuk" class="btn btn-primary btn-block">-->
+                              <router-link class="btn btn-primary btn-block" :to="'pelamars/kodeunik/' + kodeunik" type="button">Masuk</router-link>
                             </div>
                           </form>
                         </div>
@@ -82,6 +83,7 @@ export default {
   name: 'Login',
   data() {
     return {
+      kodeunik: '',
       user: new User('', ''),
       loading: false,
       message: ''
