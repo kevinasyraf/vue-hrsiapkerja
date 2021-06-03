@@ -51,7 +51,7 @@
           <div class="row">
             <div class="col">Tugas</div>
             <div class="col">
-              <input type="text" class="form-control" id="tugas" v-model="lowonganTugas" readonly/>
+<!--              <input type="text" class="form-control" id="tugas" v-model="lowonganTugas" readonly/>-->
             </div>
           </div><br>
           <button type="button" class="btn btn-primary float-end mr-1" @click="$router.push('/lowongan')">Kembali</button>
@@ -126,11 +126,12 @@ export default {
       lowonganJenisLowongan: '',
       idDivisi:Number,
       idPosisi:Number,
+      idJenisLowongan:Number,
       listDivisi:[],
       listPosisi:[],
+      listJenisLowongan:[],
       message: '',
       color : '#3C77BF',
-      listJenisLowongan: [],
       listTugas: []
     };
   },
@@ -149,8 +150,9 @@ export default {
             this.idDivisi = response.data.idDivisi;
             this.idUsers = response.data.idUsers;
             this.idPosisi = response.data.idPosisi;
+            this.idJenisLowongan= response.data.idJenisLowongan;
 
-            console.log(response.data);
+            // console.log(response.data);
           })
           .catch(e => {
             console.log(e);

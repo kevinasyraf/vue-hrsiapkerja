@@ -28,8 +28,13 @@
           <!-- <div class="row">
             <form action="fileupload" method="post" enctype="multipart/form-data">
               <label class="col-sm-4 col-form-label">Tugas</label>
-                <input type="file" name="filetoupload" class="form-group" id="cv" style= "width: 50%"></form>
-              </div> -->
+               <input type="file" class="form-group"  @change="fileUpload('kualifikasi',$event.target.files)" style="width:50%" >-->
+
+<!--              <input type="file" name="filetoupload" class="form-group" id="cv" style= "width: 50%">-->
+<!--            </form>-->
+<!--              </div>-->
+<!--                <input type="file" name="filetoupload" class="form-group" id="cv" style= "width: 50%"></form>-->
+<!--              </div> &ndash;&gt;-->
         <div class="row" style="margin-top:2%">
            <label class="col-sm-4 col-form-label">Tugas<span class="text-danger">*</span> </label>
              <div class="col">
@@ -134,15 +139,23 @@
           lastUpdated: "",
           tugas: "",
         },
+        filesubmisi : null,
         status: 0,
       };
     },
 
 
     methods: {
+      // fileUpload(fieldName, files) {
+      //   let file = files[0]
+      //   console.log(file)
+      //   this.filesubmisi=file;
+      // },
+      // props:["fieldName",'obj','directory'],
       saveTugas(e) {
         this.status = 1;
-        console.log(this.paket);
+        // this.paket.tugas= this.filesubmisi;
+        // console.log(this.paket);
         axios
           .post("http://localhost:4000/api/pelamars/", this.paket)
           .then((resp) => {

@@ -44,8 +44,16 @@
        <!-- <div class="row" style="margin-top:2%">
          <form action="fileupload" method="post" enctype="multipart/form-data">
            <label class="col-sm-4 col-form-label"> Kualifikasi<span class="text-danger">*</span> </label>
-            <input type="file" name="filetoupload" class="form-group" style= "width: 50%">
-   </form></div> -->
+           <form ref="myFileInputForm">-->
+
+<!--           <input id="fileupload" type="file" v-model="file" multiple v-on:change="uploadFile" ref="fileInput" />-->
+<!--           </form>-->
+
+<!--           <input type="file" class="form-group"  @change="fileUpload('kualifikasi',$event.target.files)">-->
+<!--            <input type="file" name="filetoupload" class="form-group" style= "width: 50%" @change="fileUpload('cv', $event.target.files)">-->
+
+<!--            <input type="file" name="filetoupload" class="form-group" style= "width: 50%">-->
+<!--   </form></div> &ndash;&gt;-->
 
  <div class="row" style="margin-top:2%">
            <label class="col-sm-4 col-form-label">Kualifikasi<span class="text-danger">*</span> </label>
@@ -153,6 +161,7 @@
 </template>
 <script>
 import axios from "axios";
+// import fileUpload from "@/components/fileUpload";
 
 export default {
    name: 'tambah-lowongan',
@@ -174,8 +183,15 @@ export default {
                idDivisi:Number,
                idPosisi: Number,
                idUsers: 1,
-               idJenisLowongan: Number
+               idJenisLowongan: Number,
+               emailaddr : ''
            },
+         filekualifikasi : null,
+         paketTugas:{
+             id:null,
+           nama: "",
+           deadlineTugas: null
+         },
             status: 0,
        };
    },
@@ -198,13 +214,39 @@ export default {
         console.warn(resp.data);
         this.listJenisLowongan =resp.data;
       });
+       axios
+      .get("http://localhost:4000/api/users/ceo/") //ganti APInya
+      .then((resp) => {
+        console.warn(resp.data);
+        this.emailaddr =resp.data.email;
+      });
   },
 methods: {
+  // fileUpload(fieldName, files) {
+  //   let file = files[0]
+  //   console.log(file)
+  //   this.filekualifikasi=file;
+  // },
+  // props:["fieldName",'obj','directory'],
     saveLowongan(e) {
        this.status = 1;
-       console.log(this.paket);
+      //  console.log(this.paket.kualifikasi);
+      // this.paket.kualifikasi = this.filekualifikasi;
+      //  console.log(this.paket.kualifikasi);
+      //  console.log(this.paketTugas);
+      // axios
+      //     .post("http://localhost:4000/api/tugas", this.paketTugas)
+      // .then((resp) => {
+      //   if(resp.status==200){
+      //     console.log(resp.data);
+      //   }
+      // })
+      // .catch(err => {
+      //   console.log(err)
+      // });
+
         axios 
-        .post("http://localhost:4000/api/lowongan",this.paket) 
+        .post("http://localhost:4000/api/lowongan",this.paket)
         .then((resp) => {
           if (resp.status == 200) {
               this.status = 2
@@ -223,7 +265,7 @@ methods: {
      refreshSubmitted() {
         this.status = 0;
       },
-}  
+}
 }
 
 //post method atau get
