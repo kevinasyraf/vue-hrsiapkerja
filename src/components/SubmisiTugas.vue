@@ -1,71 +1,43 @@
 <template>
   <div class ="container-fluid" style="margin: 88px,350px,350px">
     <div class="container">
+      <div class ="col">
+                <h1>Submisi Tugas</h1><br>
+            </div>
+      <h10> Anda bisa melakukan pengumpulan tugas pada form dibawah ini. 
+            <br>Jangan lupa untuk memperhatikan penamaan file sesuai petunjuk yang telah dikirimkan pada email</h10>
         <div class="card mx-auto w-50" style="margin:5%">
             <div class="card-header text-center" style="background-color: #3C77BF">
             <div style="color:#ffff">
-            <h3>Tambah Pelamar</h3>
+            <h3>Submisi Tugas</h3>
         </div></div>
         <!-- <div class="card-body" > -->
-        <form @submit="savePelamar">
+        <form @submit="saveTugas">
            <div class="row" style="margin-top:5%">
-            <label class="col-sm-4 col-form-label">Lowongan<span class="text-danger">*</span> </label>
+            <label class="col-sm-4 col-form-label">Status Submisi</label>
             <div class="col">
-              <select required v-model="paket.idLowongan">
-                <option v-for="item in listLowongan" v-bind:key="item.id" :value="item.id"> {{listDivisi[item.idDivisi - 1].nama + ' ' +'-' + ' ' + listPosisi[item.idPosisi - 1].nama}} </option>
-              </select>
             </div>
           </div>
 
           <div class=" row">
-            <label class="col-sm-4 col-form-label">Nama<span class="text-danger">*</span> </label>
+            <label class="col-sm-4 col-form-label">Last modified</label>
             <div class="col">
-              <input type="text" class="form-group" id="nama" required v-model="paket.nama" style= "width: 80%"  oninvalid="this.setCustomValidity('Please fill the name')" oninput="setCustomValidity('')">
+              <!-- <input type="text" class="form-group" id="nama" required v-model="paket.nama" style= "width: 80%"  oninvalid="this.setCustomValidity('Please fill the name')" oninput="setCustomValidity('')"> -->
             </div>
           </div>
-
-          <div class="row">
-            <label class="col-sm-4 col-form-label">Email<span class="text-danger">*</span> </label>
-            <div class="col">
-              <input type="email" class="form-group" id="email" v-model="paket.email" style= "width: 80%">
-            </div>
-          </div>
-
-          <div class="row">
-            <label class="col-sm-4 col-form-label">Nomor Telepon<span class="text-danger">*</span> </label>
-            <div class="col">
-              <input type="number" min="0" class="form-group" id="nomorTelepon" required v-model="paket.nomorTelepon" style= "width: 80%">
-            </div>
-          </div>
-
-          <div class="row">
-            <label class="col-sm-4 col-form-label">kesesuaian<span class="text-danger">*</span> </label>
-            <div class="col">
-              <select required v-model="paket.idKesesuaian">
-                <option v-for="item in listKesesuaian" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
-              </select>
-            </div>
-          </div>
-
           <div class="row">
             <form action="fileupload" method="post" enctype="multipart/form-data">
-              <label class="col-sm-4 col-form-label"> CV </label>
+              <label class="col-sm-4 col-form-label">Tugas</label>
                 <input type="file" name="filetoupload" class="form-group" id="cv" style= "width: 50%"></form>
               </div>
         <!-- <input type="text" class="form-group" name="Tugas"> -->
         <!-- START MODAL -->
         <!-- ------------------------------------------------ -->
         <!-- BUTTON UNTUK MENAMPILKAN MODAL -->
-       
-          
-          <router-link to="/pelamar">
-            <button class="row btn btn-danger float-end" style="margin-right: 60px">Batal</button>
-          </router-link>
-          
           <div class="raw">
           <div class="col">
-          <button id="completeButton" class="btn btn-success float-end" type="button" data-toggle="modal"
-            data-target="#exampleModal" @click="refreshSubmitted" style="margin-right: 4px" >
+          <button id="completeButton" class="btn btn-success center-blok" type="button" data-toggle="modal"
+            data-target="#exampleModal" @click="refreshSubmitted" style="margin-left: 45%" >
             Simpan
           </button></div></div>
          
@@ -121,7 +93,7 @@
                 </div>
                 <div v-if="status == 1"></div>
                 <div v-if="status == 2">
-                  <router-link to='/pelamar'><button class="btn btn-primary" data-dismiss="modal">
+                  <router-link to='/submisitugas'><button class="btn btn-primary" data-dismiss="modal">
                       Ok
                     </button></router-link>
                 </div>
@@ -146,59 +118,23 @@
 <script>
   import axios from "axios";
   export default {
-    name: "tambah-pelamar",
+    name: "submisi-tugas",
     data() {
       return {
-        listKesesuaian: [],
-        listLowongan: [],
-        listPosisi: [],
-        listDivisi:[],
         color: "#3C77BF",
         color1: "#2ECC71",
         paket: {
-          nama:"",
-          email: "",
-          nomorTelepon: "",
-          cv: "ada.pdf",
-          idStatus: 1,
-          idKesesuaian: Number,
-          idLowongan: Number,
+          statusSubmisi:"not attempt",
+          lastUpdated: "",
+          tugas: "ada.pdf",
         },
         status: 0,
-        // isSuccess: false,
-        //eslint-disable-next-line
-        // reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
       };
     },
 
-    mounted() {
-      axios
-        .get("http://localhost:4000/api/kesesuaian/") //ganti APInya
-        .then((resp) => {
-          console.warn(resp.data);
-          this.listKesesuaian = resp.data;
-        });
-         axios
-        .get("http://localhost:4000/api/lowongan/") //ganti APInya
-        .then((resp) => {
-          console.warn(resp.data);
-          this.listLowongan = resp.data;
-        });
-        axios
-      .get("http://localhost:4000/api/divisi/") //ganti APInya 
-      .then((resp) => {
-        console.warn(resp.data);
-        this.listDivisi =resp.data;
-      });
-      axios
-      .get("http://localhost:4000/api/posisi/") //ganti APInya 
-      .then((resp) => {
-        console.warn(resp.data);
-        this.listPosisi =resp.data;
-      });
-    },
+
     methods: {
-      savePelamar(e) {
+      saveTugas(e) {
         this.status = 1;
         console.log(this.paket);
         axios
@@ -222,20 +158,12 @@
       refreshSubmitted() {
         this.status = 0;
       },
-    //   validateEmail() {
-    //     if (this.paket.email == null || this.paket.email == '' || (!this.reg.test(this.paket.email))) {
-    //       var email = document.getElementById("email");
-    //       email.setCustomValidity("Masukan email yang benar");
-    //       email.reportValidity();
-    //     }
-    //   }
-    // },
   }
   }
 
 </script>
 
-<style scoped>
+<style>
   html,
   body {
     font-family: 'Nunito', sans-serif;
@@ -252,12 +180,15 @@
   input {
     display: inline-block;
   }
-  .btn {
-    padding: 4px 12px !important;
+  h10{
+        font-size: 11px;
+  }
+  .btn-success {
     font-size: 18px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    margin-right: 50% !important;
     margin: 32px 4px ;
 
   }
@@ -274,15 +205,5 @@
   }
   .exampleModalLabel{
     text-align: center !important;
-  }
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Firefox */
-  input[type=number] {
-    -moz-appearance: textfield;
   }
 </style>
