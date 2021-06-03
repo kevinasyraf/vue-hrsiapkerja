@@ -175,7 +175,7 @@ export default {
            color1: "#2ECC71",
            paket: {
                id:null,
-               status: "pending",
+               status: "Menunggu Persetujuan",
                jumlahLowongan: '',
                kualifikasi : "",
                lowonganBuka : "TRUE",

@@ -198,7 +198,7 @@ export default {
     },
     disetujuiLowongan(){
       var data = {
-        status: "disetujui",
+        status: "Disetujui",
       };
       LowonganDataService.disetujuiLowongan(this.$route.params.id, data)
           .then(response => {

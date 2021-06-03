@@ -8,7 +8,7 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div v-if="currentUser" class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav me-auto">
           <li class="nav-item dropdown">
           <router-link class="nav-link dropdown-toggle" to="/lowongan" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
