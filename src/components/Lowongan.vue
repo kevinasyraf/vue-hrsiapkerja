@@ -50,7 +50,7 @@
           <div class="row">
             <div class="col">Tugas</div>
             <div class="col">
-              <input type="text" class="form-control" id="tugas" v-model="lowonganTugas" readonly/>
+<!--              <input type="text" class="form-control" id="tugas" v-model="lowonganTugas" readonly/>-->
             </div>
           </div><br>
           <button type="button" class="btn btn-primary float-end mr-1" @click="$router.push('/lowongan')">Kembali</button>
@@ -131,7 +131,6 @@ export default {
       listJenisLowongan:[],
       message: '',
       color : '#3C77BF',
-      listJenisLowongan: [],
       listTugas: []
     };
   },
