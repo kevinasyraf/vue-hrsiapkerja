@@ -241,7 +241,7 @@
     font-family: 'Nunito', sans-serif;
   }
   label {
-    font-size: 20px;
+    font-size: 16px;
     margin-left: 48px;
   }
 
