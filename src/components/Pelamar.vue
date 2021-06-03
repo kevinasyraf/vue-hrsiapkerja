@@ -27,13 +27,17 @@
                     <div class="row">
                         <div class="col">Divisi</div>
                         <div class="col">
-                            <input type="text" class="form-control" id="divisi" value="IT" readonly/>
+                            <select v-model="idLowongan" class="form-control" disabled>
+                                <option v-for="item in listLowongan" v-bind:key="item.id" :value="item.id" > {{listDivisi[item.idDivisi - 1].nama}} </option>
+                            </select>
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="col">Posisi</div>
                         <div class="col">
-                            <input type="text" class="form-control" id="posisi" value="Frontend Developer" readonly/>
+                            <select v-model="idLowongan" class="form-control" disabled>
+                                <option v-for="item in listLowongan" v-bind:key="item.id" :value="item.id" > {{listPosisi[item.idPosisi - 1].nama}} </option>
+                            </select>
                         </div>
                     </div><br>
                     <div class="row">
@@ -147,6 +151,8 @@ import PelamarDataService from "../services/PelamarDataService";
 import KesesuaianDataService from "../services/KesesuaianDataService";
 import StatusDataService from "../services/StatusDataService";
 import LowonganDataService from "../services/LowonganDataService";
+import DivisiDataService from "../services/DivisiDataService";
+import PosisiDataService from "../services/PosisiDataService";
 import { uuid } from 'vue-uuid' // Import uuid
 
 export default {
@@ -161,8 +167,12 @@ export default {
          pelamarStatus : '',
          pelamarCatatan: '',
          pelamarKodeUnik: '',
+         idLowongan: '',
          listKesesuaian : [],
          listStatus : [],
+         listLowongan: [],
+         listDivisi: [],
+         listPosisi: [],
          message: '',
          color : '#3C77BF',
          uuid: uuid.v1(),
@@ -180,6 +190,7 @@ export default {
              this.pelamarStatus = response.data.idStatus;
              this.pelamarCatatan = response.data.catatan;
              this.pelamarKodeUnik = response.data.kodeUnik;
+             this.idLowongan = response.data.idLowongan;
              console.log(response.data);
            })
            .catch(e => {
@@ -207,6 +218,36 @@ export default {
             });
        },
 
+       getLowongan(){
+        LowonganDataService.getAll()
+            .then(response => {
+                this.listLowongan = response.data;
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+
+        getDivisi(){
+            DivisiDataService.getAll()
+                .then(response => {
+                  this.listDivisi = response.data;
+                })
+                .catch(e => {
+                  console.log(e);
+            });
+        },
+
+        getPosisi(){
+            PosisiDataService.getAll()
+                .then(response => {
+                    this.listPosisi = response.data;
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        },
+
        updateStatus() {
              var data = {
                idStatus: this.pelamarStatus,
@@ -221,16 +262,6 @@ export default {
                  console.log(e);
                });
            },
-
-       getLowongan(){
-        LowonganDataService.getAll()
-            .then(response => {
-                this.listLowongan = response.data;
-            })
-            .catch(e => {
-                console.log(e);
-            });
-        },
 
         createKodeUnik() {
             var data = {
@@ -254,6 +285,8 @@ export default {
     this.getKesesuaian();
     this.getStatus();
     this.getLowongan();
+    this.getDivisi();
+    this.getPosisi();
     this.updateStatus();
    }
 };
