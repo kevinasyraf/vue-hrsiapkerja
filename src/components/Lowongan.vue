@@ -123,8 +123,10 @@ export default {
       lowonganJenisLowongan: '',
       idDivisi:Number,
       idPosisi:Number,
+      idJenisLowongan:Number,
       listDivisi:[],
       listPosisi:[],
+      listJenisLowongan:[],
       message: '',
       color : '#3C77BF'
     };
@@ -144,8 +146,9 @@ export default {
             this.idDivisi = response.data.idDivisi;
             this.idUsers = response.data.idUsers;
             this.idPosisi = response.data.idPosisi;
+            this.idJenisLowongan= response.data.idJenisLowongan;
 
-            console.log(response.data);
+            // console.log(response.data);
           })
           .catch(e => {
             console.log(e);

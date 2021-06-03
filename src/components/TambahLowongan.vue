@@ -46,7 +46,8 @@
        <div class="row">
          <form action="fileupload" method="post" enctype="multipart/form-data">
            <label class="col-sm-4 col-form-label"> Kualifikasi<span class="text-danger">*</span> </label>
-            <input type="file" name="filetoupload" class="form-group" style= "width: 50%">
+           <fileUpload :obj="kualifikasi" fieldName="kualifikasi"/>
+<!--            <input type="file" name="filetoupload" class="form-group" style= "width: 50%" @change="fileUpload('cv', $event.target.files)">-->
    </form></div>
 
     <div class="form-group" style="margin-bottom: 5%;">
@@ -142,9 +143,13 @@
 </template>
 <script>
 import axios from "axios";
+import fileUpload from "@/components/fileUpload";
 
 export default {
    name: 'tambah-lowongan',
+  components:{
+     fileUpload
+  },
    data (){
        return{
            listDivisi:[],
@@ -219,7 +224,7 @@ methods: {
      refreshSubmitted() {
         this.status = 0;
       },
-}  
+}
 }
 
 //post method atau get
