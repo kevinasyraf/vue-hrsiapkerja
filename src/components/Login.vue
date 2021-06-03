@@ -51,7 +51,6 @@
                           </form>
                         </div>
                       </div>
-
                       <!-- Pelamar -->
                       <div class="tab-pane fade show active" id="pills-pelamar" role="tabpanel" aria-labelledby="pills-pelamar-tab">
                         <div class="col border border-secondary shadow rounded pt-2 ml-auto p-2">
@@ -138,9 +137,6 @@ h1{
 label{
     font-size: 20px;
     font-weight: bold;
-}
-.btn{
-    width: 250px;
 }
 .btn-block{
     width: 100%;

@@ -4,7 +4,7 @@
       <div class ="col">
                 <h1>Submisi Tugas</h1><br>
             </div>
-      <h10> Anda bisa melakukan pengumpulan tugas pada form dibawah ini. 
+      <h10> Anda bisa melakukan pengumpulan tugas pada form dibawah ini dengan melampirkan link. 
             <br>Jangan lupa untuk memperhatikan penamaan file sesuai petunjuk yang telah dikirimkan pada email</h10>
         <div class="card mx-auto w-50" style="margin:5%">
             <div class="card-header text-center" style="background-color: #3C77BF">
@@ -25,14 +25,22 @@
               <!-- <input type="text" class="form-group" id="nama" required v-model="paket.nama" style= "width: 80%"  oninvalid="this.setCustomValidity('Please fill the name')" oninput="setCustomValidity('')"> -->
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <form action="fileupload" method="post" enctype="multipart/form-data">
               <label class="col-sm-4 col-form-label">Tugas</label>
-<!--              <input type="file" class="form-group"  @change="fileUpload('kualifikasi',$event.target.files)" style="width:50%" >-->
+               <input type="file" class="form-group"  @change="fileUpload('kualifikasi',$event.target.files)" style="width:50%" >-->
 
 <!--              <input type="file" name="filetoupload" class="form-group" id="cv" style= "width: 50%">-->
-            </form>
-              </div>
+<!--            </form>-->
+<!--              </div>-->
+<!--                <input type="file" name="filetoupload" class="form-group" id="cv" style= "width: 50%"></form>-->
+<!--              </div> &ndash;&gt;-->
+        <div class="row" style="margin-top:2%">
+           <label class="col-sm-4 col-form-label">Tugas<span class="text-danger">*</span> </label>
+             <div class="col">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tugas" required v-model="paket.tugas"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the task')" oninput="setCustomValidity('')"></textarea>
+       </div>
+       </div>
         <!-- <input type="text" class="form-group" name="Tugas"> -->
         <!-- START MODAL -->
         <!-- ------------------------------------------------ -->
@@ -129,7 +137,7 @@
         paket: {
           statusSubmisi:"not attempt",
           lastUpdated: "",
-          tugas: "ada.pdf",
+          tugas: "",
         },
         filesubmisi : null,
         status: 0,

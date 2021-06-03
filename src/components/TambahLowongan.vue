@@ -6,8 +6,6 @@
             <div style="color:#ffff">
             <h3 style="font-family:Nunito">Tambah Lowongan</h3>
         </div></div>
-   <!-- <div class="submit-form">
-    <div v-if="!submitted"> -->
     <form @submit="saveLowongan">
        <div class="row" style="margin-top:5%">
            <label class="col-sm-4 col-form-label"> Divisi <span class="text-danger">*</span></label>
@@ -16,7 +14,7 @@
                <option v-for="item in listDivisi" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
            </select></div>
        </div>
-       <div class="row">
+       <div class="row" style="margin-top:2%">
            <label class="col-sm-4 col-form-label"> Posisi<span class="text-danger">*</span> </label>
            <div class="col">
             <select required v-model="paket.idPosisi">
@@ -24,44 +22,59 @@
            </select></div>
        </div> 
 
-       <div class="row"> 
+       <div class="row" style="margin-top:2%"> 
            <label class="col-sm-4 col-form-label"> Jenis Lowongan<span class="text-danger">*</span> </label>
            <div class="col">
            <select required v-model="paket.idJenisLowongan">
                <option v-for="item in listJenisLowongan" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
            </select></div>
        </div>
-        <div class="row">
+        <div class="row" style="margin-top:2%">
            <label class="col-sm-4 col-form-label"> Jumlah Dibutuhkan<span class="text-danger">*</span> </label>
             <div class="col">
-            <input type="number" min="0" class="form-group" id="jumlahLowongan" required v-model="paket.jumlahLowongan"  style= "width: 80%">
+            <input type="number" min="1" class="form-group" id="jumlahLowongan" required v-model="paket.jumlahLowongan"  style= "width: 80%">
     </div></div>
 
-        <div class="row">
+        <div class="row" style="margin-top:2%">
            <label class="col-sm-4 col-form-label"> Waktu Pengerjaan<span class="text-danger">*</span> </label>
              <div class="col">
            <input type="date" class="form-group" name="Waktu Pengerjaan" required v-model="paket.deadlineTugas"  style= "width: 80%">
        </div></div>
 
-       <div class="row">
+       <!-- <div class="row" style="margin-top:2%">
          <form action="fileupload" method="post" enctype="multipart/form-data">
            <label class="col-sm-4 col-form-label"> Kualifikasi<span class="text-danger">*</span> </label>
-<!--           <form ref="myFileInputForm">-->
+           <form ref="myFileInputForm">-->
 
 <!--           <input id="fileupload" type="file" v-model="file" multiple v-on:change="uploadFile" ref="fileInput" />-->
 <!--           </form>-->
 
 <!--           <input type="file" class="form-group"  @change="fileUpload('kualifikasi',$event.target.files)">-->
 <!--            <input type="file" name="filetoupload" class="form-group" style= "width: 50%" @change="fileUpload('cv', $event.target.files)">-->
-   </form></div>
 
-    <div class="form-group" style="margin-bottom: 5%;">
+<!--            <input type="file" name="filetoupload" class="form-group" style= "width: 50%">-->
+<!--   </form></div> &ndash;&gt;-->
+
+ <div class="row" style="margin-top:2%">
+           <label class="col-sm-4 col-form-label">Kualifikasi<span class="text-danger">*</span> </label>
+             <div class="col">
+           <!-- <input type="textarea" class="form-group" name="Kualifikasi" required v-model="paket.kualifikasi"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the qualification')" oninput="setCustomValidity('')"> -->
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="Kualifikasi" required v-model="paket.kualifikasi"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the qualification')" oninput="setCustomValidity('')"></textarea>
+       </div>
+       </div>
+      
+
+    <!-- <div class="form-group" style="margin-bottom: 5%;">
     <form action="fileupload" method="post" enctype="multipart/form-data">
            <label class="col-sm-4 col-form-label"> Tugas </label>
            <input type="file" name="filetoupload" class="form-group" style= "width: 50%">
-           <!-- <input type="text" class="form-group" name="Tugas"> -->
-    </form></div>
-    
+           <input type="text" class="form-group" name="Tugas">
+    </form></div> -->
+    <div class="row" style="margin-top:2%">
+           <label class="col-sm-4 col-form-label">Tugas</label>
+             <div class="col">
+           <input type="textbox" class="form-group" name="idTugas" required v-model="paket.idTugas" style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of task')" oninput="setCustomValidity('')">
+       </div></div>
     <router-link to="/lowongan">
             <button class="row btn btn-danger float-end" style="margin-right: 60px">Batal</button>
           </router-link>
@@ -163,10 +176,10 @@ export default {
                id:null,
                status: "pending",
                jumlahLowongan: '',
-               kualifikasi : null,
+               kualifikasi : "",
                lowonganBuka : "TRUE",
-               tugas : "ada",
-               deadlineTugas : null,
+               idTugas : "",
+               deadlineTugas : "",
                idDivisi:Number,
                idPosisi: Number,
                idUsers: 1,
@@ -263,15 +276,11 @@ html,
     font-family: 'Nunito', sans-serif;
   }
 label {
-    font-size: 20px;
+    font-size: 16px;
     margin-left: 48px;
 }
 
 select {
- display: inline-block;
- width: 80%;
-}
-input {
  display: inline-block;
  width: 80%;
 }
