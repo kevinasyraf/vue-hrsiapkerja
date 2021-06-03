@@ -65,7 +65,8 @@
     <div class="row" style="margin-top:2%">
            <label class="col-sm-4 col-form-label">Tugas</label>
              <div class="col">
-           <input type="textbox" class="form-group" name="idTugas" required v-model="paket.idTugas" style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of task')" oninput="setCustomValidity('')">
+           <!-- <input type="textbox" class="form-group" name="idTugas" required v-model="paket.idTugas" style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of task')" oninput="setCustomValidity('')"> -->
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tugas" required v-model="paket.tugas"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of task')" oninput="setCustomValidity('')"></textarea>
        </div></div>
     <router-link to="/lowongan">
             <button class="row btn btn-danger float-end" style="margin-right: 60px">Batal</button>
@@ -169,7 +170,7 @@ export default {
                jumlahLowongan: '',
                kualifikasi : "",
                lowonganBuka : "TRUE",
-               idTugas : "",
+               tugas : "",
                deadlineTugas : "",
                idDivisi:Number,
                idPosisi: Number,
