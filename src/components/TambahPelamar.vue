@@ -47,11 +47,19 @@
             </div>
           </div>
 
-          <div class="row">
+          <!-- <div class="row">
             <form action="fileupload" method="post" enctype="multipart/form-data">
               <label class="col-sm-4 col-form-label"> CV </label>
                 <input type="file" name="filetoupload" class="form-group" id="cv" style= "width: 50%"></form>
-              </div>
+              </div> -->
+              
+       <div class="row" style="margin-top:2%">
+           <label class="col-sm-4 col-form-label"> CV <span class="text-danger">*</span> </label>
+             <div class="col">
+           <!-- <input type="textarea" class="form-group" name="cv" required v-model="paket.cv"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill link of CV')" oninput="setCustomValidity('')"> -->
+           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="Kualifikasi" required v-model="paket.kualifikasi"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of CV')" oninput="setCustomValidity('')"></textarea>
+       </div></div>
+
         <!-- <input type="text" class="form-group" name="Tugas"> -->
         <!-- START MODAL -->
         <!-- ------------------------------------------------ -->
@@ -159,15 +167,12 @@
           nama:"",
           email: "",
           nomorTelepon: "",
-          cv: "ada.pdf",
+          cv: "",
           idStatus: 1,
           idKesesuaian: Number,
           idLowongan: Number,
         },
         status: 0,
-        // isSuccess: false,
-        //eslint-disable-next-line
-        // reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
       };
     },
 

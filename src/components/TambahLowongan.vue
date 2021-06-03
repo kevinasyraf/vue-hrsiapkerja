@@ -6,8 +6,6 @@
             <div style="color:#ffff">
             <h3 style="font-family:Nunito">Tambah Lowongan</h3>
         </div></div>
-   <!-- <div class="submit-form">
-    <div v-if="!submitted"> -->
     <form @submit="saveLowongan">
        <div class="row" style="margin-top:5%">
            <label class="col-sm-4 col-form-label"> Divisi <span class="text-danger">*</span></label>
@@ -34,7 +32,7 @@
         <div class="row" style="margin-top:2%">
            <label class="col-sm-4 col-form-label"> Jumlah Dibutuhkan<span class="text-danger">*</span> </label>
             <div class="col">
-            <input type="number" min="0" class="form-group" id="jumlahLowongan" required v-model="paket.jumlahLowongan"  style= "width: 80%">
+            <input type="number" min="1" class="form-group" id="jumlahLowongan" required v-model="paket.jumlahLowongan"  style= "width: 80%">
     </div></div>
 
         <div class="row" style="margin-top:2%">
@@ -50,18 +48,25 @@
    </form></div> -->
 
  <div class="row" style="margin-top:2%">
-           <label class="col-sm-4 col-form-label"> Kualifikasi<span class="text-danger">*</span> </label>
+           <label class="col-sm-4 col-form-label">Kualifikasi<span class="text-danger">*</span> </label>
              <div class="col">
-           <input type="textbox" class="form-group" name="Kualifikasi" required v-model="paket.kualifikasi"  style= "width: 80%">
-       </div></div>
+           <!-- <input type="textarea" class="form-group" name="Kualifikasi" required v-model="paket.kualifikasi"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the qualification')" oninput="setCustomValidity('')"> -->
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="Kualifikasi" required v-model="paket.kualifikasi"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the qualification')" oninput="setCustomValidity('')"></textarea>
+       </div>
+       </div>
+      
 
-    <div class="form-group" style="margin-bottom: 5%;">
+    <!-- <div class="form-group" style="margin-bottom: 5%;">
     <form action="fileupload" method="post" enctype="multipart/form-data">
            <label class="col-sm-4 col-form-label"> Tugas </label>
            <input type="file" name="filetoupload" class="form-group" style= "width: 50%">
-           <!-- <input type="text" class="form-group" name="Tugas"> -->
-    </form></div>
-    
+           <input type="text" class="form-group" name="Tugas">
+    </form></div> -->
+    <div class="row" style="margin-top:2%">
+           <label class="col-sm-4 col-form-label">Tugas</label>
+             <div class="col">
+           <input type="textbox" class="form-group" name="idTugas" required v-model="paket.idTugas" style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of task')" oninput="setCustomValidity('')">
+       </div></div>
     <router-link to="/lowongan">
             <button class="row btn btn-danger float-end" style="margin-right: 60px">Batal</button>
           </router-link>
@@ -162,10 +167,10 @@ export default {
                id:null,
                status: "pending",
                jumlahLowongan: '',
-               kualifikasi : "ada",
+               kualifikasi : "",
                lowonganBuka : "TRUE",
-               tugas : "ada",
-               deadlineTugas : null,
+               idTugas : "",
+               deadlineTugas : "",
                idDivisi:Number,
                idPosisi: Number,
                idUsers: 1,

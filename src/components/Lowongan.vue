@@ -43,7 +43,8 @@
           <div class="row">
             <div class="col">Kualifikasi</div>
             <div class="col">
-              <input type="text" class="form-control" id="kualifikasi" v-model="lowonganKualifikasi" readonly/>
+              <!-- <input type="text" class="form-control" id="kualifikasi" v-model="lowonganKualifikasi" readonly/> -->
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="Kualifikasi" v-model="lowonganKualifikasi" readonly/>
             </div>
 
           </div><br>
