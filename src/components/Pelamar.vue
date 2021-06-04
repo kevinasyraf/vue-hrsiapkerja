@@ -94,7 +94,7 @@
                         </div>
                     </div><br>
                     <a class="btn btn-primary float-end" style="margin-right: 30px" href="/pelamar" role="button">Kembali</a>
-                    <a class="btn btn-success float-end" style="margin-right: 10px" role="button" data-toggle="modal" data-target="#ubahStatusModal">Simpan</a>
+                    <a v-if="showStafHRBoard" class="btn btn-success float-end" style="margin-right: 10px; color: white" role="button" data-toggle="modal" data-target="#ubahStatusModal">Simpan</a>
 
 
                     <div class="modal fade" id="ubahStatusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -180,6 +180,18 @@ export default {
          uuid: uuid.v1(),
        };
    },
+   computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showStafHRBoard() {
+      if (this.currentUser && this.currentUser.role) {
+        return this.currentUser.role == "Staf HR";
+      }
+
+      return false;
+    },
+  },
    methods: {
        getPelamar(id) {
          PelamarDataService.get(id)
