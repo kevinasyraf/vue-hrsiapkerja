@@ -16,14 +16,14 @@
            <div class="row" style="margin-top:5%">
             <label class="col-sm-4 col-form-label">Status Submisi</label>
              <div class="col">
-               <input type="text" class="form-control" id="statusSubmisi" v-model="statusSubmisi" readonly/>
+               <input type="text" class="form-control" id="statusSubmisi" v-model="pelamarstatusSubmisi" readonly/>
              </div>
           </div>
 
           <div class=" row">
             <label class="col-sm-4 col-form-label">Last modified</label>
             <div class="col">
-              <input type="text" class="form-control" id="submisiModified" v-model="submisiModified" readonly/>
+              <input type="datetime-local" class="form-control" id="submisiModified" v-model="pelamarsubmisiModified" readonly/>
 
               <!-- <input type="text" class="form-group" id="nama" required v-model="paket.nama" style= "width: 80%"  oninvalid="this.setCustomValidity('Please fill the name')" oninput="setCustomValidity('')"> -->
             </div>
@@ -39,9 +39,9 @@
 <!--                <input type="file" name="filetoupload" class="form-group" id="cv" style= "width: 50%"></form>-->
 <!--              </div> &ndash;&gt;-->
         <div class="row" style="margin-top:2%">
-           <label class="col-sm-4 col-form-label">Tugas<span class="text-danger">*</span> </label>
+           <label class="col-sm-4 col-form-label">Submit<span class="text-danger">*</span> </label>
              <div class="col">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tugas" required v-model="paket.tugas"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the task')" oninput="setCustomValidity('')"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="submit" :placeholder="pelamarSubmisi" required v-model="submisi"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the task')" oninput="setCustomValidity('')"></textarea>
        </div>
        </div>
         <!-- <input type="text" class="form-group" name="Tugas"> -->
@@ -99,7 +99,7 @@
               <!-- FOOTER MODAL -->
               <div class="modal-footer">
                 <div v-if="status == 0">
-                  <button class="btn btn-primary mr-4" type="submit">Ya</button>
+                  <a class="btn btn-primary mr-4"  :href="'/submisi/' + pelamarKodeUnik" @click="submisiTugas" type="submit">Ya</a>
 
                   <button class="btn btn-danger" type="button" data-dismiss="modal">
                     Tidak
@@ -107,6 +107,7 @@
                 </div>
                 <div v-if="status == 1"></div>
                 <div v-if="status == 2">
+
                   <router-link to='/submisitugas'><button class="btn btn-primary" data-dismiss="modal">
                       Ok
                     </button></router-link>
@@ -132,21 +133,23 @@
 <script>
   // import axios from "axios";
   import PelamarDataService from "@/services/PelamarDataService";
+  import moment from "moment";
   export default {
     name: "submisi-tugas",
     data() {
       return {
-        pelamarid: null,
+        pelamarId: null,
         color: "#3C77BF",
         color1: "#2ECC71",
-        statusSubmisi: "Not Attempted",
-        submisiModified: null,
+        pelamarKodeUnik: '',
+        pelamarstatusSubmisi: "Not Attempted",
+        pelamarsubmisiModified: null,
+        pelamarSubmisi : null,
         paket: {
-          statusSubmisi:"Not Attempt",
+          statusSubmisi:"Not Attempted",
           submisiModified: null,
-          tugas: "",
+          submisi: "",
         },
-        id : null,
         filesubmisi : null,
         status: 0,
         submisi : null
@@ -167,7 +170,7 @@
               this.pelamarSubmisi = response.data.submisi;
               this.pelamarCatatan = response.data.catatan;
               this.pelamarKodeUnik = response.data.kodeUnik;
-              this.pelamarsubmisiModified = response.data.submisiModified;
+              this.pelamarsubmisiModified = moment(response.data.submisiModified).format('YYYY-MM-DDTHH:mm');
               this.pelamarstatusSubmisi = response.data.statusSubmisi;
               this.pelamarKesesuaian = response.data.idKesesuaian;
               this.pelamarStatus = response.data.idStatus;
@@ -207,6 +210,7 @@
       //   e.preventDefault();
       // },
       submisiTugas() {
+
         var data = {
           submisi : this.submisi,
           submisiModified : new Date(),
@@ -228,7 +232,7 @@
       },
   },
     mounted() {
-      this.getPelamar(this.$route.params.kodeUnik);
+      this.getPelamar(this.$route.params.kodeUnik)
     }
   }
 

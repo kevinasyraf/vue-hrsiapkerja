@@ -14,7 +14,6 @@ class PelamarDataService{
     }
 
     findByKodeUnik(kodeUnik) {
-        // console.log("================================================findkodeunik================================================")
         return http.get(`/pelamars/submisi/${kodeUnik}`);
     }
 
