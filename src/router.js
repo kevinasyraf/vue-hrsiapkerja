@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import NotFound from './components/404NotFound.vue';
 
 Vue.use(Router);
 
@@ -69,6 +70,11 @@ const router = new Router({
         path: "/submisi/:kodeUnik",
         name: "submisi-tugas",
         component: () => import("./components/SubmisiTugas")
+      },
+      {
+        path: "*",
+        name: "404-not-found",
+        component: NotFound
       },
     ]
   });
