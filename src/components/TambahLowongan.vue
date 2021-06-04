@@ -245,7 +245,8 @@ methods: {
       // .catch(err => {
       //   console.log(err)
       // });
-
+      console.log("==================paket==================")
+      console.log(this.paket);
         axios 
         .post("http://localhost:4000/api/lowongan",this.paket)
         .then((resp) => {
