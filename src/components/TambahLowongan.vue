@@ -218,7 +218,7 @@ export default {
       .get("http://localhost:4000/api/users/ceo/") //ganti APInya
       .then((resp) => {
         console.warn(resp.data);
-        this.emailaddr =resp.data.email;
+        this.paket.emailaddr =resp.data[0].email;
       });
   },
 methods: {
@@ -230,6 +230,7 @@ methods: {
   // props:["fieldName",'obj','directory'],
     saveLowongan(e) {
        this.status = 1;
+       console.log(this.paket)
       //  console.log(this.paket.kualifikasi);
       // this.paket.kualifikasi = this.filekualifikasi;
       //  console.log(this.paket.kualifikasi);

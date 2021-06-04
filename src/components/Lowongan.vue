@@ -38,7 +38,7 @@
             <div class="col">Waktu Pengerjaan</div>
             <div class="col">
               <!-- <input type="date" class="form-control" id="deadlineTugas" v-model="listTugas[deadlineTugas - 1].deadlineTugas" readonly/> -->
-              <input type="date" class="form-control" id="deadlineTugas" v-model="deadlineTugas" readonly/>
+              <input type="datetime-local" class="form-control" id="deadlineTugas" v-model="lowongandeadlineTugas" readonly/>
             </div>
           </div><br>
           <div class="row">
@@ -112,6 +112,7 @@ import DivisiDataService from "../services/DivisiDataService";
 import PosisiDataService from "../services/PosisiDataService";
 import JenisLowonganDataService from "../services/DivisiDataService";
 import TugasDataService from "../services/PosisiDataService";
+import moment from "moment";
  // import axios from "axios";
 
 export default {
@@ -124,7 +125,7 @@ export default {
       lowonganKualifikasi : '',
       lowonganBuka : '',
       lowonganTugas : '',
-      deadlineTugas: '',
+      lowongandeadlineTugas: null,
       lowonganJenisLowongan: '',
       idDivisi:Number,
       idPosisi:Number,
@@ -148,13 +149,13 @@ export default {
             this.lowonganKualifikasi = response.data.kualifikasi;
             this.lowonganBuka = response.data.lowonganBuka;
             this.lowonganTugas = response.data.tugas;
-            this.deadlineTugas = response.data.deadlineTugas;
+            this.lowongandeadlineTugas = moment(response.data.deadlineTugas).format('YYYY-MM-DDTHH:mm');
             this.idDivisi = response.data.idDivisi;
             this.idUsers = response.data.idUsers;
             this.idPosisi = response.data.idPosisi;
             this.idJenisLowongan= response.data.idJenisLowongan;
 
-            // console.log(response.data);
+            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
