@@ -65,7 +65,7 @@
                             </div><br>
                             <div class="form-group">
 <!--                                <input type="submit" value="Masuk" class="btn btn-primary btn-block">-->
-                              <router-link class="btn btn-primary btn-block" :to="'pelamars/kodeunik/' + kodeunik" type="button">Masuk</router-link>
+                              <router-link class="btn btn-primary btn-block" :to="'submisi/' + kodeunik" type="button">Masuk</router-link>
                             </div>
                           </form>
                         </div>

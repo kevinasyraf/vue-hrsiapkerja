@@ -80,13 +80,13 @@ const router = new Router({
   });
 
   router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/', '/home', '/submisitugas'];
+    const publicPages = ['/login', '/', '/home'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('user');
   
     // trying to access a restricted page + not logged in
     // redirect to login page
-    if (authRequired && !loggedIn) {
+    if (authRequired && !loggedIn && !to.path.includes('/submisi')) {
       next('/login');
     } else {
       next();
