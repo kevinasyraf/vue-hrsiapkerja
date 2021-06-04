@@ -43,7 +43,7 @@
                     <td>{{listPosisi[item.idPosisi - 1].nama}}</td>
                     <td>{{listJenisLowongan[item.idJenisLowongan - 1].nama}}</td>
                     <td>{{item.jumlahLowongan}}</td>
-                    <td>{{item.tugas}}</td>
+                    <a :href="item.tugas" target="_blank">{{item.tugas}}</a>
                     <td>{{item.status}}</td>
                     <td>
                         <router-link class="btn btn-success" :to="'/lowongan/' + item.id" type="button">Detail</router-link>
