@@ -78,19 +78,19 @@
                     <div class="row">
                         <div class="col">CV</div>
                         <div class="col">
-                            <a>CV.pdf</a>
+                            <textarea class="form-control" id="cv" rows="3" name="cv" v-model="cv" readonly/>
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="col">Tugas 1</div>
                         <div class="col">
-                            <a>Tugas1.pdf</a>
+                            <textarea class="form-control" id="tugas1" rows="3" name="tugas1" v-model="submisi" readonly/>
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="col">Tugas 2</div>
                         <div class="col">
-                            <a>Tugas2.pdf</a>
+                            <textarea class="form-control" id="tugas2" rows="3" name="tugas2" v-model="submisiTambahan" readonly/>
                         </div>
                     </div><br>
                     <a class="btn btn-primary float-end" style="margin-right: 30px" href="/pelamar" role="button">Kembali</a>
@@ -168,6 +168,8 @@ export default {
          pelamarCatatan: '',
          pelamarKodeUnik: '',
          idLowongan: '',
+         cv:'',
+         submisi: '',
          listKesesuaian : [],
          listStatus : [],
          listLowongan: [],
@@ -191,6 +193,9 @@ export default {
              this.pelamarCatatan = response.data.catatan;
              this.pelamarKodeUnik = response.data.kodeUnik;
              this.idLowongan = response.data.idLowongan;
+             this.cv = response.data.cv;
+             this.submisi = response.data.submisi;
+             this.submisiTambahan = response.data.submisiTambahan;
              console.log(response.data);
            })
            .catch(e => {
