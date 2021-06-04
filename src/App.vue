@@ -32,7 +32,7 @@
         <div v-if="currentUser" class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href @click.prevent="logOut">
-              {{ currentUser.username }} | Logout
+              {{ currentUser.username }} | Keluar
             </a>
           </li>
         </div>

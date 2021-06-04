@@ -93,7 +93,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <a role="button" class="btn btn-success" href="/pelamar" v-on:click="updateJadwalInterview">Simpan</a>
+                            <a v-if="showStafHRBoard" role="button" class="btn btn-success" href="/pelamar" v-on:click="updateJadwalInterview">Simpan</a>
                             <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <a role="button" class="btn btn-success" href="/pelamar" v-on:click="updateTanggalBergabung">Simpan</a>
+                            <a v-if="showStafHRBoard" role="button" class="btn btn-success" href="/pelamar" v-on:click="updateTanggalBergabung">Simpan</a>
                             <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <a role="button" class="btn btn-success" href="/pelamar" @click="updateStatus">Simpan</a>
+                            <a v-if="showStafHRBoard" role="button" class="btn btn-success" href="/pelamar" @click="updateStatus">Simpan</a>
                             <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
                         </div>
                     </div>
