@@ -23,7 +23,7 @@ export default {
     savePelamar(e) {
       console.log(this.paket);
       axios
-          .post("http://localhost:4000/api/file/", this.paket)
+          .post("https://polar-mountain-10123.herokuapp.com/api/file/", this.paket)
           .then((resp) => {
             if (resp.status == 200) {
               this.status = 2

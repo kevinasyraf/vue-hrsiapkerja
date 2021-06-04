@@ -197,25 +197,25 @@ export default {
    },
    mounted() {
     axios
-      .get("http://localhost:4000/api/divisi/") //ganti APInya
+      .get("https://polar-mountain-10123.herokuapp.com/api/divisi/") //ganti APInya
       .then((resp) => {
         console.warn(resp.data);
         this.listDivisi =resp.data;
       });
       axios
-      .get("http://localhost:4000/api/posisi/") //ganti APInya
+      .get("https://polar-mountain-10123.herokuapp.com/api/posisi/") //ganti APInya
       .then((resp) => {
         console.warn(resp.data);
         this.listPosisi =resp.data;
       });
        axios
-      .get("http://localhost:4000/api/jenisLowongan/") //ganti APInya
+      .get("https://polar-mountain-10123.herokuapp.com/api/jenisLowongan/") //ganti APInya
       .then((resp) => {
         console.warn(resp.data);
         this.listJenisLowongan =resp.data;
       });
        axios
-      .get("http://localhost:4000/api/users/ceo/") //ganti APInya
+      .get("https://polar-mountain-10123.herokuapp.com/api/users/ceo/") //ganti APInya
       .then((resp) => {
         console.warn(resp.data);
         this.paket.emailaddr =resp.data[0].email;
@@ -236,7 +236,7 @@ methods: {
       //  console.log(this.paket.kualifikasi);
       //  console.log(this.paketTugas);
       // axios
-      //     .post("http://localhost:4000/api/tugas", this.paketTugas)
+      //     .post("https://polar-mountain-10123.herokuapp.com/api/tugas", this.paketTugas)
       // .then((resp) => {
       //   if(resp.status==200){
       //     console.log(resp.data);
@@ -246,7 +246,7 @@ methods: {
       //   console.log(err)
       // });
         axios
-        .post("http://localhost:4000/api/lowongan",this.paket)
+        .post("https://polar-mountain-10123.herokuapp.com/api/lowongan",this.paket)
         .then((resp) => {
           if (resp.status == 200) {
               this.status = 2

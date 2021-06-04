@@ -178,25 +178,25 @@
 
     mounted() {
       axios
-        .get("http://localhost:4000/api/kesesuaian/") //ganti APInya
+        .get("https://polar-mountain-10123.herokuapp.com/api/kesesuaian/") //ganti APInya
         .then((resp) => {
           console.warn(resp.data);
           this.listKesesuaian = resp.data;
         });
          axios
-        .get("http://localhost:4000/api/lowongan/") //ganti APInya
+        .get("https://polar-mountain-10123.herokuapp.com/api/lowongan/") //ganti APInya
         .then((resp) => {
           console.warn(resp.data);
           this.listLowongan = resp.data;
         });
         axios
-      .get("http://localhost:4000/api/divisi/") //ganti APInya 
+      .get("https://polar-mountain-10123.herokuapp.com/api/divisi/") //ganti APInya 
       .then((resp) => {
         console.warn(resp.data);
         this.listDivisi =resp.data;
       });
       axios
-      .get("http://localhost:4000/api/posisi/") //ganti APInya 
+      .get("https://polar-mountain-10123.herokuapp.com/api/posisi/") //ganti APInya 
       .then((resp) => {
         console.warn(resp.data);
         this.listPosisi =resp.data;
@@ -207,7 +207,7 @@
         this.status = 1;
         // console.log(this.paket);
         axios
-          .post("http://localhost:4000/api/pelamars/", this.paket)
+          .post("https://polar-mountain-10123.herokuapp.com/api/pelamars/", this.paket)
           .then((resp) => {
             if (resp.status == 200) {
               this.status = 2
