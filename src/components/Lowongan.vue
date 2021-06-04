@@ -112,7 +112,9 @@ import DivisiDataService from "../services/DivisiDataService";
 import PosisiDataService from "../services/PosisiDataService";
 import JenisLowonganDataService from "../services/DivisiDataService";
 import TugasDataService from "../services/PosisiDataService";
+import userservice from "../services/user.service";
 import moment from "moment";
+// import axios from "axios";
  // import axios from "axios";
 
 export default {
@@ -135,7 +137,8 @@ export default {
       listJenisLowongan:[],
       message: '',
       color : '#3C77BF',
-      listTugas: []
+      listTugas: [],
+      emailaddr: '',
     };
   },
   methods: {
@@ -198,8 +201,10 @@ export default {
           });
     },
     disetujuiLowongan(){
+      this.getUser()
+
       var data = {
-        status: "Disetujui",
+        emailaddr: this.emailaddr
       };
       LowonganDataService.disetujuiLowongan(this.$route.params.id, data)
           .then(response => {
@@ -211,10 +216,26 @@ export default {
           });
     },
     ditolakLowongan(){
-      LowonganDataService.ditolakLowongan(this.$route.params.id)
+      this.getUser()
+      var data = {
+        emailaddr: this.emailaddr
+      }
+      LowonganDataService.ditolakLowongan(this.$route.params.id, data)
           .then(response => {
             console.log(response.data);
             this.message = 'The tutorial was updated successfully!';
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    },
+    getUser(){
+      userservice.get(this.idUsers)
+          .then(response => {
+            console.log(response.data);
+            this.emailaddr = response.data.email;
+            console.log(response.data.email);
+            console.log("response.data.email " + this.emailaddr);
           })
           .catch(e => {
             console.log(e);
@@ -229,6 +250,7 @@ export default {
     this.getPosisi();
     this.getJenisLowongan();
     this.getTugas();
+    this.getUser();
   },
 };
 //post method atau get
