@@ -20,9 +20,9 @@
             <select required v-model="paket.idPosisi">
                <option v-for="item in listPosisi" v-bind:key="item.id" :value="item.id"> {{item.nama}} </option>
            </select></div>
-       </div> 
+       </div>
 
-       <div class="row" style="margin-top:2%"> 
+       <div class="row" style="margin-top:2%">
            <label class="col-sm-4 col-form-label"> Jenis Lowongan<span class="text-danger">*</span> </label>
            <div class="col">
            <select required v-model="paket.idJenisLowongan">
@@ -62,7 +62,7 @@
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="Kualifikasi" required v-model="paket.kualifikasi"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the qualification')" oninput="setCustomValidity('')"></textarea>
        </div>
        </div>
-      
+
 
     <!-- <div class="form-group" style="margin-bottom: 5%;">
     <form action="fileupload" method="post" enctype="multipart/form-data">
@@ -74,20 +74,20 @@
            <label class="col-sm-4 col-form-label">Tugas</label>
              <div class="col">
            <!-- <input type="textbox" class="form-group" name="idTugas" required v-model="paket.idTugas" style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of task')" oninput="setCustomValidity('')"> -->
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tugas" required v-model="paket.tugas"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of task')" oninput="setCustomValidity('')"></textarea>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tugas" v-model="paket.tugas"  style= "width: 80%" oninvalid="this.setCustomValidity('Please fill the link of task')" oninput="setCustomValidity('')"></textarea>
        </div></div>
     <router-link to="/lowongan">
             <button class="row btn btn-danger float-end" style="margin-right: 60px">Batal</button>
           </router-link>
-          
+
           <div class="raw">
           <div class="col">
           <button id="completeButton" class="btn btn-success float-end" type="button" data-toggle="modal"
             data-target="#exampleModal" @click="refreshSubmitted" style="margin-right: 4px" >
             Simpan
           </button></div></div>
-         
-        
+
+
 
         <!-- DIV BESAR MODAL -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -163,7 +163,6 @@
 <script>
 import axios from "axios";
 // import fileUpload from "@/components/fileUpload";
-
 export default {
    name: 'tambah-lowongan',
    data (){
@@ -198,19 +197,19 @@ export default {
    },
    mounted() {
     axios
-      .get("http://localhost:4000/api/divisi/") //ganti APInya 
+      .get("http://localhost:4000/api/divisi/") //ganti APInya
       .then((resp) => {
         console.warn(resp.data);
         this.listDivisi =resp.data;
       });
       axios
-      .get("http://localhost:4000/api/posisi/") //ganti APInya 
+      .get("http://localhost:4000/api/posisi/") //ganti APInya
       .then((resp) => {
         console.warn(resp.data);
         this.listPosisi =resp.data;
       });
        axios
-      .get("http://localhost:4000/api/jenisLowongan/") //ganti APInya 
+      .get("http://localhost:4000/api/jenisLowongan/") //ganti APInya
       .then((resp) => {
         console.warn(resp.data);
         this.listJenisLowongan =resp.data;
@@ -245,9 +244,7 @@ methods: {
       // .catch(err => {
       //   console.log(err)
       // });
-      console.log("==================paket==================")
-      console.log(this.paket);
-        axios 
+        axios
         .post("http://localhost:4000/api/lowongan",this.paket)
         .then((resp) => {
           if (resp.status == 200) {
@@ -260,16 +257,13 @@ methods: {
             console.log(err)
             this.status = 3
         });
-
         e.preventDefault();
-
     },
      refreshSubmitted() {
         this.status = 0;
       },
 }
 }
-
 //post method atau get
 </script>
 <style scoped>
@@ -281,7 +275,6 @@ label {
     font-size: 16px;
     margin-left: 48px;
 }
-
 select {
  display: inline-block;
  width: 80%;
@@ -318,7 +311,6 @@ input::-webkit-outer-spin-button,
     -webkit-appearance: none;
     margin: 0;
   }
-
   /* Firefox */
   input[type=number] {
     -moz-appearance: textfield;
