@@ -38,7 +38,7 @@
             <div class="col">Waktu Pengerjaan</div>
             <div class="col">
               <!-- <input type="date" class="form-control" id="deadlineTugas" v-model="listTugas[deadlineTugas - 1].deadlineTugas" readonly/> -->
-              <input type="date" class="form-control" id="deadlineTugas" v-model="deadlineTugas" readonly/>
+              <input type="datetime-local" class="form-control" id="deadlineTugas" v-model="lowongandeadlineTugas" readonly/>
             </div>
           </div><br>
           <div class="row">
@@ -112,6 +112,9 @@ import DivisiDataService from "../services/DivisiDataService";
 import PosisiDataService from "../services/PosisiDataService";
 import JenisLowonganDataService from "../services/DivisiDataService";
 import TugasDataService from "../services/PosisiDataService";
+import userservice from "../services/user.service";
+import moment from "moment";
+// import axios from "axios";
  // import axios from "axios";
 
 export default {
@@ -124,7 +127,7 @@ export default {
       lowonganKualifikasi : '',
       lowonganBuka : '',
       lowonganTugas : '',
-      deadlineTugas: '',
+      lowongandeadlineTugas: null,
       lowonganJenisLowongan: '',
       idDivisi:Number,
       idPosisi:Number,
@@ -134,7 +137,8 @@ export default {
       listJenisLowongan:[],
       message: '',
       color : '#3C77BF',
-      listTugas: []
+      listTugas: [],
+      emailaddr: '',
     };
   },
   computed: {
@@ -160,13 +164,13 @@ export default {
             this.lowonganKualifikasi = response.data.kualifikasi;
             this.lowonganBuka = response.data.lowonganBuka;
             this.lowonganTugas = response.data.tugas;
-            this.deadlineTugas = response.data.deadlineTugas;
+            this.lowongandeadlineTugas = moment(response.data.deadlineTugas).format('YYYY-MM-DDTHH:mm');
             this.idDivisi = response.data.idDivisi;
             this.idUsers = response.data.idUsers;
             this.idPosisi = response.data.idPosisi;
             this.idJenisLowongan= response.data.idJenisLowongan;
 
-            // console.log(response.data);
+            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -209,8 +213,10 @@ export default {
           });
     },
     disetujuiLowongan(){
+      this.getUser()
+
       var data = {
-        status: "Disetujui",
+        emailaddr: this.emailaddr
       };
       LowonganDataService.disetujuiLowongan(this.$route.params.id, data)
           .then(response => {
@@ -222,10 +228,26 @@ export default {
           });
     },
     ditolakLowongan(){
-      LowonganDataService.ditolakLowongan(this.$route.params.id)
+      this.getUser()
+      var data = {
+        emailaddr: this.emailaddr
+      }
+      LowonganDataService.ditolakLowongan(this.$route.params.id, data)
           .then(response => {
             console.log(response.data);
             this.message = 'The tutorial was updated successfully!';
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    },
+    getUser(){
+      userservice.get(this.idUsers)
+          .then(response => {
+            console.log(response.data);
+            this.emailaddr = response.data.email;
+            console.log(response.data.email);
+            console.log("response.data.email " + this.emailaddr);
           })
           .catch(e => {
             console.log(e);
@@ -240,6 +262,7 @@ export default {
     this.getPosisi();
     this.getJenisLowongan();
     this.getTugas();
+    this.getUser();
   },
 };
 //post method atau get

@@ -66,7 +66,7 @@ const router = new Router({
       //   component: () => import("./components/SubmisiTugas")
       // },
       {
-        path: "/pelamar/submisi/:kodeUnik",
+        path: "/submisi/:kodeUnik",
         name: "submisi-tugas",
         component: () => import("./components/SubmisiTugas")
       },
