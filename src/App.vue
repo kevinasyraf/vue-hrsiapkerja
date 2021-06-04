@@ -16,7 +16,7 @@
           </router-link>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><router-link class="dropdown-item" to="/lowongan">Daftar Lowongan</router-link></li>
-            <li><router-link class="dropdown-item" to="/tambahlowongan">Tambah Lowongan</router-link></li>
+            <li v-if="showInternalEmployeeBoard"><router-link class="dropdown-item" to="/tambahlowongan">Tambah Lowongan</router-link></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -25,7 +25,7 @@
           </router-link>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><router-link class="dropdown-item" to="/pelamar">Daftar Pelamar</router-link></li>
-            <li><router-link class="dropdown-item" to="/tambahpelamar">Tambah Pelamar</router-link></li>
+            <li v-if="showStafHRBoard"><router-link class="dropdown-item" to="/tambahpelamar">Tambah Pelamar</router-link></li>
           </ul>
         </li>
         </div>
@@ -54,21 +54,21 @@ export default {
     },
     showCEOBoard() {
       if (this.currentUser && this.currentUser.role) {
-        return this.currentUser.role.includes('CEO');
+        return this.currentUser.role == ('CEO');
       }
 
       return false;
     },
     showStafHRBoard() {
       if (this.currentUser && this.currentUser.role) {
-        return this.currentUser.role.includes('Staf HR');
+        return this.currentUser.role == ('Staf HR');
       }
 
       return false;
     },
     showInternalEmployeeBoard() {
       if (this.currentUser && this.currentUser.role) {
-        return this.currentUser.role.includes('Internal Employee');
+        return this.currentUser.role == ('Internal Employee');
       }
 
       return false;

@@ -1,6 +1,9 @@
 <template>
 <div class ="container-fluid">
     <div class="container">
+        <router-link v-if="showStafHRBoard" class="btn btn-success" to="/tambahpelamar" role="button">Tambah Pelamar</router-link>
+        <br>
+        <br>
         <div class="row">
             <div class="col-sm">
                 <div class="form-group">
@@ -213,6 +216,25 @@ export default {
             currentKodeUnik: "",
             currentEmail: "",
         };
+    },
+    computed: {
+        currentUser() {
+            return this.$store.state.auth.user;
+            },
+        showCEOBoard() {
+            if (this.currentUser && this.currentUser.role) {
+                return this.currentUser.role == "CEO";
+            }
+
+            return false;
+        },
+        showStafHRBoard() {
+            if (this.currentUser && this.currentUser.role) {
+                return this.currentUser.role == "Staf HR";
+            }
+
+            return false;
+        },
     },
     methods: {
         retrievePelamar() {

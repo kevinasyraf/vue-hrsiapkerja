@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <router-link class="btn btn-success" to="/tambahlowongan" role="button">Tambah Lowongan</router-link>
+    <router-link v-if="showInternalEmployeeBoard" class="btn btn-success" to="/tambahlowongan" role="button">Tambah Lowongan</router-link>
     <br>
     <br>
     <div class="row">
@@ -129,6 +129,25 @@ export default {
             posisi: '',
             divisi: '',
         };
+    },
+    computed: {
+        currentUser() {
+            return this.$store.state.auth.user;
+            },
+        showCEOBoard() {
+            if (this.currentUser && this.currentUser.role) {
+                return this.currentUser.role == "CEO";
+            }
+
+            return false;
+        },
+        showInternalEmployeeBoard() {
+            if (this.currentUser && this.currentUser.role) {
+                return this.currentUser.role == "Internal Employee";
+            }
+
+            return false;
+        },
     },
     methods: {
         retrieveLowongan() {

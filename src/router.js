@@ -13,6 +13,11 @@ const router = new Router({
         name: "login",
         component: () => import("./components/Login")
       },
+      {
+        path: "/dashboard",
+        name: "dashboard",
+        component: () => import("./components/Dashboard")
+      },
       // {
       //   path: '/admin',
       //   name: 'admin',
@@ -69,7 +74,7 @@ const router = new Router({
   });
 
   router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/', '/home'];
+    const publicPages = ['/login', '/', '/home', '/submisitugas'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('user');
   

@@ -57,8 +57,8 @@
             </div>
           </div><br>
           <button type="button" class="btn btn-primary float-end mr-1" @click="$router.push('/lowongan')">Kembali</button>
-          <button @click="ditolakLowongan" data-toggle="modal" data-target="#exampleModalCenterTolak" type="button" class="btn btn-danger float-end">Ditolak</button>
-          <button @click="disetujuiLowongan" data-toggle="modal" data-target="#exampleModalCenterSetuju" type="button" class="btn btn-success float-end">Disetujui</button>
+          <button v-if="showCEOBoard" @click="ditolakLowongan" data-toggle="modal" data-target="#exampleModalCenterTolak" type="button" class="btn btn-danger float-end">Ditolak</button>
+          <button v-if="showCEOBoard" @click="disetujuiLowongan" data-toggle="modal" data-target="#exampleModalCenterSetuju" type="button" class="btn btn-success float-end">Disetujui</button>
 
           <div class="modal fade modal-setuju" id="exampleModalCenterSetuju" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -136,6 +136,18 @@ export default {
       color : '#3C77BF',
       listTugas: []
     };
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showCEOBoard() {
+      if (this.currentUser && this.currentUser.role) {
+        return this.currentUser.role == "CEO";
+      }
+
+      return false;
+    },
   },
   methods: {
     getLowongan(id) {
