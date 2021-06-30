@@ -36,8 +36,8 @@
                         <th>Nama</th>
                         <th>Email</th>
                         <th>No. Telepon</th>
-                        <!-- <th>Divisi</th> -->
-                        <!-- <th>Posisi</th> -->
+                        <th>Divisi</th>
+                        <th>Posisi</th>
                         <th>Kesesuaian</th>
                         <th>Status Pelamar</th>
                         <th>Aksi</th>
@@ -49,8 +49,8 @@
                         <td>{{item.nama}}</td>
                         <td>{{item.email}}</td>
                         <td>{{item.nomorTelepon}}</td>
-                        <!-- <td>{{item.divisi}}</td> -->
-                        <!-- <td>{{item.posisi}}</td> -->
+                        <td>{{listDivisi[listLowongan[item.idLowongan - 1].idDivisi - 1].nama}}</td>
+                        <td>{{listPosisi[listLowongan[item.idLowongan - 1].idPosisi - 1].nama}}</td>
                         <td>{{listKesesuaian[item.idKesesuaian - 1].nama}}</td>
                         <td>
                             <a v-if="item.idStatus==1 || item.idStatus==4 || item.idStatus==6">{{listStatus[item.idStatus - 1].nama}}</a>
@@ -94,7 +94,6 @@
                         </div>
                         <div class="modal-footer">
                             <a v-if="showStafHRBoard" role="button" class="btn btn-success" href="/pelamar" v-on:click="updateJadwalInterview">Simpan</a>
-                            <a role="button" class="btn btn-danger" data-dismiss="modal">Tutup</a>
                         </div>
                     </div>
                 </div>
@@ -192,7 +191,14 @@
 import PelamarDataService from "../services/PelamarDataService";
 import KesesuaianDataService from "../services/KesesuaianDataService";
 import StatusDataService from "../services/StatusDataService";
+import LowonganDataService from "../services/LowonganDataService";
+import PosisiDataService from "../services/PosisiDataService";
+import DivisiDataService from "../services/DivisiDataService";
 import moment from 'moment';
+import $ from "jquery";
+$(document).ready(function() {
+    $('#tabelPelamar').DataTable();
+} );
 export default {
     name: "pelamar-list",
     data() {
@@ -203,7 +209,9 @@ export default {
             color: '#3C77BF',
             listStatus: [],
             listKesesuaian: [],
+            listLowongan: [],
             listDivisi: [],
+            listPosisi: [],
             nama: "",
             kesesuaian: "",
             waktuInterview: "",
@@ -265,16 +273,34 @@ export default {
                 console.log(e);
             });
         },
-        // retrieveDivisi() {
-        //     PelamarDataService.retrieveDivisi(this.divisi).then(response => {
-        //         this.divisi = response.data;
-        //         console.log(response.data);
-        //     })
-        //     .catch(e => {
-        //         console.log(e);
-        //     });
-        // },
-
+        retrieveLowongan() {
+             LowonganDataService.getAll().then(response => {
+                this.listLowongan = response.data;
+                console.log(response.data);
+                console.log(this.listLowongan);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+        retrievePosisi() {
+            PosisiDataService.getAll().then(response => {
+                this.listPosisi = response.data;
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+        retrieveDivisi() {
+            DivisiDataService.getAll().then(response => {
+                this.listDivisi = response.data;
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
        setCurrentPelamar(id) {
          PelamarDataService.get(id)
            .then(response => {
@@ -372,7 +398,9 @@ export default {
         this.retrievePelamar();
         this.retrieveKesesuaian();
         this.retrieveStatus();
-        // this.retrieveDivisi();
+        this.retrieveLowongan();
+        this.retrievePosisi();
+        this.retrieveDivisi();
         // this.currentIdPelamar = this.idPelamar;
         // this.waktuInterview = this.waktuInterviewPelamar;
     },
@@ -397,5 +425,8 @@ html, body {
 }
 .primary-color {
     background-color: #3C77BF;
+}
+.btn {
+    color: #fff;
 }
 </style>

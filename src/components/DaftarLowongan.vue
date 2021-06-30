@@ -43,8 +43,10 @@
                     <td>{{listPosisi[item.idPosisi - 1].nama}}</td>
                     <td>{{listJenisLowongan[item.idJenisLowongan - 1].nama}}</td>
                     <td>{{item.jumlahLowongan}}</td>
-                    <a :href="item.tugas" target="_blank">{{item.tugas}}</a>
-                    <td>{{item.status}}</td>
+                    <td>
+                        <a :href="item.tugas" target="_blank">Detail Tugas</a> 
+                    </td>
+                    <td style="text-transform:capitalize">{{item.status}}</td>
                     <td>
                         <router-link class="btn btn-success" :to="'/lowongan/' + item.id" type="button">Detail</router-link>
                     </td>

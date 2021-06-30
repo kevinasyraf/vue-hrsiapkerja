@@ -15,27 +15,33 @@
           <CCol md sm="12" class="mb-sm-2 mb-0">
             <div class="text-muted">Total Lowongan</div>
             <strong>{{countLowongan}} Lowongan</strong>
-            <CProgress
+            <!-- <CProgress
               class="progress-xs mt-2"
               :precision="1"
               color="success"
               :value="countLowongan"
-            />
+            /> -->
           </CCol>
           <CCol md sm="12" class="mb-sm-2 mb-0 d-md-down-none">
             <div class="text-muted">Total Pelamar</div>
             <strong>{{countPelamar}} Pelamar</strong>
-            <CProgress
+            <!-- <CProgress
               class="progress-xs mt-2"
               :precision="1"
               color="info"
               :value="countPelamar"
-            />
+            /> -->
           </CCol>
         </CRow>
       </CCardFooter>
     </CCard>
     <WidgetsBrand/>
+    <GChart
+    type="ColumnChart"
+    :data="chartData"
+    :options="chartOptions"
+    :title="Lamaran"
+  />
   </div>
 </template>
 
@@ -45,6 +51,7 @@
 // import WidgetsBrand from './widgets/WidgetsBrand'
 import LowonganDataService from "../services/LowonganDataService";
 import PelamarDataService from "../services/PelamarDataService";
+import { GChart } from 'vue-google-charts'
 
 export default {
   name: 'Dashboard',
@@ -52,6 +59,7 @@ export default {
     // MainChartExample,
     // WidgetsDropdown,
     // WidgetsBrand
+    GChart
   },
   data () {
     return {
@@ -59,6 +67,19 @@ export default {
         pelamar: [],
         countLowongan: 0,
         countPelamar: 0,
+        chartData: [
+        ['Divisi', 'Lowongan', 'Pelamar'],
+        ['IT', 10, 7],
+        ['Marketing', 2, 11],
+        ['CEO', 3, 0],
+        ['HR', 1, 0]
+      ],
+      chartOptions: {
+        chart: {
+          title: 'Company Performance',
+          subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+        }
+      }
     };
   },
   methods: {

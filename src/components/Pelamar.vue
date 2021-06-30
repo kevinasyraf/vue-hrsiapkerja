@@ -345,5 +345,6 @@ html, body {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    color: #fff;
 }
 </style>
