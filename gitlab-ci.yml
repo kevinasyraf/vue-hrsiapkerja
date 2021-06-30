@@ -1,0 +1,38 @@
+# Node Image for docker on which code will execute
+image: node:latest
+
+# This is the stages / task to perfom in jobs
+stages:
+  - build
+  - deploy
+  
+# caching for reuse
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+  - node_modules/
+  - dist/
+  
+# This command is run before the execution of stages    
+before_script:
+  - npm install
+
+# Job One for making build
+build_master: 
+  stage: build
+  script:
+  - npm build
+  only: ['master']
+
+# Job Two for deploy build to S3
+deploy_master:
+  image: python:latest  
+  stage: deploy
+  before_script:
+    - pip install awscli 
+    - aws configure set aws_access_key_id $AWS_ACCESS_ID
+    - aws configure set aws_secret_access_key $AWS_SECRET_KEY
+    - aws configure set region ap-southeast-1
+  script:
+    - aws s3 sync ./dist s3://$BUCKET/ --acl=public-read --delete
+  only: ['master']

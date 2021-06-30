@@ -3,12 +3,12 @@
     <div class="container">
         <div class="row">
             <div class ="col">
-                <h1>HRSiapKerja</h1><br>
-                <img src="@/assets/18940.jpg" alt="" width="632" height="442" />
+                <h1>HR Siap Kerja</h1><br>
+                <img src="@/assets/18940.jpg" class="img-fluid" alt="" />
             </div>
             <div class ="col">
                 <div class="container mt-2 mb-4">
-                  <div class="col ml-auto mr-auto login-card">
+                  <div class="col login-card">
                     <ul class="nav nav-pills nav-fill mb-1 border border-secondary rounded" id="pills-tab" role="tablist">
                       <li class="nav-item">
                         <a class="nav-link active" id="pills-pelamar-tab" data-toggle="pill" href="#pills-pelamar" role="tab" aria-controls="pills-pelamar" aria-selected="false">Pelamar</a>
@@ -61,7 +61,7 @@
                             <div class="form-group">
                               <label>Kode Unik <span class="text-danger">*</span></label>
                               <input type="text" name="kodeunik" id="kodeunik" class="form-control" placeholder="Kode Unik" v-model="kodeunik" required>
-                              <div>* Kode Dikirim pada email</div>
+                              <div>* Kode dikirim pada email</div>
                             </div><br>
                             <div class="form-group">
 <!--                                <input type="submit" value="Masuk" class="btn btn-primary btn-block">-->
@@ -147,6 +147,6 @@ label{
     width: 100%;
 }
 .login-card{
-    margin-top: 50%;
+    margin-top: 7rem;
 }
 </style>

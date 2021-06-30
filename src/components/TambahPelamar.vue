@@ -87,16 +87,16 @@
               <!-- HEADER MODAL -->
               <div class="modal-header text-center" style="background-color: #3C77BF;">
                 <h5 v-if="status == 0" id="exampleModalLabel">
-                  confirmation page
+                  Confirmation Page
                 </h5>
                 <h5 v-if="status == 1" id="exampleModalLabel">
                   Loading...
                 </h5>
                 <h5 v-if="status == 2" id="exampleModalLabel">
-                  success page
+                  Success Page
                 </h5>
                 <h5 v-if="status == 3" id="exampleModalLabel">
-                  failed page
+                  Failed Page
                 </h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&#xD7;</span>
@@ -264,7 +264,7 @@
     text-decoration: none;
     display: inline-block;
     margin: 32px 4px ;
-
+    color: #fff;
   }
   .card-header {
     color: #fff;
@@ -276,6 +276,10 @@
     color: #fff;
     font-weight: 500;
     font-size: 20px;
+  }
+
+    .modal-header {
+    color: #fff;
   }
   .exampleModalLabel{
     text-align: center !important;
